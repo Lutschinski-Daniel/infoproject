@@ -26,6 +26,6 @@ and open the template in the editor.
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
-        <script src="themes/js/custom.js"></script>
+        <script src="js/custom.js"></script>
     </body>
 </html>

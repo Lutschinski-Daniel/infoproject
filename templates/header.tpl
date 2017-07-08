@@ -1,6 +1,6 @@
 <header>
     <div class="header">
-        <a class="logo" href="#">creXam</a>
+        <span class="logo">creXam</span>
         <span class="navigation">
             <a href="#">Neue Frage</a><!--
             --><a class="hidden-mobil-xs" href="#">Alle Fragen</a><!--
