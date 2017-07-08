@@ -1,4 +1,4 @@
 <footer class="footer">
-    Footer!
+    by LU
 </footer>
 

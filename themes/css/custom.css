@@ -1,4 +1,7 @@
 @header-footer-sum : @padding-head + @padding-footer + @header-fontsize +@footer-fontsize;
+/********************/
+/* Reset Stylesheet */
+/********************/
 html,
 body,
 div,
@@ -72,7 +75,6 @@ video {
   padding: 0 ;
   border: 0;
   outline: 0;
-  font-size: 100%;
   vertical-align: baseline;
   background: transparent;
 }
@@ -165,75 +167,131 @@ select {
 html,
 body {
   height: 100%;
-  background-color: lightpink;
+}
+a {
+  color: #222;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+.body,
+.footer,
+.header {
+  position: absolute;
+  width: 100%;
 }
 .body {
-  position: absolute;
   background-color: red;
-  width: 100%;
-  height: calc(100% - 47px);
-  padding-bottom: 36px;
+  top: 46px;
+  bottom: 26px;
 }
-.body-left {
-  background-color: lightsalmon;
+.body-menu {
+  background-color: khaki;
   float: left;
   height: 100%;
+  border-right: 1px solid #777;
+  overflow: auto;
 }
-.body-right {
+.body-content {
+  padding: 10px;
   background-color: lightblue;
   height: 100%;
+  overflow: auto;
 }
 .lectures-list {
   list-style: none;
-  width: 200px;
+  width: 85px;
 }
 .lectures-list li {
-  padding: 20px 0 20px 20px;
+  padding: 20px 0 20px 5px;
   border-bottom: 1px solid #777;
 }
 .lectures-list li:hover {
-  background-color: #e7e7e7;
-}
-.lectures-list a {
-  color: #222;
-  text-decoration: none;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: #f8f8f8;
-  padding: 10px 0;
-  text-align: center;
-  border-top: 1px solid #777;
-  font-size: 16px;
+  background-color: #eee;
 }
 .navigation a {
-  text-decoration: none;
-  background-color: transparent;
-  color: #222;
-  padding: 15px;
+  padding: 14px 8px;
   font-size: 16px;
+  border-right: 1px solid #777;
 }
 .navigation a:hover {
-  background-color: #e7e7e7;
+  background-color: #eee;
 }
 .navigation a:first-child {
-  margin-left: 200px;
+  margin-left: 85px;
+  border-left: 1px solid #777;
 }
-.head {
+.navigation a.hidden-mobil,
+.navigation a.hidden-mobil-xs {
+  display: none;
+}
+.header {
+  top: 0;
+  height: 46px;
   padding: 15px 0;
   border-bottom: 1px solid #777;
 }
 .logo {
   position: absolute;
-  left: 66.66666667px;
-}
-.logo a {
+  left: 10px;
   text-decoration: none;
+  font-size: 18px;
   color: #333;
+  top: 14px;
 }
-.logo a:hover {
-  color: #666;
+.logo:hover {
+  color: #444;
+  text-decoration: none;
+}
+.footer {
+  bottom: 0;
+  background-color: #f8f8f8;
+  padding: 5px 0;
+  text-align: center;
+  border-top: 1px solid #777;
+  font-size: 16px;
+}
+/*******************/
+/* Media queries   */
+/*******************/
+/* Small devices (360 and up) */
+@media screen and (min-width: 360px) {
+  .navigation a.hidden-mobil-xs {
+    display: inline;
+  }
+}
+/* Small devices (500px and up) */
+@media screen and (min-width: 500px) {
+  .navigation a.hidden-mobil {
+    display: inline;
+  }
+}
+/* Small devices (tablets, 768px and up) */
+@media screen and (min-width: 768px) {
+  .lectures-list {
+    width: 180px;
+  }
+  .lectures-list li {
+    padding: 20px 0 20px 20px;
+  }
+  .logo {
+    left: 35px;
+    font-size: 25px;
+    top: 10px;
+    letter-spacing: 3px;
+  }
+  .navigation a {
+    padding: 14px;
+  }
+  .navigation a:first-child {
+    margin-left: 180px;
+  }
+  .footer {
+    padding: 10px 0;
+  }
 }
 /*# sourceMappingURL=custom.css.map */

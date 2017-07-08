@@ -1,5 +1,9 @@
 @import 'variables';
 
+/********************/
+/* Reset Stylesheet */ 
+/********************/
+
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -16,7 +20,6 @@ time, mark, audio, video {
     padding:0 ;
     border:0;
     outline:0;
-    font-size:100%;
     vertical-align:baseline;
     background:transparent;
 }
@@ -110,33 +113,51 @@ input, select {
 /*******************/
 /* MY OWN LESS/CSS */ 
 /*******************/
+
 html,
 body {
     height: 100%;
-    background-color: lightpink;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:visited {
+        text-decoration: none;
+    }
+}
+
+.body,
+.footer,
+.header {
+    position: absolute;
+    width: 100%;
 }
 
 .body {
-    position: absolute;
     background-color: red;
-    width: 100%;
-    //
-    // IMPORTANT: "47px" entspricht der Gesamtgröße des Headers (inkl. borders)
-    height: calc(~'100% - 47px'); 
-    //
-    // IMPORTANT: "36px" entspricht der Gesamtgröße des Footers
-    padding-bottom: 36px;
+    top: @header-height;
+    bottom: @footer-height;
 }
 
-.body-left {
-    background-color: lightsalmon;
+.body-menu {
+    background-color: khaki;
     float: left;
     height: 100%;
+    border-right: @standard-border;
+    overflow: auto;
 }
 
-.body-right {
+.body-content {
+    padding: 10px;
     background-color: lightblue;
     height: 100%;
+    overflow: auto;
 }
 
 .lectures-list {
@@ -144,24 +165,61 @@ body {
     width: @lecture-col-width;
 
     li {
-        padding: 20px 0 20px 20px;
+        padding: 20px 0 20px 5px;
         border-bottom: @standard-border;
 
         &:hover {
             background-color: @standard-bg-hover;
         }
     }
+}
 
+.navigation {
     a {
-        color: #222;
+        padding: 14px 8px;
+        font-size: @header-fontsize;
+        border-right: @standard-border;
+
+        &:hover {
+            background-color: @standard-bg-hover;
+        }
+
+        &:first-child {
+            margin-left: @lecture-col-width;
+            border-left: @standard-border;
+        }
+    }
+
+    a.hidden-mobil,
+    a.hidden-mobil-xs {
+        display: none;
+    }
+}
+
+
+.header {
+    top: 0;
+    height: @header-height;
+    padding: @padding-head 0;
+    border-bottom: @standard-border;
+}
+
+.logo{
+    position: absolute;
+    left: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    top: 14px;
+
+    &:hover {
+        color: #444;
         text-decoration: none;
     }
 }
 
 .footer {
-    position: absolute;
     bottom: 0;
-    width: 100%;    
     background-color: @standard-bg;
     padding: @padding-footer 0;
     text-align: center;
@@ -169,37 +227,51 @@ body {
     font-size: @footer-fontsize;
 }
 
-.navigation a {
-    text-decoration: none;
-    background-color: transparent;
-    color: #222;
-    padding: 15px;
-    font-size: @header-fontsize;
 
-    &:hover {
-        background-color: @standard-bg-hover;
-    }
+/*******************/
+/* Media queries   */ 
+/*******************/
 
-    &:first-child {
-        margin-left: @lecture-col-width;
-    }
+/* Small devices (360 and up) */
+@media screen and (min-width: @screen-mobile-xs) { 
+    .navigation a.hidden-mobil-xs {
+        display: inline;
+    }   
 }
 
-.head {
-    padding: @padding-head 0;
-    border-bottom: @standard-border;
+/* Small devices (500px and up) */
+@media screen and (min-width: @screen-mobile) { 
+    .navigation a.hidden-mobil {
+        display: inline;
+    }   
 }
 
-.logo{
-    position: absolute;
-    left: @lecture-col-width/3;
-
-    a {
-        text-decoration: none;
-        color: #333;
-
-        &:hover {
-            color: #666;
+/* Small devices (tablets, 768px and up) */
+@media screen and (min-width: @screen-sm-min) { 
+    .lectures-list {
+        width: @lecture-col-width-sm;
+        li {
+            padding: 20px 0 20px 20px;
         }
+    }
+
+    .logo{
+        left: 35px;
+        font-size: 25px;
+        top: 10px;
+        letter-spacing: 3px;
+    }
+
+    .navigation a {
+        padding: 14px;
+
+        &:first-child {
+            margin-left: @lecture-col-width-sm;
+        }
+    }
+
+    .footer {
+
+        padding: @padding-footer-sm 0;
     }
 }
