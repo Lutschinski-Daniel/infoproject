@@ -1,3 +1,4 @@
+@header-footer-sum : @padding-head + @padding-footer + @header-fontsize +@footer-fontsize;
 html,
 body,
 div,
@@ -161,15 +162,26 @@ select {
 /*******************/
 /* MY OWN LESS/CSS */
 /*******************/
+html,
+body {
+  height: 100%;
+  background-color: lightpink;
+}
+.body {
+  position: absolute;
+  background-color: red;
+  width: 100%;
+  height: calc(100% - 47px);
+  padding-bottom: 36px;
+}
 .body-left {
   background-color: lightsalmon;
   float: left;
+  height: 100%;
 }
 .body-right {
   background-color: lightblue;
-}
-.divider {
-  clear: both;
+  height: 100%;
 }
 .lectures-list {
   list-style: none;
@@ -190,20 +202,18 @@ select {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 35px;
   background-color: #f8f8f8;
-  padding: 10px 0 ;
+  padding: 10px 0;
   text-align: center;
   border-top: 1px solid #777;
-}
-.navigation {
-  align-content: center;
+  font-size: 16px;
 }
 .navigation a {
   text-decoration: none;
   background-color: transparent;
   color: #222;
   padding: 15px;
+  font-size: 16px;
 }
 .navigation a:hover {
   background-color: #e7e7e7;

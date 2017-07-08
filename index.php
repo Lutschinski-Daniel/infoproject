@@ -17,7 +17,6 @@ and open the template in the editor.
     <body>
         <?php
         include_once 'templates\header.tpl';
-        echo "<div class=\"divider\"></div>";
         include_once 'templates\body.tpl';
         include_once 'templates\footer.tpl';
         ?>

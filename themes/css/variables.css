@@ -1,1 +1,2 @@
+@header-footer-sum : @padding-head + @padding-footer + @header-fontsize +@footer-fontsize;
 /*# sourceMappingURL=variables.css.map */

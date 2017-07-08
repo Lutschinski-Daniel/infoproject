@@ -110,17 +110,33 @@ input, select {
 /*******************/
 /* MY OWN LESS/CSS */ 
 /*******************/
+html,
+body {
+    height: 100%;
+    background-color: lightpink;
+}
+
+.body {
+    position: absolute;
+    background-color: red;
+    width: 100%;
+    //
+    // IMPORTANT: "47px" entspricht der Gesamtgröße des Headers (inkl. borders)
+    height: calc(~'100% - 47px'); 
+    //
+    // IMPORTANT: "36px" entspricht der Gesamtgröße des Footers
+    padding-bottom: 36px;
+}
+
 .body-left {
     background-color: lightsalmon;
     float: left;
+    height: 100%;
 }
 
 .body-right {
     background-color: lightblue;
-}
-
-.divider {
-    clear: both;
+    height: 100%;
 }
 
 .lectures-list {
@@ -146,15 +162,11 @@ input, select {
     position: absolute;
     bottom: 0;
     width: 100%;    
-    height: 35px;
     background-color: @standard-bg;
-    padding: 10px 0 ;
+    padding: @padding-footer 0;
     text-align: center;
     border-top: @standard-border;
-}
-
-.navigation {
-    align-content: center;
+    font-size: @footer-fontsize;
 }
 
 .navigation a {
@@ -162,6 +174,7 @@ input, select {
     background-color: transparent;
     color: #222;
     padding: 15px;
+    font-size: @header-fontsize;
 
     &:hover {
         background-color: @standard-bg-hover;
@@ -173,7 +186,7 @@ input, select {
 }
 
 .head {
-    padding: 15px 0;
+    padding: @padding-head 0;
     border-bottom: @standard-border;
 }
 
