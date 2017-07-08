@@ -1,0 +1,192 @@
+@import 'variables';
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0 ;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height: 1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, 
+blockquote:after,
+q:before, 
+q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+/* Makes calculation width and height of elements easier */
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*******************/
+/* MY OWN LESS/CSS */ 
+/*******************/
+.body-left {
+    background-color: lightsalmon;
+    float: left;
+}
+
+.body-right {
+    background-color: lightblue;
+}
+
+.divider {
+    clear: both;
+}
+
+.lectures-list {
+    list-style: none;
+    width: @lecture-col-width;
+
+    li {
+        padding: 20px 0 20px 20px;
+        border-bottom: @standard-border;
+
+        &:hover {
+            background-color: @standard-bg-hover;
+        }
+    }
+
+    a {
+        color: #222;
+        text-decoration: none;
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;    
+    height: 35px;
+    background-color: @standard-bg;
+    padding: 10px 0 ;
+    text-align: center;
+    border-top: @standard-border;
+}
+
+.navigation {
+    align-content: center;
+}
+
+.navigation a {
+    text-decoration: none;
+    background-color: transparent;
+    color: #222;
+    padding: 15px;
+
+    &:hover {
+        background-color: @standard-bg-hover;
+    }
+
+    &:first-child {
+        margin-left: @lecture-col-width;
+    }
+}
+
+.head {
+    padding: 15px 0;
+    border-bottom: @standard-border;
+}
+
+.logo{
+    position: absolute;
+    left: @lecture-col-width/3;
+
+    a {
+        text-decoration: none;
+        color: #333;
+
+        &:hover {
+            color: #666;
+        }
+    }
+}
