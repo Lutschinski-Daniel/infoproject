@@ -1,5 +1,7 @@
 <?php
 
+include 'db_conn.php';
+
 $database = include_once ( __DIR__ . '\..\config.php' );
 //$db = mysqli_connect($database['host'], $database['user'], $database['pass'], '');
 // Create connection
@@ -9,9 +11,7 @@ if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 } else {
     $query = "CREATE DATABASE IF NOT EXISTS " . $database['name'];
-    if ($db->query($query) === TRUE) {
-        echo "Database created!";
-    } else {
+    if ($db->query($query) !== TRUE) {
         echo "Database not created. " . $db->error;
     }
 
@@ -24,12 +24,13 @@ if ($db->connect_error) {
                     answer varchar(255) DEFAULT NULL,
                     PRIMARY KEY(id)
                 );";
-    if ($db->query($query) === TRUE) {
-        echo "Table created!";
-    } else {
+    if ($db->query($query) !== TRUE) {
         echo "Table not created. " . $db->error;
     }
 }
 
 mysqli_close($db);
+
+$conn = db_conn::getInstance();
+$conn->connect();
 

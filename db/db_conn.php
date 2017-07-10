@@ -1,6 +1,4 @@
 <?php
-//$database = include_once ( __DIR__ . '\..\config.php' );
-
 
 class db_conn {
 
@@ -10,27 +8,28 @@ class db_conn {
     private $name;
     private static $instance;
     private $connection;
-    
-    private $config;
+    private $config = null;
 
     private function __construct() {
         
     }
 
     static function getInstance() {
-        if( !self::$instance ) {
+        if (!self::$instance) {
             self::$instance = new self();
-        } 
+        }
         return self::$instance;
     }
-    
-    function connect (){
-        $this->host = $config['host'];
-        $this->user = $config['user'];
-        $this->pass = $config['pass'];
-        $this->name = $config['name'];
-        
-        $connection = new mysqli($host, $user, $pass, $name);
+
+    public function connect() {
+        $json = json_decode(file_get_contents(__DIR__ . '\..\config.json'));
+        $this->config = $json;
+        $this->host = $this->config->{'host'};
+        $this->user = $this->config->{'user'};
+        $this->name = $this->config->{'name'};
+        $this->pass = $this->config->{'pass'};
+
+        $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->name);
     }
 
     // Get object from db with query
