@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include_once 'db/db_connection.php';
+//require_once 'db/db_connection.php';
 ?>
 <html>
     <head>
@@ -15,9 +15,9 @@ include_once 'db/db_connection.php';
     </head>
     <body>
         <?php
-        include_once 'templates\header.tpl';
-        include_once 'templates\body.tpl';
-        include_once 'templates\footer.tpl';
+        include_once 'php\header.php';
+        include_once 'php\body.php';
+        include_once 'php\footer.php';
         ?>
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>

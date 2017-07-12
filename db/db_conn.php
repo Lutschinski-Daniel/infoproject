@@ -11,7 +11,14 @@ class db_conn {
     private $config = null;
 
     private function __construct() {
+        $json = json_decode(file_get_contents(__DIR__ . '\..\config.json'));
+        $this->config = $json;
+        $this->host = $this->config->{'host'};
+        $this->user = $this->config->{'user'};
+        $this->name = $this->config->{'name'};
+        $this->pass = $this->config->{'pass'};
         
+        $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->name);
     }
 
     static function getInstance() {
@@ -21,26 +28,15 @@ class db_conn {
         return self::$instance;
     }
 
-    public function connect() {
-        $json = json_decode(file_get_contents(__DIR__ . '\..\config.json'));
-        $this->config = $json;
-        $this->host = $this->config->{'host'};
-        $this->user = $this->config->{'user'};
-        $this->name = $this->config->{'name'};
-        $this->pass = $this->config->{'pass'};
-
-        $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->name);
-    }
-
     // Get object from db with query
-    // Return value NULL or object!
-    function get($query) {
-        
+    // Return value 0 or objectS!
+    public function get($query) {
+        return mysqli_query($this->connection, $query);
     }
 
     // Save object to db
-    // Return value TRUE or FALSE
-    function set($object) {
-        
+    // Return value TRUE (success) or FALSE (fail)
+    public function set($query) { 
+        return mysqli_query($this->connection, $query); 
     }
 }

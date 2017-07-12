@@ -15,22 +15,36 @@ if ($db->connect_error) {
         echo "Database not created. " . $db->error;
     }
 
-    $query =    "CREATE TABLE IF NOT EXISTS " .$database['name']. ".Questions (
+    $query = "CREATE TABLE IF NOT EXISTS " . $database['name'] . ".Questions (
                     id int(5) NOT NULL AUTO_INCREMENT,
-                    type int(1) DEFAULT NULL,
+                    lecture_id tinyint(3) NOT NULL,
+                    type tinyint(1) DEFAULT NULL,
+                    text varchar(128) DEFAULT NULL,
+                    answer varchar(1024) DEFAULT NULL,
+                    difficulty tinyint(2) DEFAULT 3,
+                    frequency tinyint(2) DEFAULT 3,
+                    space tinyint(2) DEFAULT 1,
                     created DATE DEFAULT NULL,
                     last_usage DATE DEFAULT NULL,
-                    text varchar(128) DEFAULT NULL,
-                    answer varchar(255) DEFAULT NULL,
                     PRIMARY KEY(id)
                 );";
     if ($db->query($query) !== TRUE) {
-        echo "Table not created. " . $db->error;
+        echo "Table Questions not created. " . $db->error;
+    }
+
+    $query = "CREATE TABLE IF NOT EXISTS " . $database['name'] . ".Lectures (
+                    id tinyint(3) NOT NULL AUTO_INCREMENT,
+                    bezeichnung varchar(128) DEFAULT NULL,
+                    bezeichnung_kurz varchar (6) DEFAULT NULL,
+                    PRIMARY KEY(id)
+                );";
+    if ($db->query($query) !== TRUE) {
+        echo "Table Lectures not created. " . $db->error;
     }
 }
 
 mysqli_close($db);
 
 $conn = db_conn::getInstance();
-$conn->connect();
+//$conn->connect();
 

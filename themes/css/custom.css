@@ -255,6 +255,13 @@ a:visited {
   border-top: 1px solid #777;
   font-size: 16px;
 }
+.add-lecture-form label {
+  padding: 5px 2px;
+}
+.add-lecture-form button {
+  margin-top: 10px;
+  padding: 8px 16px;
+}
 /*******************/
 /* Media queries   */
 /*******************/
