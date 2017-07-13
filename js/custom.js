@@ -22,13 +22,13 @@ $(".logo").click(function () {
     });
 });
 
-$('body').on('click', '.create-lecture-btn', function() {
+$('body').on('click', '.create-lecture-btn', function () {
     $.ajax({
         url: 'php/controller/lecture_add.php',
         type: "GET",
         data: {
-            "bezeichnung" : $('input[name=bezeichnung]').val(),
-            "bezeichnung_kurz" : $('input[name=bezeichnung_kurz]').val()
+            "bezeichnung": $('input[name=bezeichnung]').val(),
+            "bezeichnung_kurz": $('input[name=bezeichnung_kurz]').val()
         },
         fail: function () {
             alert('Todo could not be deleted');
@@ -39,6 +39,18 @@ $('body').on('click', '.create-lecture-btn', function() {
     });
 });
 
-$('body').on('click', '.lecture', function() {
-    alert("Lecture clicked!");
+$('body').on('click', '.lecture', function () {
+    $.ajax({
+        url: 'php/controller/lecture_show.php',
+        type: "GET",
+        data: {
+            "lecture_id": $(this).find('a:first').attr('id')
+        },
+        fail: function () {
+            alert('Todo could not be deleted');
+        },
+        success: function (data) {
+            $(".body-content").html(data);
+        }
+    });
 });
