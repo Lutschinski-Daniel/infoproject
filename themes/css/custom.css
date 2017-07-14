@@ -213,20 +213,24 @@ a:visited {
 .lectures-list li:hover {
   background-color: #eee;
 }
-.navigation a {
+.navigation {
+  list-style-typ: none;
+}
+.navigation li {
+  display: inline;
   padding: 14px 8px;
   font-size: 16px;
   border-right: 1px solid #777;
 }
-.navigation a:hover {
+.navigation li:hover {
   background-color: #eee;
 }
-.navigation a:first-child {
+.navigation li:first-child {
   margin-left: 85px;
   border-left: 1px solid #777;
 }
-.navigation a.hidden-mobil,
-.navigation a.hidden-mobil-xs {
+.navigation li.hidden-mobil,
+.navigation li.hidden-mobil-xs {
   display: none;
 }
 .header {
@@ -262,18 +266,21 @@ a:visited {
   margin-top: 10px;
   padding: 8px 16px;
 }
+.platzhalter {
+  display: none;
+}
 /*******************/
 /* Media queries   */
 /*******************/
 /* Small devices (360 and up) */
 @media screen and (min-width: 360px) {
-  .navigation a.hidden-mobil-xs {
+  .navigation li.hidden-mobil-xs {
     display: inline;
   }
 }
 /* Small devices (500px and up) */
 @media screen and (min-width: 500px) {
-  .navigation a.hidden-mobil {
+  .navigation li.hidden-mobil {
     display: inline;
   }
 }
@@ -291,10 +298,10 @@ a:visited {
     top: 10px;
     letter-spacing: 3px;
   }
-  .navigation a {
+  .navigation li {
     padding: 14px;
   }
-  .navigation a:first-child {
+  .navigation li:first-child {
     margin-left: 180px;
   }
   .footer {

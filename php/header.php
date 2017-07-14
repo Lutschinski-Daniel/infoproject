@@ -1,11 +1,11 @@
 <header>
     <div class="header">
         <span class="logo">creXam</span>
-        <span class="navigation">
-            <a href="#">Neue Frage</a><!--
-            --><a class="hidden-mobil-xs" href="#">Alle Fragen</a><!--
-            --><a class="hidden-mobil" href="#">Neue Klausur</a><!--
-            --><a href="#">Config</a><!--
-            --></span>
+        <ul class="navigation">
+            <li class="quest_add_li">Neue Frage</li><!--
+            --><li class="hidden-mobil-xs quest_all_li">Alle Fragen</li><!--
+            --><li class="hidden-mobil exam_new_li">Neue Klausur</li><!--
+            --><li class="settings_li">Config</li><!--
+            --></ul>
     </div>
 </header>
