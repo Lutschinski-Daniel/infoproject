@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include '../../db/db_conn.php';
 include("../../libs/Smarty.class.php");
 
@@ -15,6 +15,8 @@ $lecture = mysqli_fetch_assoc($conn->set($query));
 if ($lecture == NULL)
     echo "Fehler beim Laden der Vorlesung!";
 else {
+    $_SESSION['current_lecture_id'] = $lecture["id"];
+    $_SESSION['current_lecture_bez'] = $lecture["bezeichnung"];
     $smarty = new Smarty;
     $smarty->assign("bez", $lecture["bezeichnung"]);
     $smarty->assign("bez_kurz", $lecture["bezeichnung_kurz"]);

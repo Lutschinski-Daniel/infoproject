@@ -1,6 +1,6 @@
 <?php
 
-include 'db_conn.php';
+//include 'db_conn.php';
 
 $database = include_once ( __DIR__ . '\..\config.php' );
 //$db = mysqli_connect($database['host'], $database['user'], $database['pass'], '');
@@ -23,9 +23,10 @@ if ($db->connect_error) {
                     answer varchar(1024) DEFAULT NULL,
                     difficulty tinyint(2) DEFAULT 3,
                     frequency tinyint(2) DEFAULT 3,
+                    points INT DEFAULT 1,
                     space tinyint(2) DEFAULT 1,
-                    created DATE DEFAULT NULL,
-                    last_usage DATE DEFAULT NULL,
+                    created varchar(16) DEFAULT NULL,
+                    last_usage varchar(16) DEFAULT NULL,
                     PRIMARY KEY(id)
                 );";
     if ($db->query($query) !== TRUE) {
@@ -36,15 +37,11 @@ if ($db->connect_error) {
                     id tinyint(3) NOT NULL AUTO_INCREMENT,
                     bezeichnung varchar(128) DEFAULT NULL,
                     bezeichnung_kurz varchar (6) DEFAULT NULL,
+                    created varchar(16) DEFAULT NULL,
                     PRIMARY KEY(id)
                 );";
     if ($db->query($query) !== TRUE) {
         echo "Table Lectures not created. " . $db->error;
     }
 }
-
-mysqli_close($db);
-
-$conn = db_conn::getInstance();
-//$conn->connect();
 

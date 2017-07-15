@@ -1,11 +1,7 @@
-// delete todo
 $(".add-lecture-btn").click(function () {
     $.ajax({
         url: 'php/controller/lecture_controller.php',
         type: "GET",
-        fail: function () {
-            alert('Todo could not be deleted');
-        },
         success: function (data) {
             $(".body-content").html(data);
         }
@@ -24,14 +20,32 @@ $(".logo").click(function () {
 
 $('body').on('click', '.create-lecture-btn', function () {
     $.ajax({
-        url: 'php/controller/lecture_add.php',
+        url: 'php/controller/lecture_to_db.php',
         type: "GET",
         data: {
             "bezeichnung": $('input[name=bezeichnung]').val(),
             "bezeichnung_kurz": $('input[name=bezeichnung_kurz]').val()
         },
-        fail: function () {
-            alert('Todo could not be deleted');
+        success: function (data) {
+            $(".body-content").html(data);
+        }
+    });
+});
+
+$('body').on('click', '.create-question-btn', function () {
+    $.ajax({
+        url: 'php/controller/question_to_db.php',
+        type: "GET",
+        data: {
+            "question": {
+                "frage-typ": $('select[name=frage-typ]').val(),
+                "frage-text": $('textarea[name=frage-text]').val(),
+                "antwort-text": $('textarea[name=antwort-text]').val(),
+                "difficulty": $('select[name=difficulty]').val(),
+                "frequency": $('select[name=frequency]').val(),
+                "points": $('input[name=points]').val(),
+                "space-needed": $('select[name=space-needed]').val(),
+            }
         },
         success: function (data) {
             $(".body-content").html(data);
@@ -106,7 +120,7 @@ $('body').on('change', '.frage-typ', function () {
 });
 
 $('body').on('click', '.add-answer-btn', function () {
-    $('<input type="text" class="mult-antwort"></input><input type="checkbox" \n\
+    $('<input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" \n\
         value="WAHR">WAHR</input><br />').insertBefore('.add-answer-btn');
 });
 
@@ -115,3 +129,7 @@ $('body').on('change', '.mc-antwort', function () {
     $('.mc-punkte-label').text(len);
 });
 
+$('body').on('click', '.add-answer-btn', function () {
+    $('<input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" \n\
+        value="WAHR">WAHR</input><br />').insertBefore('.add-answer-btn');
+});

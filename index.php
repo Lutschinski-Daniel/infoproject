@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-//require_once 'db/db_connection.php';
+require_once 'db/db_connection.php';
 ?>
 <html>
     <head>

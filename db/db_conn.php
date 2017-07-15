@@ -39,4 +39,44 @@ class db_conn {
     public function set($query) { 
         return mysqli_query($this->connection, $query); 
     }
+    
+    public function saveQuestionToDB($params){
+    $stmt = $this->connection->prepare(
+            "INSERT INTO `questions`(`id`, `lecture_id`, `type`, `text`, `answer`, "
+            . "`difficulty`, `frequency`, `points` ,`space`, `created`, `last_usage`) "
+            . "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+    $id = 0;
+    $id_lec = 6;
+    $dateCre = date("Y-m-d H-i", time());
+    $date = "never";
+    $stmt->bind_param("iiissiiiiss",
+        $id,
+        $id_lec,
+        $params{'frage-typ'},
+        $params{'frage-text'},
+        $params{'antwort-text'},
+        $params{'difficulty'},
+        $params{'frequency'},
+        $params{'points'},
+        $params{'space-needed'},
+        $dateCre,
+        $date
+    );
+    $stmt->execute();
+    }
+    
+    public function saveLectureToDB($params){
+    $stmt = $this->connection->prepare(
+            "INSERT INTO `lectures`(`id`, `bezeichnung`, `bezeichnung_kurz`, `created`) "
+            . "VALUES (?,?,?,?)");
+    $id = 0;
+    $dateCre = date("Y-m-d H-i", time());
+    $stmt->bind_param("isss",
+        $id,
+        $params['bezeichnung'],
+        $params['bezeichnung_kurz'],
+        $dateCre
+    );
+    $stmt->execute();
+    }
 }
