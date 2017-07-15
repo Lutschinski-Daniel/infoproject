@@ -8,4 +8,12 @@ $params = array(
 );
 $conn->saveLectureToDB($params);
 
-echo "Probably worked!";
+$conn = db_conn::getInstance();
+$query = "SELECT * FROM `lectures` WHERE bezeichnung_kurz='" . $_GET['bezeichnung_kurz'] . "'";
+$lecture = mysqli_fetch_assoc($conn->set($query));
+
+if ($lecture != NULL)
+    echo '<li class="lecture"><a href="#" id="' . $lecture['id'] . '" >'
+                    . $lecture['bezeichnung_kurz'] . '</a></li>';
+else
+    echo "Probably not worked!";

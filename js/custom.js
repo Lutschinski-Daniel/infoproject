@@ -1,4 +1,6 @@
-$(".add-lecture-btn").click(function () {
+$('body').on('click', '.add-lecture-btn', function () {
+    clearLectureNav();
+    $(this).addClass('picked-nav');
     $.ajax({
         url: 'php/controller/lecture_controller.php',
         type: "GET",
@@ -8,7 +10,14 @@ $(".add-lecture-btn").click(function () {
     });
 });
 
+$('body').on('click', '.add-answer-btn', function () {
+    $('<input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" \n\
+        value="WAHR">WAHR</input><br />').insertBefore('.add-answer-btn');
+});
+
+
 $(".logo").click(function () {
+    clearLectureNav();
     $.ajax({
         url: 'php/controller/index_controller.php',
         type: "GET",
@@ -27,7 +36,7 @@ $('body').on('click', '.create-lecture-btn', function () {
             "bezeichnung_kurz": $('input[name=bezeichnung_kurz]').val()
         },
         success: function (data) {
-            $(".body-content").html(data);
+            $(data).insertAfter(".lectures-list li:last");
         }
     });
 });
@@ -38,7 +47,7 @@ $('body').on('click', '.create-question-btn', function () {
         type: "GET",
         data: {
             "question": {
-                "frage-typ": $('select[name=frage-typ]').val(),
+                "frage-typ": $('select[name=bezeichnung]').val(),
                 "frage-text": $('textarea[name=frage-text]').val(),
                 "antwort-text": $('textarea[name=antwort-text]').val(),
                 "difficulty": $('select[name=difficulty]').val(),
@@ -54,14 +63,13 @@ $('body').on('click', '.create-question-btn', function () {
 });
 
 $('body').on('click', '.lecture', function () {
+    clearLectureNav();
+    $(this).addClass('picked-nav');
     $.ajax({
         url: 'php/controller/lecture_show.php',
         type: "GET",
         data: {
             "lecture_id": $(this).find('a:first').attr('id')
-        },
-        fail: function () {
-            alert('Todo could not be deleted');
         },
         success: function (data) {
             $(".body-content").html(data);
@@ -133,3 +141,8 @@ $('body').on('click', '.add-answer-btn', function () {
     $('<input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" \n\
         value="WAHR">WAHR</input><br />').insertBefore('.add-answer-btn');
 });
+
+function clearLectureNav(){
+    $('.lecture').removeClass('picked-nav');
+    $('.add-lecture-btn').removeClass('picked-nav');
+}

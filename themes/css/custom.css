@@ -213,6 +213,9 @@ a:visited {
 .lectures-list li:hover {
   background-color: #eee;
 }
+.picked-nav {
+  background-color: #CCC;
+}
 .navigation {
   list-style-typ: none;
 }

@@ -6,7 +6,6 @@ include("../../libs/Smarty.class.php");
 header('Content-type: application/html');
 
 $id = $_GET["lecture_id"];
-$GLOBALS['current_lecture'] = $id;
 
 $conn = db_conn::getInstance();
 $query = "SELECT * FROM `lectures` WHERE id=" . $id . "";
