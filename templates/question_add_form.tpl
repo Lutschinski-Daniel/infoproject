@@ -10,19 +10,19 @@
     <textarea name="frage-text" rows="4" cols="50"></textarea>
     <br>
     <div class="frage-typ-platzhalter">
-        <span class="mult-ch-platzhalter platzhalter">
+        <div class="mult-ch-platzhalter platzhalter">
             <label>Anworten:</label><br />
-            {for $var=1 to $anworten_default}
-                <input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input><br />
+            {for $var=0 to $anworten_default-1}
+                <span class="mc-antworten"><input type="text" name="antwort"></input><input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input></span><br />
             {/for}
             <button class="add-answer-btn">Zusätzliche Antwort</button><br />
             <label>Punkte: </label><label class="mc-punkte-label">0</label>
-        </span>
-        <span class="frag-ant-platzhalter">
+        </div>
+        <div class="frag-ant-platzhalter">
             <label>Musterantwort:</label><br />
             <textarea name="antwort-text" rows="6" cols="50"></textarea><br />
             <label>Punkte: </label><input name="points" type="number" min="1" max="50" value="10"></input>
-        </span>
+        </div>
     </div>
     <label>Schwierigkeitsgrad ( 1 = leicht, 5 = schwer ):</label> 
     <select class="difficulty" name="difficulty">

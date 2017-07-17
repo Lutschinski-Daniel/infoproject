@@ -2,7 +2,7 @@
 
 //include 'db_conn.php';
 
-$database = include_once ( __DIR__ . '\..\config.php' );
+$database = include_once ( __DIR__ . '\..\config_db.php' );
 //$db = mysqli_connect($database['host'], $database['user'], $database['pass'], '');
 // Create connection
 $db = new mysqli($database['host'], $database['user'], $database['pass'], '');

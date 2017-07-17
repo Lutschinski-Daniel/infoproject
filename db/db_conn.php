@@ -28,30 +28,62 @@ class db_conn {
         return self::$instance;
     }
 
-    // Get object from db with query
-    // Return value 0 or objectS!
-    public function get($query) {
-        return mysqli_query($this->connection, $query);
+    public function getAllLectures() {
+        return mysqli_query($this->connection, "SELECT * FROM lectures");
     }
 
-    // Save object to db
-    // Return value TRUE (success) or FALSE (fail)
-    public function set($query) { 
-        return mysqli_query($this->connection, $query); 
+    public function getLectureWithId($id){
+        $stmt = $this->connection->prepare("SELECT * FROM `lectures` WHERE id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
     
-    public function saveQuestionToDB($params){
+    public function getLectureWithKurzBez($kurzBez){
+        $stmt = $this->connection->prepare("SELECT * FROM `lectures` WHERE bezeichnung_kurz=?");
+        $stmt->bind_param("s", $kurzBez);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+    
+    public function getAllQuestions4Lec($id){
+        $stmt = $this->connection->prepare("SELECT * FROM `questions` WHERE lecture_id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        
+        $allQuests = array();
+        $result = $stmt->get_result();
+        while ($question = $result->fetch_assoc()) {
+            $allQuests[] = $question;
+        }
+        return $allQuests;
+    }
+    
+    public function getQuestionWithId($id){
+        $stmt = $this->connection->prepare("SELECT * FROM `questions` WHERE id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+    
+    
+    public function saveQuestion2DB($params){
     $stmt = $this->connection->prepare(
             "INSERT INTO `questions`(`id`, `lecture_id`, `type`, `text`, `answer`, "
             . "`difficulty`, `frequency`, `points` ,`space`, `created`, `last_usage`) "
             . "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
     $id = 0;
-    $id_lec = 6;
     $dateCre = date("Y-m-d H-i", time());
-    $date = "never";
+    $dateLastUsed = "never";
     $stmt->bind_param("iiissiiiiss",
         $id,
-        $id_lec,
+        $params{'lecture-id'},
         $params{'frage-typ'},
         $params{'frage-text'},
         $params{'antwort-text'},
@@ -60,12 +92,12 @@ class db_conn {
         $params{'points'},
         $params{'space-needed'},
         $dateCre,
-        $date
+        $dateLastUsed
     );
     $stmt->execute();
     }
     
-    public function saveLectureToDB($params){
+    public function saveLecture2DB($params){
     $stmt = $this->connection->prepare(
             "INSERT INTO `lectures`(`id`, `bezeichnung`, `bezeichnung_kurz`, `created`) "
             . "VALUES (?,?,?,?)");

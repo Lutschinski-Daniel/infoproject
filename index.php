@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <?php
+session_start();
+if (isset($_SESSION['current_lecture_bez'])) {
+    unset($_SESSION['current_lecture_bez']);
+}
 require_once 'db/db_connection.php';
 ?>
 <html>

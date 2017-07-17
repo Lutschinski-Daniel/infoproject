@@ -8,8 +8,7 @@ header('Content-type: application/html');
 $id = $_GET["lecture_id"];
 
 $conn = db_conn::getInstance();
-$query = "SELECT * FROM `lectures` WHERE id=" . $id . "";
-$lecture = mysqli_fetch_assoc($conn->set($query));
+$lecture = $conn->getLectureWithId($id);
 
 if ($lecture == NULL)
     echo "Fehler beim Laden der Vorlesung!";

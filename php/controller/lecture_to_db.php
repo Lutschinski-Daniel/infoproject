@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../../db/db_conn.php';
 
 $conn = db_conn::getInstance();
@@ -6,11 +7,12 @@ $params = array(
     "bezeichnung" => $_GET['bezeichnung'],
     "bezeichnung_kurz" => $_GET['bezeichnung_kurz'],
 );
-$conn->saveLectureToDB($params);
+$conn->saveLecture2DB($params);
 
 $conn = db_conn::getInstance();
-$query = "SELECT * FROM `lectures` WHERE bezeichnung_kurz='" . $_GET['bezeichnung_kurz'] . "'";
-$lecture = mysqli_fetch_assoc($conn->set($query));
+$lecture = $conn->getLectureWithKurzBez($_GET['bezeichnung_kurz']);
+
+unset($_SESSION['current_lecture_bez']);
 
 if ($lecture != NULL)
     echo '<li class="lecture"><a href="#" id="' . $lecture['id'] . '" >'

@@ -10,12 +10,6 @@ $('body').on('click', '.add-lecture-btn', function () {
     });
 });
 
-$('body').on('click', '.add-answer-btn', function () {
-    $('<input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" \n\
-        value="WAHR">WAHR</input><br />').insertBefore('.add-answer-btn');
-});
-
-
 $(".logo").click(function () {
     clearLectureNav();
     $.ajax({
@@ -42,17 +36,46 @@ $('body').on('click', '.create-lecture-btn', function () {
 });
 
 $('body').on('click', '.create-question-btn', function () {
+    var antwortArray = [];
+    var punkte;
+    // Multiple-Choice
+    if ($(".frage-typ option:selected").val() == 0) {
+        var empty_antwort = 0;
+        $(".mc-antworten").each(function () {
+            if ($(this).children('input[name=antwort]').val() == "") {
+                empty_antwort++;
+            }
+        });
+        if (empty_antwort > 0) {
+            alert("Antworten dürfen nicht leer bleiben!");
+            return;
+        }
+        antwortText = [];
+        $(".mc-antworten").each(function () {
+            antwortArray.push({
+                "antwort": $(this).children('input[name=antwort]').val(),
+                "wahrheitswert": $(this).children('input[name=antwort-gruppe]').prop("checked")
+            });
+        });
+        punkte = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
+        antwortText = JSON.stringify(antwortArray);
+        // Frage-Antwort
+    } else {
+        antwortText = $('textarea[name=antwort-text]').val();
+        punkte = $('input[name=points]').val();
+    }
+    ;
     $.ajax({
         url: 'php/controller/question_to_db.php',
         type: "GET",
         data: {
             "question": {
-                "frage-typ": $('select[name=bezeichnung]').val(),
+                "frage-typ": $(".frage-typ option:selected").val(),
                 "frage-text": $('textarea[name=frage-text]').val(),
-                "antwort-text": $('textarea[name=antwort-text]').val(),
+                "antwort-text": antwortText,
                 "difficulty": $('select[name=difficulty]').val(),
                 "frequency": $('select[name=frequency]').val(),
-                "points": $('input[name=points]').val(),
+                "points": punkte,
                 "space-needed": $('select[name=space-needed]').val(),
             }
         },
@@ -92,10 +115,19 @@ $('body').on('click', '.quest_all_li', function () {
         url: 'php/controller/question_show_all.php',
         type: "GET",
         success: function (data) {
-            $(".body-content").html(data);
+            $(".body-content").html('<h1>Alle Fragen der Vorlesung: '
+                    + $('.picked-nav a').text() + '!</h1>');
+            $.each(data, function () {
+                $(".body-content").append(getHTML4Question(this));
+            });
         }
     });
 });
+
+function getHTML4Question(question){
+    var questionHTML = '<div>Fragetext:' + question['text'] + '</div>';
+    return questionHTML;
+}
 
 $('body').on('click', '.exam_new_li', function () {
     $.ajax({
@@ -118,7 +150,7 @@ $('body').on('click', '.settings_li', function () {
 });
 
 $('body').on('change', '.frage-typ', function () {
-    if ($(".frage-typ option:selected").val() === "mult-ch") {
+    if ($(".frage-typ option:selected").val() == 0) {
         $('.mult-ch-platzhalter').removeClass('platzhalter');
         $('.frag-ant-platzhalter').addClass('platzhalter');
     } else {
@@ -128,21 +160,16 @@ $('body').on('change', '.frage-typ', function () {
 });
 
 $('body').on('click', '.add-answer-btn', function () {
-    $('<input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" \n\
-        value="WAHR">WAHR</input><br />').insertBefore('.add-answer-btn');
+    $('<span class="mc-antworten"><input name="antwort" type="text"></input><input name="antwort-gruppe" \n\
+    type="checkbox" value="WAHR">WAHR</input></span><br />').insertBefore('.add-answer-btn');
 });
 
-$('body').on('change', '.mc-antwort', function () {
+$('body').on('change', '.mc-antworten', function () {
     var len = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
     $('.mc-punkte-label').text(len);
 });
 
-$('body').on('click', '.add-answer-btn', function () {
-    $('<input type="text"></input><input class="mc-antwort" name="antwort-gruppe" type="checkbox" \n\
-        value="WAHR">WAHR</input><br />').insertBefore('.add-answer-btn');
-});
-
-function clearLectureNav(){
+function clearLectureNav() {
     $('.lecture').removeClass('picked-nav');
     $('.add-lecture-btn').removeClass('picked-nav');
 }
