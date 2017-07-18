@@ -53,8 +53,12 @@ $('body').on('click', '.create-question-btn', function () {
         antwortText = [];
         $(".mc-antworten").each(function () {
             antwortArray.push({
-                "antwort": $(this).children('input[name=antwort]').val(),
-                "wahrheitswert": $(this).children('input[name=antwort-gruppe]').prop("checked")
+                antwort : $(this).children('input[name=antwort]').val(),
+                wahrheitswert:  $(this).children('input[name=antwort-gruppe]').prop("checked")
+                /*antwort : { 
+                    text : $(this).children('input[name=antwort]').val(),
+                    wahrheitswert:  $(this).children('input[name=antwort-gruppe]').prop("checked")
+                }*/
             });
         });
         punkte = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
@@ -117,17 +121,10 @@ $('body').on('click', '.quest_all_li', function () {
         success: function (data) {
             $(".body-content").html('<h1>Alle Fragen der Vorlesung: '
                     + $('.picked-nav a').text() + '!</h1>');
-            $.each(data, function () {
-                $(".body-content").append(getHTML4Question(this));
-            });
+            $(".body-content").append(data);
         }
     });
 });
-
-function getHTML4Question(question){
-    var questionHTML = '<div>Fragetext:' + question['text'] + '</div>';
-    return questionHTML;
-}
 
 $('body').on('click', '.exam_new_li', function () {
     $.ajax({

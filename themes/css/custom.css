@@ -272,6 +272,17 @@ a:visited {
 .platzhalter {
   display: none;
 }
+.question-box {
+  border: 1px solid #777;
+  padding: 10px;
+  margin: 15px;
+}
+.question-box ul {
+  list-style: none;
+}
+.true-false-label {
+  width: 25px;
+}
 /*******************/
 /* Media queries   */
 /*******************/
@@ -309,6 +320,10 @@ a:visited {
   }
   .footer {
     padding: 10px 0;
+  }
+  .question-additional-info li {
+    margin-right: 10px;
+    display: inline;
   }
 }
 /*# sourceMappingURL=custom.css.map */

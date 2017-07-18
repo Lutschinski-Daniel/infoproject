@@ -9,6 +9,9 @@ $id = $_GET["lecture_id"];
 
 $conn = db_conn::getInstance();
 $lecture = $conn->getLectureWithId($id);
+$anzahl_fragen = $conn->getQuestionCountForLec($id);
+
+$obj = json_decode('{"peter" : "Pan"}');
 
 if ($lecture == NULL)
     echo "Fehler beim Laden der Vorlesung!";
@@ -18,6 +21,7 @@ else {
     $smarty = new Smarty;
     $smarty->assign("bez", $lecture["bezeichnung"]);
     $smarty->assign("bez_kurz", $lecture["bezeichnung_kurz"]);
-    $smarty->assign("anz_fragen", 5);
+    $smarty->assign("anz_fragen", $anzahl_fragen);
+    $smarty->assign("obj", $obj);
     echo $smarty->fetch("../../templates/lecture_show.tpl");
 }

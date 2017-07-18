@@ -72,6 +72,15 @@ class db_conn {
         return $result->fetch_assoc();
     }
     
+    public function getQuestionCountForLec($id){
+        $stmt = $this->connection->prepare("SELECT COUNT(*) AS anzahl FROM `questions` WHERE lecture_id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();  
+        $row = $stmt->get_result();
+        $count = $row->fetch_assoc();
+        return intval($count['anzahl']);
+    }
+    
     
     public function saveQuestion2DB($params){
     $stmt = $this->connection->prepare(

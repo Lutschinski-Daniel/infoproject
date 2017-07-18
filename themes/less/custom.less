@@ -250,6 +250,20 @@ a {
     display: none;
 }
 
+.question-box {
+    border: @standard-border;
+    padding: 10px;
+    margin: 15px;
+    
+    ul {
+        list-style: none;
+    }
+}
+
+.true-false-label {
+    width: 25px;
+}
+
 /*******************/
 /* Media queries   */ 
 /*******************/
@@ -293,7 +307,13 @@ a {
     }
 
     .footer {
-
         padding: @padding-footer-sm 0;
+    }
+        
+    .question-additional-info {
+        li {
+            margin-right: 10px;
+            display: inline;
+        }
     }
 }
