@@ -80,7 +80,14 @@ class db_conn {
         $count = $row->fetch_assoc();
         return intval($count['anzahl']);
     }
-    
+
+    public function deleteQuestionFromDB($id){
+        $stmt = $this->connection->prepare("DELETE FROM `questions` WHERE id=?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();  
+
+        return $stmt->execute(); 
+    }
     
     public function saveQuestion2DB($params){
     $stmt = $this->connection->prepare(

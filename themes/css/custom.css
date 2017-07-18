@@ -275,13 +275,39 @@ a:visited {
 .question-box {
   border: 1px solid #777;
   padding: 10px;
+  padding-right: 30px;
   margin: 15px;
+  position: relative;
+  word-wrap: break-word;
 }
 .question-box ul {
   list-style: none;
 }
+.question-box div {
+  margin-bottom: 10px;
+}
 .true-false-label {
   width: 25px;
+}
+.edit-question {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border: 1px solid #777;
+  padding: 5px;
+}
+.edit-question:hover {
+  background-color: #eee;
+}
+.delete-question {
+  position: absolute;
+  right: 5px;
+  top: 35px;
+  border: 1px solid #777;
+  padding: 5px;
+}
+.delete-question:hover {
+  background-color: #eee;
 }
 /*******************/
 /* Media queries   */

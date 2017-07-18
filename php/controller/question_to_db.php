@@ -3,7 +3,6 @@
 session_start();
 
 include '../../db/db_conn.php';
-include '../../config_general.php';
 
 $conn = db_conn::getInstance();
 $params = array(

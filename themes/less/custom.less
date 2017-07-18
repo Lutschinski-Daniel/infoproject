@@ -181,7 +181,7 @@ a {
 
 .navigation {
     list-style-typ: none;
-    
+
     li {
         display: inline;
         padding: 14px 8px;
@@ -253,15 +253,46 @@ a {
 .question-box {
     border: @standard-border;
     padding: 10px;
+    padding-right: 30px;
     margin: 15px;
-    
+    position: relative;
+    word-wrap: break-word;
+
     ul {
         list-style: none;
+    }
+
+    div {
+        margin-bottom: 10px;
     }
 }
 
 .true-false-label {
     width: 25px;
+}
+
+.edit-question{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: @standard-border;
+    padding: 5px;
+    
+    &:hover {
+        background-color: @standard-bg-hover;
+    }
+}
+
+.delete-question{
+    position: absolute;
+    right: 5px;
+    top: 35px;
+    border: @standard-border;
+    padding: 5px;
+    
+    &:hover {
+        background-color: @standard-bg-hover;
+    }
 }
 
 /*******************/
@@ -309,7 +340,7 @@ a {
     .footer {
         padding: @padding-footer-sm 0;
     }
-        
+
     .question-additional-info {
         li {
             margin-right: 10px;

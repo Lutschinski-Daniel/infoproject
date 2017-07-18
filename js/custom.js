@@ -53,12 +53,12 @@ $('body').on('click', '.create-question-btn', function () {
         antwortText = [];
         $(".mc-antworten").each(function () {
             antwortArray.push({
-                antwort : $(this).children('input[name=antwort]').val(),
-                wahrheitswert:  $(this).children('input[name=antwort-gruppe]').prop("checked")
-                /*antwort : { 
-                    text : $(this).children('input[name=antwort]').val(),
-                    wahrheitswert:  $(this).children('input[name=antwort-gruppe]').prop("checked")
-                }*/
+                antwort: $(this).children('input[name=antwort]').val(),
+                wahrheitswert: $(this).children('input[name=antwort-gruppe]').prop("checked")
+                        /*antwort : { 
+                         text : $(this).children('input[name=antwort]').val(),
+                         wahrheitswert:  $(this).children('input[name=antwort-gruppe]').prop("checked")
+                         }*/
             });
         });
         punkte = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
@@ -170,3 +170,33 @@ function clearLectureNav() {
     $('.lecture').removeClass('picked-nav');
     $('.add-lecture-btn').removeClass('picked-nav');
 }
+
+$('body').on('click', '.delete-question', function () {
+    $.ajax({
+        url: 'php/controller/question_delete_from_db.php',
+        type: "GET",
+        data: {
+            "delete_id": $(this).parent('.question-box').attr('id')
+        },
+        success: function (data) {
+            $(".body-content").html(data);
+        }
+    });
+});
+
+$('body').on('click', '.edit-question', function () {
+    alert("THIS: " + $(this).parent('.question-box').attr('id'));
+    var id = $(this).parent('.question-box').attr('id');
+    $.ajax({
+        url: 'php/controller/question_update.php',
+        type: "GET",
+        data: {
+            "update_id": $(this).parent('.question-box').attr('id')
+        },
+        success: function (data) {
+            alert("Success: " + id);
+            $("section[name="+id+"]").html(data); 
+        }
+    });
+});
+
