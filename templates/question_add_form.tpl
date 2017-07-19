@@ -6,14 +6,14 @@
         <option value="0">Multiple-Choice</option>
         <option value="1" selected>Frage-Anwort</option>
     </select><br>
-    <label>Fragetext:</label> <br />
+    <label class="frage-text-label">Fragetext:</label> <br />
     <textarea name="frage-text" rows="5" class="frage-antwort-textareas"></textarea>
     <br>
     <div class="frage-typ-platzhalter">
-        <div class="mult-ch-platzhalter platzhalter">
-            <label>Anworten:</label><br />
+        <div class="mult-ch-platzhalter platzhalter update-mc-antworten">
+            <label class="mc-antwort-label">Anworten:</label><br />
             {for $var=0 to $anworten_default-1}
-                <span class="mc-antworten"><input type="text" name="antwort"></input>
+                <span class="mc-antwort"><input type="text" name="antwort"></input>
                     <input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input></span><br />
             {/for}
             <button class="add-answer-btn">Zusätzliche Antwort</button><br />
@@ -22,7 +22,7 @@
         <div class="frag-ant-platzhalter">
             <label>Musterantwort:</label><br />
             <textarea name="antwort-text" rows="6" cols="50" class="frage-antwort-textareas"></textarea><br />
-            <label>Punkte: </label><input name="points" type="number" min="1" max="50" value="10"></input>
+            <label class="punkte-label">Punkte: </label><input id="frage-antwort-punkte" type="number" name="points" value="10" max="50" min="1"></input>
         </div>
     </div>
     <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 

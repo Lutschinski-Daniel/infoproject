@@ -313,6 +313,7 @@ a:visited {
   width: 100%;
 }
 .global-message-div {
+  display: none;
   margin: auto;
   word-wrap: break-word;
   padding: 10px;
@@ -325,6 +326,9 @@ a:visited {
   text-align: center;
   height: 50px;
   width: 300px;
+}
+.input-error {
+  border: 2px solid red;
 }
 /*******************/
 /* Media queries   */

@@ -38,20 +38,11 @@ $('body').on('click', '.create-lecture-btn', function () {
 $('body').on('click', '.create-question-btn', function () {
     var antwortArray = [];
     var punkte;
+
     // Multiple-Choice
     if ($(".frage-typ option:selected").val() == 0) {
-        var empty_antwort = 0;
-        $(".mc-antworten").each(function () {
-            if ($(this).children('input[name=antwort]').val() == "") {
-                empty_antwort++;
-            }
-        });
-        if (empty_antwort > 0) {
-            alert("Antworten dürfen nicht leer bleiben!");
-            return;
-        }
         antwortText = [];
-        $(".mc-antworten").each(function () {
+        $(".mc-antwort").each(function () {
             antwortArray.push({
                 antwort: $(this).children('input[name=antwort]').val(),
                 wahrheitswert: $(this).children('input[name=antwort-gruppe]').prop("checked")
@@ -69,6 +60,12 @@ $('body').on('click', '.create-question-btn', function () {
         punkte = $('input[name=points]').val();
     }
     ;
+
+    if (validateInput() !== true) {
+        //showMessageBox(validInput);
+        return;
+    }
+
     $.ajax({
         url: 'php/controller/question_to_db.php',
         type: "GET",
@@ -147,6 +144,7 @@ $('body').on('click', '.settings_li', function () {
 });
 
 $('body').on('change', '.frage-typ', function () {
+    clearInput();
     if ($(".frage-typ option:selected").val() == 0) {
         $('.mult-ch-platzhalter').removeClass('platzhalter');
         $('.frag-ant-platzhalter').addClass('platzhalter');
@@ -157,12 +155,12 @@ $('body').on('change', '.frage-typ', function () {
 });
 
 $('body').on('click', '.add-answer-btn', function () {
-    $('<span class="mc-antworten"><input name="antwort" type="text"></input><input name="antwort-gruppe" \n\
+    $('<span class="mc-antwort"><input name="antwort" type="text"></input><input name="antwort-gruppe" \n\
     type="checkbox" value="WAHR">WAHR</input></span><br />').insertBefore('.add-answer-btn');
 });
 
-$('body').on('change', '.mc-antworten', function () {
-    var len = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
+$('body').on('change', '.mc-antwort', function () {
+    var len = $(".update-mc-antworten input[name='antwort-gruppe']:checked").length;
     $('.mc-punkte-label').text(len);
 });
 
@@ -185,7 +183,7 @@ $('body').on('click', '.delete-question', function () {
             "delete_id": $(this).parent('.question-box').attr('id')
         },
         success: function (data) {
-            $('.question-box#'+id).remove();
+            $('.question-box#' + id).remove();
         }
     });
 });
@@ -260,3 +258,66 @@ $('body').on('click', '.question-update-btn', function () {
         }
     });
 });
+
+
+
+
+//
+// FUNCTIONS
+//////////////////////////////////////////////
+function validateInput() {
+    clearInput();
+    var error = 0;
+
+    // Multiple-Choice
+    if ($(".frage-typ option:selected").val() == 0) {
+        if ($('textarea[name=frage-text]').val() === "") {
+            $('.frage-text-label').text('Fragetext: Darf nicht leer sein!');
+            $('.frage-text-label').addClass('input-error');
+            error++;
+        }
+        if ($(".update-mc-antworten input[name='antwort-gruppe']:checked").length === 0) {
+            $('.mc-antwort-label').text('Anworten: Mindestens eine Antwort muss "WAHR" sein!');
+            $('.mc-antwort-label').addClass('input-error');
+            error++;
+        }
+        $(".update-mc-antworten input[name='antwort']").each(function () {
+            if ($(this).val() === "") {
+                $('.mc-antwort-label').text('Anworten: Antworten dürfen nicht leer sein!');
+                $('.mc-antwort-label').addClass('input-error');
+                error++;
+            };
+        });
+    } else { // Frage-Antwort
+        if ($('textarea[name=frage-text]').val() === "") {
+            $('.frage-text-label').text('Fragetext: Darf nicht leer sein!');
+            $('.frage-text-label').addClass('input-error');
+            error++;
+        }
+
+        punkte = parseInt($('#frage-antwort-punkte').val());
+        if ( punkte < 1 || punkte > 50 ) {
+            $('.punkte-label').addClass('input-error');
+            $('.punkte-label').text('Punkte (1-50):');
+            error++;
+        }
+    }
+
+    if (error === 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+function showMessageBox(message) {
+    $('.global-message-div').text(message).show().delay(1000).fadeOut(1500);
+}
+;
+
+function clearInput() {
+    $('.frage-text-label').text('Fragetext:');
+    $('.mc-antwort-label').text('Anworten:');
+    $('.punkte-label').text('Punkte:');
+    $('.add-question-form').children().removeClass('input-error');
+};
