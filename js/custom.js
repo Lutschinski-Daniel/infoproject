@@ -166,12 +166,18 @@ $('body').on('change', '.mc-antworten', function () {
     $('.mc-punkte-label').text(len);
 });
 
+$('body').on('change', '.update-mc-antwort', function () {
+    var len = $(".update-mc-antworten input[name='antwort-gruppe']:checked").length;
+    $('.update-mc-punkte-label').text(len);
+});
+
 function clearLectureNav() {
     $('.lecture').removeClass('picked-nav');
     $('.add-lecture-btn').removeClass('picked-nav');
 }
 
 $('body').on('click', '.delete-question', function () {
+    var id = $(this).parent('.question-box').attr('id');
     $.ajax({
         url: 'php/controller/question_delete_from_db.php',
         type: "GET",
@@ -179,13 +185,12 @@ $('body').on('click', '.delete-question', function () {
             "delete_id": $(this).parent('.question-box').attr('id')
         },
         success: function (data) {
-            $(".body-content").html(data);
+            $('.question-box#'+id).remove();
         }
     });
 });
 
 $('body').on('click', '.edit-question', function () {
-    alert("THIS: " + $(this).parent('.question-box').attr('id'));
     var id = $(this).parent('.question-box').attr('id');
     $.ajax({
         url: 'php/controller/question_update.php',
@@ -194,9 +199,64 @@ $('body').on('click', '.edit-question', function () {
             "update_id": $(this).parent('.question-box').attr('id')
         },
         success: function (data) {
-            alert("Success: " + id);
-            $("section[name="+id+"]").html(data); 
+            $("section[name=" + id + "]").html(data);
         }
     });
 });
 
+$('body').on('click', '.update-add-answer-btn', function () {
+    $('<span class="update-mc-antwort"><input type="text" name="antwort"><input name="antwort-gruppe" \n\
+        type="checkbox" value="WAHR">WAHR</input></span><br />').insertBefore('.update-add-answer-btn');
+});
+
+$('body').on('click', '.question-update-btn', function () {
+    var antwortArray = [];
+    var punkte;
+    var antwortText;
+
+    // Multiple-Choice
+    if ($(".question-update-form").children().hasClass('update-mc-antworten'))
+    {
+        var empty_antwort = 0;
+        $(".update-mc-antworten").each(function () {
+            if ($(this).children('input[name=antwort]').val() == "") {
+                empty_antwort++;
+            }
+        });
+        if (empty_antwort > 0) {
+            alert("Antworten dürfen nicht leer bleiben!");
+            return;
+        }
+        antwortText = [];
+        $(".update-mc-antworten").each(function () {
+            antwortArray.push({
+                antwort: $(this).children('input[name=update-antwort]').val(),
+                wahrheitswert: $(this).children('input[name=update-antwort-gruppe]').prop("checked")
+            });
+        });
+        punkte = $(".mult-ch-platzhalter input[name='update-antwort-gruppe']:checked").length;
+        antwortText = JSON.stringify(antwortArray);
+    } else {
+        antwortText = $('textarea[name=update-antwort-text]').val();
+        punkte = $('input[name=update-points]').val();
+    }
+
+    $.ajax({
+        url: 'php/controller/question_to_db_update.php',
+        type: "GET",
+        data: {
+            "question": {
+                "current_question_id": $(this).parent('.question-update-form').attr('id'),
+                "frage-text": $('textarea[name=update-frage-text]').val(),
+                "antwort-text": antwortText,
+                "difficulty": $('select[name=update-difficulty]').val(),
+                "frequency": $('select[name=update-frequency]').val(),
+                "points": punkte,
+                "space-needed": $('select[name=update-space-needed]').val(),
+            }
+        },
+        success: function (data) {
+            $(".body-content").html("Update erfolgreich!");
+        }
+    });
+});

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-18 18:52:33
+/* Smarty version 3.1.30, created on 2017-07-19 14:40:31
   from "C:\xampp\htdocs\Crexam\templates\questions_show_all.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_596e3cd1bfc846_51682708',
+  'unifunc' => 'content_596f533f3bbca4_04121169',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '652ab5478c83a528e58fff56fea01ad0c8f192a8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\questions_show_all.tpl',
-      1 => 1500396729,
+      1 => 1500468025,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_596e3cd1bfc846_51682708 (Smarty_Internal_Template $_smarty_tpl) {
+function content_596f533f3bbca4_04121169 (Smarty_Internal_Template $_smarty_tpl) {
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value, 'question');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {

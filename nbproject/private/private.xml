@@ -3,18 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Crexam/php/controller/lecture_controller.php</file>
+            <file>file:/C:/xampp/htdocs/Crexam/php/controller/question_update.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/db/db_conn.php</file>
-            <file>file:/C:/xampp/htdocs/Crexam/php/controller/lecture_to_db.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/themes/less/custom.less</file>
-            <file>file:/C:/xampp/htdocs/Crexam/php/controller/index_controller.php</file>
-            <file>file:/C:/xampp/htdocs/Crexam/php/controller/question_add.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/php/controller/question_show_all.php</file>
-            <file>file:/C:/xampp/htdocs/Crexam/php/controller/lecture_nav_list.php</file>
-            <file>file:/C:/xampp/htdocs/Crexam/php/controller/lecture_show.php</file>
-            <file>file:/C:/xampp/htdocs/Crexam/php/controller/exam_controller.php</file>
-            <file>file:/C:/xampp/htdocs/Crexam/db/db_connection.php</file>
+            <file>file:/C:/xampp/htdocs/Crexam/templates/question_add_form.tpl</file>
             <file>file:/C:/xampp/htdocs/Crexam/js/custom.js</file>
+            <file>file:/C:/xampp/htdocs/Crexam/templates/questions_show_all.tpl</file>
+            <file>file:/C:/xampp/htdocs/Crexam/templates/question_update.tpl</file>
+            <file>file:/C:/xampp/htdocs/Crexam/php/controller/question_delete_from_db.php</file>
         </group>
     </open-files>
 </project-private>

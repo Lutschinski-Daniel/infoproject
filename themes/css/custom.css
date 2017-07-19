@@ -309,6 +309,9 @@ a:visited {
 .delete-question:hover {
   background-color: #eee;
 }
+.frage-antwort-textareas {
+  width: 100%;
+}
 /*******************/
 /* Media queries   */
 /*******************/
@@ -350,6 +353,9 @@ a:visited {
   .question-additional-info li {
     margin-right: 10px;
     display: inline;
+  }
+  .frage-antwort-textareas {
+    width: 50%;
   }
 }
 /*# sourceMappingURL=custom.css.map */

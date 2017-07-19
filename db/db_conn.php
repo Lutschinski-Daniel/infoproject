@@ -84,10 +84,26 @@ class db_conn {
     public function deleteQuestionFromDB($id){
         $stmt = $this->connection->prepare("DELETE FROM `questions` WHERE id=?");
         $stmt->bind_param("i", $id);
-        $stmt->execute();  
 
         return $stmt->execute(); 
     }
+    
+    public function updateQuestionInDB($params){
+        $stmt = $this->connection->prepare(
+            "UPDATE `questions` SET `text`=?, `answer`=?,`difficulty`=?,`frequency`=?,"
+                . "`points`=?,`space`=? WHERE id=?");
+        $stmt->bind_param("ssiiiii", 
+                $params{'frage-text'},
+                $params{'antwort-text'},
+                $params{'difficulty'},
+                $params{'frequency'},
+                $params{'points'},
+                $params{'space-needed'},
+                $params{'question-id'});
+                
+        $stmt->execute(); 
+    }
+ 
     
     public function saveQuestion2DB($params){
     $stmt = $this->connection->prepare(

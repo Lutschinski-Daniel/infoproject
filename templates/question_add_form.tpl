@@ -7,24 +7,25 @@
         <option value="1" selected>Frage-Anwort</option>
     </select><br>
     <label>Fragetext:</label> <br />
-    <textarea name="frage-text" rows="4" cols="50"></textarea>
+    <textarea name="frage-text" rows="5" class="frage-antwort-textareas"></textarea>
     <br>
     <div class="frage-typ-platzhalter">
         <div class="mult-ch-platzhalter platzhalter">
             <label>Anworten:</label><br />
             {for $var=0 to $anworten_default-1}
-                <span class="mc-antworten"><input type="text" name="antwort"></input><input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input></span><br />
+                <span class="mc-antworten"><input type="text" name="antwort"></input>
+                    <input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input></span><br />
             {/for}
             <button class="add-answer-btn">Zusätzliche Antwort</button><br />
             <label>Punkte: </label><label class="mc-punkte-label">0</label>
         </div>
         <div class="frag-ant-platzhalter">
             <label>Musterantwort:</label><br />
-            <textarea name="antwort-text" rows="6" cols="50"></textarea><br />
+            <textarea name="antwort-text" rows="6" cols="50" class="frage-antwort-textareas"></textarea><br />
             <label>Punkte: </label><input name="points" type="number" min="1" max="50" value="10"></input>
         </div>
     </div>
-    <label>Schwierigkeitsgrad ( 1 = leicht, 5 = schwer ):</label> 
+    <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 
     <select class="difficulty" name="difficulty">
         <option value="1">1</option>
         <option value="2">2</option>
