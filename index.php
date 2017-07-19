@@ -23,6 +23,7 @@ require_once 'db/db_connection.php';
         include_once 'php\body.php';
         include_once 'php\footer.php';
         ?>
+        <div class="global-message-div">HALLO!</div>
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->

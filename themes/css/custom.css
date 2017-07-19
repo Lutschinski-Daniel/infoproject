@@ -312,6 +312,20 @@ a:visited {
 .frage-antwort-textareas {
   width: 100%;
 }
+.global-message-div {
+  margin: auto;
+  word-wrap: break-word;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #AAA;
+  text-align: center;
+  height: 50px;
+  width: 300px;
+}
 /*******************/
 /* Media queries   */
 /*******************/
