@@ -22,7 +22,7 @@ if (isset($_SESSION['current_lecture_bez'])) {
         include_once 'php\body.php';
         include_once 'php\footer.php';
         ?>
-        <div class="global-message-div">HALLO!</div>
+        <div class="global-message-div"></div>
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->

@@ -2,10 +2,12 @@
 session_start();
 
 include '../../db/db_conn.php';
+include("../../libs/Smarty.class.php");
 
+$id = $_GET['question']['current_question_id'];
 $conn = db_conn::getInstance();
 $params = array(
-    "question-id" => $_GET['question']['current_question_id'],
+    "question-id" => $id,
     "frage-text" => $_GET['question']['frage-text'],
     "antwort-text" => $_GET['question']['antwort-text'],
     "difficulty" => $_GET['question']['difficulty'],
@@ -14,5 +16,9 @@ $params = array(
     "space-needed" => $_GET['question']['space-needed']
 );
 $conn->updateQuestionInDB($params);
+$question = $conn->getQuestionWithId($id);
 
-echo "<h1>Frage wurde erstellt! Was aber wenn nicht?</h1>";
+$smarty = new Smarty;
+$smarty->assign("question", $question);
+echo $smarty->fetch("../../templates/question_show_update.tpl");
+

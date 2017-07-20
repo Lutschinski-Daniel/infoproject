@@ -25,7 +25,7 @@
             <label>Musterantwort:</label><br />
             <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"></textarea><br />
             <label class="punkte-label">Punkte: </label>
-            <input id="frage-antwort-punkte" type="number" name="points" value="10" max="50" min="1"></input>
+            <input type="number" name="points" value="10" max="50" min="1"></input>
         </div>
     </div>
    <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 

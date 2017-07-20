@@ -8,8 +8,8 @@
         {assign var=answers value=$question.answer|json_decode:1}
         {foreach from=$answers item=$mc}
             <span class="mc-antwort">
-                <input type="text" name="antwort" value="{$mc.antwort}"></input>
-                <input name="antwort-gruppe" type="checkbox" value="WAHR" {if ($mc.wahrheitswert == 1)}checked{/if}>WAHR</input>
+                <input type="text" name="antwort" value="{$mc.antwort}"></input><!--
+             --><input name="antwort-gruppe" type="checkbox" value="WAHR" {if ($mc.wahrheitswert == 1)}checked{/if}>WAHR</input>
             </span><br />
             {/foreach}
         <button class="add-answer-btn">Zusätzliche Antwort</button><br />

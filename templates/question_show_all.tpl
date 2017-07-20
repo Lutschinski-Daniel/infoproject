@@ -28,7 +28,7 @@
             <li>Häufigkeit: {$question.frequency}</li>
             <li>Platzbedarf: {$question.space}</li>
         </ul>
-        <span class="edit-question">E</span>
+        <span class="edit-question edit-toggle">E</span>
         <span class="delete-question">X</span>
     </section>
 {/foreach}
