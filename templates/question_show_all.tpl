@@ -1,3 +1,4 @@
+<h1>Alle Fragen der Vorlesung: {$lecture_bez}!</h1>
 {foreach from=$questions item=$question}
     <section class="question-box" id="{$question.id}" name="{$question.id}">
         <div class="question-box-frage-text">Fragetext: {$question.text}
@@ -22,9 +23,9 @@
         {/if}
         </div>
         <ul class="question-additional-info">
+            <li>Punkte: {$question.points}</li>
             <li>Schwierigkeit: {$question.difficulty}</li>
             <li>Häufigkeit: {$question.frequency}</li>
-            <li>Punkte: {$question.points}</li>
             <li>Platzbedarf: {$question.space}</li>
         </ul>
         <span class="edit-question">E</span>

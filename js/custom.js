@@ -2,7 +2,7 @@ $('body').on('click', '.add-lecture-btn', function () {
     clearLectureNav();
     $(this).addClass('picked-nav');
     $.ajax({
-        url: 'php/controller/lecture_controller.php',
+        url: 'php/controller/lecture_form_create.php',
         type: "GET",
         success: function (data) {
             $(".body-content").html(data);
@@ -13,7 +13,7 @@ $('body').on('click', '.add-lecture-btn', function () {
 $(".logo").click(function () {
     clearLectureNav();
     $.ajax({
-        url: 'php/controller/index_controller.php',
+        url: 'php/controller/welcome.php',
         type: "GET",
         success: function (data) {
             $(".body-content").html(data);
@@ -52,7 +52,7 @@ $('body').on('click', '.lecture', function () {
 
 $('body').on('click', '.quest_add_li', function () {
     $.ajax({
-        url: 'php/controller/question_add.php',
+        url: 'php/controller/question_form_create.php',
         type: "GET",
         success: function (data) {
             $(".body-content").html(data);
@@ -65,16 +65,14 @@ $('body').on('click', '.quest_all_li', function () {
         url: 'php/controller/question_show_all.php',
         type: "GET",
         success: function (data) {
-            $(".body-content").html('<h1>Alle Fragen der Vorlesung: '
-                    + $('.picked-nav a').text() + '!</h1>');
-            $(".body-content").append(data);
+            $(".body-content").html(data);
         }
     });
 });
 
 $('body').on('click', '.exam_new_li', function () {
     $.ajax({
-        url: 'php/controller/exam_controller.php',
+        url: 'php/controller/exam.php',
         type: "GET",
         success: function (data) {
             $(".body-content").html(data);
@@ -84,7 +82,7 @@ $('body').on('click', '.exam_new_li', function () {
 
 $('body').on('click', '.settings_li', function () {
     $.ajax({
-        url: 'php/controller/settings_controller.php',
+        url: 'php/controller/settings.php',
         type: "GET",
         success: function (data) {
             $(".body-content").html(data);
@@ -93,7 +91,7 @@ $('body').on('click', '.settings_li', function () {
 });
 
 $('body').on('change', '.frage-typ', function () {
-    if ($(".frage-typ option:selected").val() === 0) {
+    if ($(".frage-typ option:selected").val() == 0) {
         $('.mult-ch-platzhalter').removeClass('platzhalter');
         $('.frag-ant-platzhalter').addClass('platzhalter');
     } else {
@@ -107,15 +105,10 @@ $('body').on('change', '.mc-antwort', function () {
     $('.mc-punkte-label').text(len);
 });
 
-function clearLectureNav() {
-    $('.lecture').removeClass('picked-nav');
-    $('.add-lecture-btn').removeClass('picked-nav');
-}
-
 $('body').on('click', '.delete-question', function () {
     var id = $(this).parent('.question-box').attr('id');
     $.ajax({
-        url: 'php/controller/question_delete_from_db.php',
+        url: 'php/controller/question_to_db_delete.php',
         type: "GET",
         data: {
             "delete_id": $(this).parent('.question-box').attr('id')
@@ -129,13 +122,14 @@ $('body').on('click', '.delete-question', function () {
 $('body').on('click', '.edit-question', function () {
     var id = $(this).parent('.question-box').attr('id');
     $.ajax({
-        url: 'php/controller/question_update.php',
+        url: 'php/controller/question_form_update.php',
         type: "GET",
         data: {
             "update_id": $(this).parent('.question-box').attr('id')
         },
         success: function (data) {
             $("section[name=" + id + "]").html(data);
+            $('.mc-punkte-label').text($(".mc-antwort input[name='antwort-gruppe']:checked").length);
         }
     });
 });
@@ -159,6 +153,10 @@ $('body').on('click', '.question-update-btn', function () {
         antwortText = $('textarea[name=antwort-text]').val();
         punkte = $('input[name=points]').val();
     }
+    
+    if (validateInput() !== true) {
+        return;
+    };
 
     $.ajax({
         url: 'php/controller/question_to_db_update.php',
@@ -185,7 +183,7 @@ $('body').on('click', '.create-question-btn', function () {
     var punkte;
 
     // Multiple-Choice
-    if ($(".frage-typ option:selected").val() === 0) {
+    if ($(".frage-typ option:selected").val() == 0) {
         antwortText = getMCAntwortText();
         punkte = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
     // Frage-Antwort
@@ -195,7 +193,6 @@ $('body').on('click', '.create-question-btn', function () {
     };
 
     if (validateInput() !== true) {
-        //showMessageBox(validInput);
         return;
     };
 
@@ -223,51 +220,6 @@ $('body').on('click', '.create-question-btn', function () {
 //
 // FUNCTIONS
 //////////////////////////////////////////////
-function validateInput() {
-    var error = 0;
-
-    // Multiple-Choice
-    if ($(".frage-typ option:selected").val() == 0) {
-        if ($('textarea[name=frage-text]').val() === "") {
-            $('.frage-text-label').text('Fragetext: Darf nicht leer sein!');
-            $('.frage-text-label').addClass('input-error');
-            error++;
-        }
-        if ($(".update-mc-antworten input[name='antwort-gruppe']:checked").length === 0) {
-            $('.mc-antwort-label').text('Anworten: Mindestens eine Antwort muss "WAHR" sein!');
-            $('.mc-antwort-label').addClass('input-error');
-            error++;
-        }
-        $(".update-mc-antworten input[name='antwort']").each(function () {
-            if ($(this).val() === "") {
-                $('.mc-antwort-label').text('Anworten: Antworten dürfen nicht leer sein!');
-                $('.mc-antwort-label').addClass('input-error');
-                error++;
-            }
-            ;
-        });
-    } else { // Frage-Antwort
-        if ($('textarea[name=frage-text]').val() === "") {
-            $('.frage-text-label').text('Fragetext: Darf nicht leer sein!');
-            $('.frage-text-label').addClass('input-error');
-            error++;
-        }
-
-        punkte = parseInt($('#frage-antwort-punkte').val());
-        if (punkte < 1 || punkte > 50) {
-            $('.punkte-label').addClass('input-error');
-            $('.punkte-label').text('Punkte (1-50):');
-            error++;
-        }
-    }
-
-    if (error === 0) {
-        return true;
-    } else {
-        return false;
-    }
-};
-
 function getMCAntwortText() {
     antwortArray = [];
     $(".mc-antwort").each(function () {
@@ -283,13 +235,22 @@ function showMessageBox(message) {
     $('.global-message-div').text(message).show().delay(1000).fadeOut(1500);
 };
 
+
+function clearLectureNav() {
+    $('.lecture').removeClass('picked-nav');
+    $('.add-lecture-btn').removeClass('picked-nav');
+}
+
 function clearInput() {
-    /*
-     $('.frage-text-label').text('Fragetext:');
-     $('.mc-antwort-label').text('Anworten:');
-     $('.punkte-label').text('Punkte:');
-     $('.add-question-form').children().removeClass('input-error');
-     $('.frage-antwort-textareas').val("");
-     $('.update-mc-antworten input[name=antwort]').val(""); 
-     */
 };
+
+function validateInput() {
+    var error = 0;
+
+    if (error === 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+

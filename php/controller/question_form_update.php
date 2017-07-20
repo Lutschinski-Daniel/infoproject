@@ -1,5 +1,4 @@
 <?php
-
 include '../../db/db_conn.php';
 include("../../libs/Smarty.class.php");
 
@@ -10,7 +9,7 @@ if(isset($_GET['update_id'])) {
     
     $smarty = new Smarty;
     $smarty->assign("question", $question);
-    echo $smarty->fetch("../../templates/question_update.tpl");
+    echo $smarty->fetch("../../templates/question_form_update.tpl");
     
 } else {
     echo "<h1>Fehler</h1>";

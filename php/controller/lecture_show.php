@@ -3,8 +3,6 @@ session_start();
 include '../../db/db_conn.php';
 include("../../libs/Smarty.class.php");
 
-header('Content-type: application/html');
-
 $id = $_GET["lecture_id"];
 
 $conn = db_conn::getInstance();

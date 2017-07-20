@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-20 17:19:53
-  from "C:\xampp\htdocs\Crexam\templates\question_update.tpl" */
+/* Smarty version 3.1.30, created on 2017-07-20 17:59:49
+  from "C:\xampp\htdocs\Crexam\templates\question_form_update.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5970ca1971ac65_07994971',
+  'unifunc' => 'content_5970d37559c468_89633876',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '6c7b3645579ec8dfa01d896a4a97fe4a716220ea' => 
+    '51d6675e2be51f4026e1f42aa476904fb1088657' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_update.tpl',
+      0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_form_update.tpl',
       1 => 1500563971,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5970ca1971ac65_07994971 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5970d37559c468_89633876 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="question-update-form" id="<?php echo $_smarty_tpl->tpl_vars['question']->value['id'];?>
 ">

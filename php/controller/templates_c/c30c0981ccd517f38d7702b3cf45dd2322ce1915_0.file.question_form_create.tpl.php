@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-20 17:19:53
-  from "C:\xampp\htdocs\Crexam\templates\question_update.tpl" */
+/* Smarty version 3.1.30, created on 2017-07-20 17:59:16
+  from "C:\xampp\htdocs\Crexam\templates\question_form_create.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5970ca1971ac65_07994971',
+  'unifunc' => 'content_5970d35417df79_78954506',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '6c7b3645579ec8dfa01d896a4a97fe4a716220ea' => 
+    'c30c0981ccd517f38d7702b3cf45dd2322ce1915' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_update.tpl',
-      1 => 1500563971,
+      0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_form_create.tpl',
+      1 => 1500566351,
       2 => 'file',
     ),
   ),
@@ -20,47 +20,47 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5970ca1971ac65_07994971 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5970d35417df79_78954506 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
-<div class="question-update-form" id="<?php echo $_smarty_tpl->tpl_vars['question']->value['id'];?>
-">
+<h1>Neue Frage erstellen für Vorlesung: <?php echo $_smarty_tpl->tpl_vars['vorlesung']->value;?>
+</h1>
 
+<div class="add-question-form">
+    <label>Typ:</label> 
+    <select class="frage-typ" name="frage-typ">
+        <option value="0">Multiple-Choice</option>
+        <option value="1" selected>Frage-Anwort</option>
+    </select><br>
     <label class="frage-text-label">Fragetext:</label> <br />
-    <textarea name="frage-text" rows="5" class="frage-antwort-textareas"><?php echo $_smarty_tpl->tpl_vars['question']->value['text'];?>
-</textarea>
+    <textarea name="frage-text" rows="5" class="frage-antwort-textareas"></textarea>
     <br>
-    <?php if (($_smarty_tpl->tpl_vars['question']->value['type'] === 0)) {?>
-        <label class="mc-antwort-label">Anworten:</label><br />
-        <?php $_smarty_tpl->_assignInScope('answers', json_decode($_smarty_tpl->tpl_vars['question']->value['answer'],1));
-?>
-        <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['answers']->value, 'mc');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['mc']->value) {
-?>
-            <span class="mc-antwort">
-                <input type="text" name="antwort" value="<?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
-"></input>
-                <input name="antwort-gruppe" type="checkbox" value="WAHR" <?php if (($_smarty_tpl->tpl_vars['mc']->value['wahrheitswert'] == 1)) {?>checked<?php }?>>WAHR</input>
-            </span><br />
+    <div class="frage-typ-platzhalter">
+        <div class="mult-ch-platzhalter platzhalter">
+            <label class="mc-antwort-label">Anworten:</label><br />
             <?php
+$_smarty_tpl->tpl_vars['var'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['var']->step = 1;$_smarty_tpl->tpl_vars['var']->total = (int) ceil(($_smarty_tpl->tpl_vars['var']->step > 0 ? $_smarty_tpl->tpl_vars['anworten_default']->value-1+1 - (0) : 0-($_smarty_tpl->tpl_vars['anworten_default']->value-1)+1)/abs($_smarty_tpl->tpl_vars['var']->step));
+if ($_smarty_tpl->tpl_vars['var']->total > 0) {
+for ($_smarty_tpl->tpl_vars['var']->value = 0, $_smarty_tpl->tpl_vars['var']->iteration = 1;$_smarty_tpl->tpl_vars['var']->iteration <= $_smarty_tpl->tpl_vars['var']->total;$_smarty_tpl->tpl_vars['var']->value += $_smarty_tpl->tpl_vars['var']->step, $_smarty_tpl->tpl_vars['var']->iteration++) {
+$_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration == 1;$_smarty_tpl->tpl_vars['var']->last = $_smarty_tpl->tpl_vars['var']->iteration == $_smarty_tpl->tpl_vars['var']->total;?>
+                <span class="mc-antwort">
+                    <input type="text" name="antwort"></input><!--
+                 --><input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input>
+                </span><br />
+            <?php }
 }
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-        <button class="add-answer-btn">Zusätzliche Antwort</button><br />
-        <label>Punkte: </label><label class="mc-punkte-label">0</label>
-    <?php } else { ?>
-        <label>Musterantwort:</label><br />
-        <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"><?php echo $_smarty_tpl->tpl_vars['question']->value['answer'];?>
-</textarea><br />
-        <label class="punkte-label">Punkte: </label>
-        <input id="frage-antwort-punkte" type="number" name="points" value="<?php echo $_smarty_tpl->tpl_vars['question']->value['points'];?>
-" max="50" min="1"></input>
-    <?php }?>
-    <br>
-    <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 
+            <button class="add-answer-btn">Zusätzliche Antwort</button><br />
+            <label>Punkte: </label><label class="mc-punkte-label">0</label>
+        </div>
+        <div class="frag-ant-platzhalter">
+            <label>Musterantwort:</label><br />
+            <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"></textarea><br />
+            <label class="punkte-label">Punkte: </label>
+            <input id="frage-antwort-punkte" type="number" name="points" value="10" max="50" min="1"></input>
+        </div>
+    </div>
+   <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 
     <select class="difficulty" name="difficulty">
         <?php
 $_smarty_tpl->tpl_vars['var'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['var']->step = 1;$_smarty_tpl->tpl_vars['var']->total = (int) ceil(($_smarty_tpl->tpl_vars['var']->step > 0 ? 5+1 - (1) : 1-(5)+1)/abs($_smarty_tpl->tpl_vars['var']->step));
@@ -68,7 +68,7 @@ if ($_smarty_tpl->tpl_vars['var']->total > 0) {
 for ($_smarty_tpl->tpl_vars['var']->value = 1, $_smarty_tpl->tpl_vars['var']->iteration = 1;$_smarty_tpl->tpl_vars['var']->iteration <= $_smarty_tpl->tpl_vars['var']->total;$_smarty_tpl->tpl_vars['var']->value += $_smarty_tpl->tpl_vars['var']->step, $_smarty_tpl->tpl_vars['var']->iteration++) {
 $_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration == 1;$_smarty_tpl->tpl_vars['var']->last = $_smarty_tpl->tpl_vars['var']->iteration == $_smarty_tpl->tpl_vars['var']->total;?>
             <option value="<?php echo $_smarty_tpl->tpl_vars['var']->value;?>
-" <?php if (($_smarty_tpl->tpl_vars['question']->value['difficulty'] == $_smarty_tpl->tpl_vars['var']->value)) {?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
 </option>
         <?php }
 }
@@ -84,7 +84,7 @@ if ($_smarty_tpl->tpl_vars['var']->total > 0) {
 for ($_smarty_tpl->tpl_vars['var']->value = 1, $_smarty_tpl->tpl_vars['var']->iteration = 1;$_smarty_tpl->tpl_vars['var']->iteration <= $_smarty_tpl->tpl_vars['var']->total;$_smarty_tpl->tpl_vars['var']->value += $_smarty_tpl->tpl_vars['var']->step, $_smarty_tpl->tpl_vars['var']->iteration++) {
 $_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration == 1;$_smarty_tpl->tpl_vars['var']->last = $_smarty_tpl->tpl_vars['var']->iteration == $_smarty_tpl->tpl_vars['var']->total;?>
             <option value="<?php echo $_smarty_tpl->tpl_vars['var']->value;?>
-" <?php if (($_smarty_tpl->tpl_vars['question']->value['frequency'] == $_smarty_tpl->tpl_vars['var']->value)) {?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
 </option>
         <?php }
 }
@@ -101,7 +101,7 @@ for ($_smarty_tpl->tpl_vars['var']->value = 1, $_smarty_tpl->tpl_vars['var']->it
 $_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration == 1;$_smarty_tpl->tpl_vars['var']->last = $_smarty_tpl->tpl_vars['var']->iteration == $_smarty_tpl->tpl_vars['var']->total;?>
             <?php if (($_smarty_tpl->tpl_vars['var']->value != 3)) {?>
                 <option value="<?php echo $_smarty_tpl->tpl_vars['var']->value;?>
-" <?php if (($_smarty_tpl->tpl_vars['question']->value['space'] == $_smarty_tpl->tpl_vars['var']->value)) {?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
 </option>
             <?php }?>
         <?php }
@@ -110,9 +110,6 @@ $_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration 
 
     </select>
     <br>
-    <button class="question-update-btn">Update</button>
-</div>
-
-
-<?php }
+    <button class="create-question-btn">Erstellen</button>
+</div><?php }
 }

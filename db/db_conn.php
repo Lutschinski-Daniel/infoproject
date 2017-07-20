@@ -11,6 +11,7 @@ class db_conn {
     private $config = null;
 
     private function __construct() {
+
         $json = json_decode(file_get_contents(__DIR__ . '\..\config.json'));
         $this->config = $json;
         $this->host = $this->config->{'host'};
@@ -19,6 +20,7 @@ class db_conn {
         $this->pass = $this->config->{'pass'};
         
         $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->name);
+        $this->createDatabaseIfNotExistent();
     }
 
     static function getInstance() {
@@ -32,29 +34,29 @@ class db_conn {
         return mysqli_query($this->connection, "SELECT * FROM lectures");
     }
 
-    public function getLectureWithId($id){
+    public function getLectureWithId($id) {
         $stmt = $this->connection->prepare("SELECT * FROM `lectures` WHERE id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        
+
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-    
-    public function getLectureWithKurzBez($kurzBez){
+
+    public function getLectureWithKurzBez($kurzBez) {
         $stmt = $this->connection->prepare("SELECT * FROM `lectures` WHERE bezeichnung_kurz=?");
         $stmt->bind_param("s", $kurzBez);
         $stmt->execute();
-        
+
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-    
-    public function getAllQuestions4Lec($id){
+
+    public function getAllQuestions4Lec($id) {
         $stmt = $this->connection->prepare("SELECT * FROM `questions` WHERE lecture_id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        
+
         $allQuests = array();
         $result = $stmt->get_result();
         while ($question = $result->fetch_assoc()) {
@@ -62,85 +64,119 @@ class db_conn {
         }
         return $allQuests;
     }
-    
-    public function getQuestionWithId($id){
+
+    public function getQuestionWithId($id) {
         $stmt = $this->connection->prepare("SELECT * FROM `questions` WHERE id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        
+
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-    
-    public function getQuestionCountForLec($id){
+
+    public function getQuestionCountForLec($id) {
         $stmt = $this->connection->prepare("SELECT COUNT(*) AS anzahl FROM `questions` WHERE lecture_id=?");
         $stmt->bind_param("i", $id);
-        $stmt->execute();  
+        $stmt->execute();
         $row = $stmt->get_result();
         $count = $row->fetch_assoc();
         return intval($count['anzahl']);
     }
 
-    public function deleteQuestionFromDB($id){
+    public function deleteQuestionFromDB($id) {
         $stmt = $this->connection->prepare("DELETE FROM `questions` WHERE id=?");
         $stmt->bind_param("i", $id);
 
-        return $stmt->execute(); 
+        return $stmt->execute();
     }
-    
-    public function updateQuestionInDB($params){
+
+    public function updateQuestionInDB($params) {
         $stmt = $this->connection->prepare(
-            "UPDATE `questions` SET `text`=?, `answer`=?,`difficulty`=?,`frequency`=?,"
+                "UPDATE `questions` SET `text`=?, `answer`=?,`difficulty`=?,`frequency`=?,"
                 . "`points`=?,`space`=? WHERE id=?");
         $stmt->bind_param("ssiiiii", 
-                $params{'frage-text'},
-                $params{'antwort-text'},
-                $params{'difficulty'},
-                $params{'frequency'},
-                $params{'points'},
-                $params{'space-needed'},
-                $params{'question-id'});
-                
-        $stmt->execute(); 
+                $params{'frage-text'}, 
+                $params{'antwort-text'}, 
+                $params{'difficulty'}, 
+                $params{'frequency'}, 
+                $params{'points'}, 
+                $params{'space-needed'}, 
+                $params{'question-id'}
+        );
+        $stmt->execute();
     }
- 
-    
-    public function saveQuestion2DB($params){
-    $stmt = $this->connection->prepare(
-            "INSERT INTO `questions`(`id`, `lecture_id`, `type`, `text`, `answer`, "
-            . "`difficulty`, `frequency`, `points` ,`space`, `created`, `last_usage`) "
-            . "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-    $id = 0;
-    $dateCre = date("Y-m-d H-i", time());
-    $dateLastUsed = "never";
-    $stmt->bind_param("iiissiiiiss",
-        $id,
-        $params{'lecture-id'},
-        $params{'frage-typ'},
-        $params{'frage-text'},
-        $params{'antwort-text'},
-        $params{'difficulty'},
-        $params{'frequency'},
-        $params{'points'},
-        $params{'space-needed'},
-        $dateCre,
-        $dateLastUsed
-    );
-    $stmt->execute();
+
+    public function saveQuestion2DB($params) {
+        $stmt = $this->connection->prepare(
+                "INSERT INTO `questions`(`id`, `lecture_id`, `type`, `text`, `answer`, "
+                . "`difficulty`, `frequency`, `points` ,`space`, `created`, `last_usage`) "
+                . "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        $id = 0;
+        $dateCre = date("Y-m-d H-i", time());
+        $dateLastUsed = "never";
+        $stmt->bind_param("iiissiiiiss", 
+                $id, 
+                $params{'lecture-id'}, 
+                $params{'frage-typ'}, 
+                $params{'frage-text'}, 
+                $params{'antwort-text'}, 
+                $params{'difficulty'}, 
+                $params{'frequency'}, 
+                $params{'points'}, 
+                $params{'space-needed'}, 
+                $dateCre, $dateLastUsed
+        );
+        $stmt->execute();
     }
-    
-    public function saveLecture2DB($params){
-    $stmt = $this->connection->prepare(
-            "INSERT INTO `lectures`(`id`, `bezeichnung`, `bezeichnung_kurz`, `created`) "
-            . "VALUES (?,?,?,?)");
-    $id = 0;
-    $dateCre = date("Y-m-d H-i", time());
-    $stmt->bind_param("isss",
-        $id,
-        $params['bezeichnung'],
-        $params['bezeichnung_kurz'],
-        $dateCre
-    );
-    $stmt->execute();
+
+    public function saveLecture2DB($params) {
+        $stmt = $this->connection->prepare(
+                "INSERT INTO `lectures`(`id`, `bezeichnung`, `bezeichnung_kurz`, `created`) "
+                . "VALUES (?,?,?,?)");
+        $id = 0;
+        $dateCre = date("Y-m-d H-i", time());
+        $stmt->bind_param("isss", 
+                $id, 
+                $params['bezeichnung'], 
+                $params['bezeichnung_kurz'], 
+                $dateCre
+        );
+        $stmt->execute();
+    }
+
+    private function createDatabaseIfNotExistent() {
+        $query = "CREATE DATABASE IF NOT EXISTS " . $this->name;
+        if ($this->connection->query($query) !== TRUE) {
+            echo "Database not created. " . $this->connection->error;
+        }
+
+        $query = "CREATE TABLE IF NOT EXISTS " . $this->name . ".Questions (
+                    id int(5) NOT NULL AUTO_INCREMENT,
+                    lecture_id tinyint(3) NOT NULL,
+                    type tinyint(1) DEFAULT NULL,
+                    text varchar(128) DEFAULT NULL,
+                    answer varchar(1024) DEFAULT NULL,
+                    difficulty tinyint(2) DEFAULT 3,
+                    frequency tinyint(2) DEFAULT 3,
+                    points INT DEFAULT 1,
+                    space tinyint(2) DEFAULT 1,
+                    created varchar(16) DEFAULT NULL,
+                    last_usage varchar(16) DEFAULT NULL,
+                    PRIMARY KEY(id)
+                );";
+        if ($this->connection->query($query) !== TRUE) {
+            echo "Table Questions not created. " . $this->connection->error;
+        }
+
+        $query = "CREATE TABLE IF NOT EXISTS " . $this->name . ".Lectures (
+                    id tinyint(3) NOT NULL AUTO_INCREMENT,
+                    bezeichnung varchar(128) DEFAULT NULL,
+                    bezeichnung_kurz varchar (6) DEFAULT NULL,
+                    created varchar(16) DEFAULT NULL,
+                    PRIMARY KEY(id)
+                );";
+        if ($this->connection->query($query) !== TRUE) {
+            echo "Table Lectures not created. " . $this->connection->error;
+        }
     }
 }

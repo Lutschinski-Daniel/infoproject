@@ -1,3 +1,3 @@
-<h1>{$bez_kurz}</h1>
-<h2>{$bez}</h2>
-Anzahl Fragen: {$anz_fragen}
+<h1>{$bez} ({$bez_kurz})</h1>
+<h2>Anzahl Fragen: {$anz_fragen}</h2>
+Hier könnten noch weiter Infos hinzugefügt werden!

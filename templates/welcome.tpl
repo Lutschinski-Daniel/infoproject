@@ -1,1 +1,1 @@
-<h1>Welcome to creXam {$name}! :)</h1>
+<h1>Welcome to creXam! :)</h1>

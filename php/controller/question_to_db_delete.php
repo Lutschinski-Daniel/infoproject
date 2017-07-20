@@ -1,5 +1,4 @@
 <?php
-
 include '../../db/db_conn.php';
 
 $conn = db_conn::getInstance();

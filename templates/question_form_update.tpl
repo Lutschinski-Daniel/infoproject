@@ -6,17 +6,19 @@
     {if ($question.type === 0)}
         <label class="mc-antwort-label">Anworten:</label><br />
         {assign var=answers value=$question.answer|json_decode:1}
-        {debug}
         {foreach from=$answers item=$mc}
-            <span class="mc-antwort"><input type="text" name="antwort" value="{$mc.antwort}"></input>
-                <input name="antwort-gruppe" type="checkbox" value="WAHR" {if ($mc.wahrheitswert == 1)}checked{/if}>WAHR</input></span><br />
+            <span class="mc-antwort">
+                <input type="text" name="antwort" value="{$mc.antwort}"></input>
+                <input name="antwort-gruppe" type="checkbox" value="WAHR" {if ($mc.wahrheitswert == 1)}checked{/if}>WAHR</input>
+            </span><br />
             {/foreach}
         <button class="add-answer-btn">Zusätzliche Antwort</button><br />
         <label>Punkte: </label><label class="mc-punkte-label">0</label>
     {else}
         <label>Musterantwort:</label><br />
         <textarea name="antwort-text" rows="6" class="frage-antwort-textareas">{$question.answer}</textarea><br />
-        <label class="punkte-label">Punkte: </label><input id="frage-antwort-punkte" type="number" name="points" value="{$question.points}" max="50" min="1"></input>
+        <label class="punkte-label">Punkte: </label>
+        <input id="frage-antwort-punkte" type="number" name="points" value="{$question.points}" max="50" min="1"></input>
     {/if}
     <br>
     <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 
