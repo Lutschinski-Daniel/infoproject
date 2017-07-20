@@ -35,57 +35,6 @@ $('body').on('click', '.create-lecture-btn', function () {
     });
 });
 
-$('body').on('click', '.create-question-btn', function () {
-    var antwortArray = [];
-    var punkte;
-
-    // Multiple-Choice
-    if ($(".frage-typ option:selected").val() == 0) {
-        antwortText = [];
-        $(".mc-antwort").each(function () {
-            antwortArray.push({
-                antwort: $(this).children('input[name=antwort]').val(),
-                wahrheitswert: $(this).children('input[name=antwort-gruppe]').prop("checked")
-                        /*antwort : { 
-                         text : $(this).children('input[name=antwort]').val(),
-                         wahrheitswert:  $(this).children('input[name=antwort-gruppe]').prop("checked")
-                         }*/
-            });
-        });
-        punkte = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
-        antwortText = JSON.stringify(antwortArray);
-        // Frage-Antwort
-    } else {
-        antwortText = $('textarea[name=antwort-text]').val();
-        punkte = $('input[name=points]').val();
-    }
-    ;
-
-    if (validateInput() !== true) {
-        //showMessageBox(validInput);
-        return;
-    }
-
-    $.ajax({
-        url: 'php/controller/question_to_db.php',
-        type: "GET",
-        data: {
-            "question": {
-                "frage-typ": $(".frage-typ option:selected").val(),
-                "frage-text": $('textarea[name=frage-text]').val(),
-                "antwort-text": antwortText,
-                "difficulty": $('select[name=difficulty]').val(),
-                "frequency": $('select[name=frequency]').val(),
-                "points": punkte,
-                "space-needed": $('select[name=space-needed]').val(),
-            }
-        },
-        success: function (data) {
-            $(".body-content").html(data);
-        }
-    });
-});
-
 $('body').on('click', '.lecture', function () {
     clearLectureNav();
     $(this).addClass('picked-nav');
@@ -144,8 +93,7 @@ $('body').on('click', '.settings_li', function () {
 });
 
 $('body').on('change', '.frage-typ', function () {
-    clearInput();
-    if ($(".frage-typ option:selected").val() == 0) {
+    if ($(".frage-typ option:selected").val() === 0) {
         $('.mult-ch-platzhalter').removeClass('platzhalter');
         $('.frag-ant-platzhalter').addClass('platzhalter');
     } else {
@@ -154,19 +102,9 @@ $('body').on('change', '.frage-typ', function () {
     }
 });
 
-$('body').on('click', '.add-answer-btn', function () {
-    $('<span class="mc-antwort"><input name="antwort" type="text"></input><input name="antwort-gruppe" \n\
-    type="checkbox" value="WAHR">WAHR</input></span><br />').insertBefore('.add-answer-btn');
-});
-
 $('body').on('change', '.mc-antwort', function () {
-    var len = $(".update-mc-antworten input[name='antwort-gruppe']:checked").length;
+    var len = $(".mc-antwort input[name='antwort-gruppe']:checked").length;
     $('.mc-punkte-label').text(len);
-});
-
-$('body').on('change', '.update-mc-antwort', function () {
-    var len = $(".update-mc-antworten input[name='antwort-gruppe']:checked").length;
-    $('.update-mc-punkte-label').text(len);
 });
 
 function clearLectureNav() {
@@ -202,41 +140,24 @@ $('body').on('click', '.edit-question', function () {
     });
 });
 
-$('body').on('click', '.update-add-answer-btn', function () {
-    $('<span class="update-mc-antwort"><input type="text" name="antwort"><input name="antwort-gruppe" \n\
-        type="checkbox" value="WAHR">WAHR</input></span><br />').insertBefore('.update-add-answer-btn');
+$('body').on('click', '.add-answer-btn', function () {
+    $(  '<span class="mc-antwort"><input type="text" name="antwort"><input name="antwort-gruppe" \n\
+        type="checkbox" value="WAHR">WAHR</input></span><br />').insertBefore('.add-answer-btn');
 });
 
 $('body').on('click', '.question-update-btn', function () {
-    var antwortArray = [];
     var punkte;
     var antwortText;
 
     // Multiple-Choice
-    if ($(".question-update-form").children().hasClass('update-mc-antworten'))
+    if ($(".question-update-form").children().hasClass('mc-antwort-label'))
     {
-        var empty_antwort = 0;
-        $(".update-mc-antworten").each(function () {
-            if ($(this).children('input[name=antwort]').val() == "") {
-                empty_antwort++;
-            }
-        });
-        if (empty_antwort > 0) {
-            alert("Antworten dürfen nicht leer bleiben!");
-            return;
-        }
-        antwortText = [];
-        $(".update-mc-antworten").each(function () {
-            antwortArray.push({
-                antwort: $(this).children('input[name=update-antwort]').val(),
-                wahrheitswert: $(this).children('input[name=update-antwort-gruppe]').prop("checked")
-            });
-        });
-        punkte = $(".mult-ch-platzhalter input[name='update-antwort-gruppe']:checked").length;
-        antwortText = JSON.stringify(antwortArray);
+        antwortText = getMCAntwortText();
+        punkte = $(".question-update-form input[name='antwort-gruppe']:checked").length;
+    // Frage-Antwort    
     } else {
-        antwortText = $('textarea[name=update-antwort-text]').val();
-        punkte = $('input[name=update-points]').val();
+        antwortText = $('textarea[name=antwort-text]').val();
+        punkte = $('input[name=points]').val();
     }
 
     $.ajax({
@@ -245,12 +166,12 @@ $('body').on('click', '.question-update-btn', function () {
         data: {
             "question": {
                 "current_question_id": $(this).parent('.question-update-form').attr('id'),
-                "frage-text": $('textarea[name=update-frage-text]').val(),
+                "frage-text": $('textarea[name=frage-text]').val(),
                 "antwort-text": antwortText,
-                "difficulty": $('select[name=update-difficulty]').val(),
-                "frequency": $('select[name=update-frequency]').val(),
+                "difficulty": $('select[name=difficulty]').val(),
+                "frequency": $('select[name=frequency]').val(),
                 "points": punkte,
-                "space-needed": $('select[name=update-space-needed]').val(),
+                "space-needed": $('select[name=space-needed]').val()
             }
         },
         success: function (data) {
@@ -259,14 +180,50 @@ $('body').on('click', '.question-update-btn', function () {
     });
 });
 
+$('body').on('click', '.create-question-btn', function () {
+    var antwortText;
+    var punkte;
 
+    // Multiple-Choice
+    if ($(".frage-typ option:selected").val() === 0) {
+        antwortText = getMCAntwortText();
+        punkte = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
+    // Frage-Antwort
+    } else {
+        antwortText = $('textarea[name=antwort-text]').val();
+        punkte = $('input[name=points]').val();
+    };
+
+    if (validateInput() !== true) {
+        //showMessageBox(validInput);
+        return;
+    };
+
+    $.ajax({
+        url: 'php/controller/question_to_db.php',
+        type: "GET",
+        data: {
+            "question": {
+                "frage-typ": $(".frage-typ option:selected").val(),
+                "frage-text": $('textarea[name=frage-text]').val(),
+                "antwort-text": antwortText,
+                "difficulty": $('select[name=difficulty]').val(),
+                "frequency": $('select[name=frequency]').val(),
+                "points": punkte,
+                "space-needed": $('select[name=space-needed]').val()
+            }
+        },
+        success: function (data) {
+            $(".body-content").html(data);
+        }
+    });
+});
 
 
 //
 // FUNCTIONS
 //////////////////////////////////////////////
 function validateInput() {
-    clearInput();
     var error = 0;
 
     // Multiple-Choice
@@ -286,7 +243,8 @@ function validateInput() {
                 $('.mc-antwort-label').text('Anworten: Antworten dürfen nicht leer sein!');
                 $('.mc-antwort-label').addClass('input-error');
                 error++;
-            };
+            }
+            ;
         });
     } else { // Frage-Antwort
         if ($('textarea[name=frage-text]').val() === "") {
@@ -296,7 +254,7 @@ function validateInput() {
         }
 
         punkte = parseInt($('#frage-antwort-punkte').val());
-        if ( punkte < 1 || punkte > 50 ) {
+        if (punkte < 1 || punkte > 50) {
             $('.punkte-label').addClass('input-error');
             $('.punkte-label').text('Punkte (1-50):');
             error++;
@@ -310,14 +268,28 @@ function validateInput() {
     }
 };
 
+function getMCAntwortText() {
+    antwortArray = [];
+    $(".mc-antwort").each(function () {
+        antwortArray.push({
+            antwort: $(this).children('input[name=antwort]').val(),
+            wahrheitswert: $(this).children('input[name=antwort-gruppe]').prop("checked")
+        });
+    });
+    return JSON.stringify(antwortArray);
+};
+
 function showMessageBox(message) {
     $('.global-message-div').text(message).show().delay(1000).fadeOut(1500);
-}
-;
+};
 
 function clearInput() {
-    $('.frage-text-label').text('Fragetext:');
-    $('.mc-antwort-label').text('Anworten:');
-    $('.punkte-label').text('Punkte:');
-    $('.add-question-form').children().removeClass('input-error');
+    /*
+     $('.frage-text-label').text('Fragetext:');
+     $('.mc-antwort-label').text('Anworten:');
+     $('.punkte-label').text('Punkte:');
+     $('.add-question-form').children().removeClass('input-error');
+     $('.frage-antwort-textareas').val("");
+     $('.update-mc-antworten input[name=antwort]').val(""); 
+     */
 };

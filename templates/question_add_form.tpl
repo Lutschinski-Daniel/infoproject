@@ -21,7 +21,7 @@
         </div>
         <div class="frag-ant-platzhalter">
             <label>Musterantwort:</label><br />
-            <textarea name="antwort-text" rows="6" cols="50" class="frage-antwort-textareas"></textarea><br />
+            <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"></textarea><br />
             <label class="punkte-label">Punkte: </label><input id="frage-antwort-punkte" type="number" name="points" value="10" max="50" min="1"></input>
         </div>
     </div>

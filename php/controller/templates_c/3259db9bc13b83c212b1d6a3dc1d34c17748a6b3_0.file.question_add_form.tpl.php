@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-19 22:31:33
+/* Smarty version 3.1.30, created on 2017-07-20 14:27:25
   from "C:\xampp\htdocs\Crexam\templates\question_add_form.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_596fc1a56d6d10_42143710',
+  'unifunc' => 'content_5970a1adcb3c85_86353444',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3259db9bc13b83c212b1d6a3dc1d34c17748a6b3' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_add_form.tpl',
-      1 => 1500496289,
+      1 => 1500553640,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_596fc1a56d6d10_42143710 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5970a1adcb3c85_86353444 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h1>Neue Frage erstellen für Vorlesung: <?php echo $_smarty_tpl->tpl_vars['vorlesung']->value;?>
 </h1>
@@ -53,7 +53,7 @@ $_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration 
         </div>
         <div class="frag-ant-platzhalter">
             <label>Musterantwort:</label><br />
-            <textarea name="antwort-text" rows="6" cols="50" class="frage-antwort-textareas"></textarea><br />
+            <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"></textarea><br />
             <label class="punkte-label">Punkte: </label><input id="frage-antwort-punkte" type="number" name="points" value="10" max="50" min="1"></input>
         </div>
     </div>
