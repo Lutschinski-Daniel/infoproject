@@ -5,9 +5,9 @@
     <br>
     <input type="text" name="bezeichnung"></input>
     <br>
-    <label>Kürzel (max. 6 Zeichen):</label> 
+    <label>Kürzel (max. 8 Zeichen):</label> 
     </br>
-    <input type="text" name="bezeichnung_kurz" maxlength="6"></input>
+    <input type="text" name="bezeichnung_kurz" maxlength="8"></input>
     <br>
     <button class="create-lecture-btn">Erstellen</button>
 </div>

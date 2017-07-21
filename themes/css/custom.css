@@ -195,6 +195,7 @@ a:visited {
   height: 100%;
   border-right: 1px solid #777;
   overflow: auto;
+  word-break: break-word;
 }
 .body-content {
   padding: 10px;
@@ -307,7 +308,7 @@ a:visited {
   padding: 5px;
 }
 .delete-question:hover {
-  background-color: #eee;
+  background-color: red;
 }
 .frage-antwort-textareas {
   width: 100%;

@@ -54,6 +54,7 @@ $('body').on('click', '.quest_add_li', function () {
     $.ajax({
         url: 'php/controller/question_form_create.php',
         type: "GET",
+        dataType: "html",
         success: function (data) {
             $(".body-content").html(data);
         }
@@ -111,18 +112,24 @@ $('body').on('click', '.delete-question', function () {
     $.ajax({
         url: 'php/controller/question_to_db_delete.php',
         type: "GET",
+        dataTyp: "json",
         data: {
             "delete_id": $(this).parent('.question-box').attr('id')
         },
-        success: function (data) {
-            $('.question-box#' + id).remove();
-            showMessageBox(data);
+        success: function (response) {
+            if(response.success){
+             $('.question-box#' + id).remove();
+             showMessageBox(response.success);
+            } else {
+                showMessageBox(response.error);
+            }
         }
     });
 });
 
 $('body').on('click', '.edit-toggle', function () {
     var id = $(this).parent('.question-box').attr('id');
+    alert("Id: " + id);
     $('.edit-question').removeClass('edit-toggle');
     $.ajax({
         url: 'php/controller/question_form_update.php',
@@ -131,9 +138,8 @@ $('body').on('click', '.edit-toggle', function () {
             "update_id": $(this).parent('.question-box').attr('id')
         },
         success: function (data) {
-            $("section[name=" + id + "]").html(data);
+            $("section[name="+id+"]").html(data);
             $('.mc-punkte-label').text($(".mc-antwort input[name='antwort-gruppe']:checked").length);
-            $('.edit-question').addClass('edit-toggle');
         }
     });
 });
@@ -178,9 +184,9 @@ $('body').on('click', '.question-update-btn', function () {
             }
         },
         success: function (data) {
-            //$(".body-content").html("Update erfolgreich!");
-            //$(this).parent('.question-update-form').attr('id')
             $('#' + id).html(data);
+            $('.edit-question').addClass('edit-toggle');
+            showMessageBox("Update erfolgreich!");
         }
     });
 });
@@ -206,6 +212,7 @@ $('body').on('click', '.create-question-btn', function () {
     $.ajax({
         url: 'php/controller/question_to_db.php',
         type: "GET",
+        dataType: "json",
         data: {
             "question": {
                 "frage-typ": $(".frage-typ option:selected").val(),
@@ -217,8 +224,13 @@ $('body').on('click', '.create-question-btn', function () {
                 "space-needed": $('select[name=space-needed]').val()
             }
         },
-        success: function (data) {
-            $(".body-content").html(data);
+        success: function (response) {
+            if(response.success){
+                showMessageBox(response.success);
+            }
+            if(response.error){
+                showMessageBox(response.error);
+            }
         }
     });
 });

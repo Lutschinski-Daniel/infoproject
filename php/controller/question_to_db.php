@@ -1,8 +1,10 @@
 <?php
 session_start();
+include ('../../db/db_conn.php');
+header("Content-Type: application/json");
 
-include '../../db/db_conn.php';
 
+$response = array();
 $conn = db_conn::getInstance();
 $params = array(
     "lecture-id" => $_SESSION['current_lecture_id'],
@@ -14,6 +16,10 @@ $params = array(
     "points" => $_GET['question']['points'],
     "space-needed" => $_GET['question']['space-needed']
 );
-$conn->saveQuestion2DB($params);
 
-echo "<h1>Frage wurde erstellt! Was aber wenn nicht?</h1>";
+if( $conn->saveQuestion2DB($params) === false ) {
+    $response = array('error' => 'Datenbankfehler beim Fragenerstellen!');
+} else {
+    $response = array('success' => 'Frage wurde erstellt!');
+}
+echo json_encode($response);

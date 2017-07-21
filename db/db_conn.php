@@ -126,7 +126,7 @@ class db_conn {
                 $params{'space-needed'}, 
                 $dateCre, $dateLastUsed
         );
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function saveLecture2DB($params) {

@@ -1,8 +1,8 @@
 <?php
 session_start();
 include("../../libs/Smarty.class.php");
-
 header('Content-type: application/html');
+
 
 $smarty = new Smarty;
 if (isset($_SESSION['current_lecture_bez'])) {
