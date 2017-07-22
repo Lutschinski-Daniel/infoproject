@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if (isset($_SESSION['current_lecture_bez'])) {
+if (isset($_SESSION['current_lecture_id'])) {
+    unset($_SESSION['current_lecture_id']);
     unset($_SESSION['current_lecture_bez']);
 }
 ?>

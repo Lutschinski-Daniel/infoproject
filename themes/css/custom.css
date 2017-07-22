@@ -331,6 +331,9 @@ a:visited {
 .input-error {
   border: 2px solid red;
 }
+.exam-user-input-list {
+  list-style-type: none;
+}
 /*******************/
 /* Media queries   */
 /*******************/
@@ -375,6 +378,12 @@ a:visited {
   }
   .frage-antwort-textareas {
     width: 50%;
+  }
+  .exam-user-input-list li {
+    display: inline;
+  }
+  .exam-user-input-list .exam-date {
+    width: 150px;
   }
 }
 /*# sourceMappingURL=custom.css.map */

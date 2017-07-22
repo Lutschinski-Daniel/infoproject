@@ -25,12 +25,18 @@ $('body').on('click', '.create-lecture-btn', function () {
     $.ajax({
         url: 'php/controller/lecture_to_db.php',
         type: "GET",
+        dataType: "json",
         data: {
             "bezeichnung": $('input[name=bezeichnung]').val(),
             "bezeichnung_kurz": $('input[name=bezeichnung_kurz]').val()
         },
-        success: function (data) {
-            $(data).insertAfter(".lectures-list li:last");
+        success: function (response) {
+            if(response.success){
+                $(response.data).insertAfter(".lectures-list li:last");
+                showMessageBox(response.success);
+            } else {
+                showMessageBox(response.error);
+            }
         }
     });
 });
@@ -75,8 +81,14 @@ $('body').on('click', '.exam_new_li', function () {
     $.ajax({
         url: 'php/controller/exam.php',
         type: "GET",
-        success: function (data) {
-            $(".body-content").html(data);
+        dataType: "json",
+        success: function (response) {
+            if(response.success) {
+                $(".body-content").html(response.success);
+            } 
+            if(response.error) {
+                $(".body-content").html(response.error);
+            }
         }
     });
 });
@@ -129,7 +141,6 @@ $('body').on('click', '.delete-question', function () {
 
 $('body').on('click', '.edit-toggle', function () {
     var id = $(this).parent('.question-box').attr('id');
-    alert("Id: " + id);
     $('.edit-question').removeClass('edit-toggle');
     $.ajax({
         url: 'php/controller/question_form_update.php',
@@ -184,7 +195,7 @@ $('body').on('click', '.question-update-btn', function () {
             }
         },
         success: function (data) {
-            $('#' + id).html(data);
+            $('#'+id+'.question-box').html(data);
             $('.edit-question').addClass('edit-toggle');
             showMessageBox("Update erfolgreich!");
         }

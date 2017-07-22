@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../db/db_conn.php';
+header('Content-type: application/json');
 
 if( isset($_SESSION['current_lecture_id'])) {
     unset($_SESSION['current_lecture_id']);
@@ -15,10 +16,20 @@ $params = array(
 $conn->saveLecture2DB($params);
 
 $conn = db_conn::getInstance();
-$lecture = $conn->getLectureWithKurzBez($_GET['bezeichnung_kurz']);
+$lecture = $conn->getLectureWithKurzBez($params['bezeichnung_kurz']);
 
-if ($lecture != NULL)
-    echo '<li class="lecture"><a href="#" id="' . $lecture['id'] . '" >'
+$response = array();
+if ($lecture != NULL) {
+    $data = '<li class="lecture"><a href="#" id="' . $lecture['id'] . '" >'
                     . $lecture['bezeichnung_kurz'] . '</a></li>';
-else
-    echo "Probably not worked!";
+    $response = array ( 
+        'success' => 'Vorlesung wurde erstellt!', 
+        'data' => $data
+    );
+} else {
+    $response = array (
+        'error' => "Fehler beim Erstellen der Vorlesung!"
+    ); 
+}
+
+echo json_encode($response);
