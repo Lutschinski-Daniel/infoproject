@@ -246,10 +246,55 @@ $('body').on('click', '.create-question-btn', function () {
     });
 });
 
+$('body').on('click', '.exam-create-btn', function () {
+    resetExamInputErrors();
+    if (validateExamInput() === false){
+        return;
+    };
+
+    $.ajax({
+        url: 'php/controller/exam.php',
+        type: "GET",
+        dataType: "json",
+        data: {
+            "laenge": $('.exam-laenge option:selected').val(),
+            "punkte": $('input[name=exam-punkte]').val(),
+            "datum": $('input[name=exam-date]').val()
+        },
+        success: function (response) {
+            if(response.success) {
+                $(".body-content").html(response.success);
+            } 
+            if(response.error) {
+                $(".body-content").html(response.error);
+            }
+        }
+    });
+});
 
 //
 // FUNCTIONS
 //////////////////////////////////////////////
+function resetExamInputErrors(){
+    $('input[name=exam-date]').removeClass('input-error');
+    $('input[name=exam-punkte]').removeClass('input-error');
+}
+
+function validateExamInput(){
+    var error = 0;
+    
+    if ($('input[name=exam-date]').val() === ""){
+        $('input[name=exam-date]').addClass('input-error');
+        error++;
+    }
+    if ($('input[name=exam-punkte]').val() < 1){
+        $('input[name=exam-punkte]').addClass('input-error');
+        error++;
+    }
+    
+    return error === 0 ? true : false;
+}
+
 function getMCAntwortText() {
     antwortArray = [];
     $(".mc-antwort").each(function () {
