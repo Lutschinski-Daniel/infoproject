@@ -23,11 +23,18 @@
 </button>
     
 {if $questions != ""}
-    <div class="exam-questions">
+    <h2 class="vorschlag-titel">Klausurvorschlag</h2>
+    <div class="exam-questions-box">
         {foreach from=$questions item=question}
-            Frage: {$question} <br />
+            <div class="exam-question">
+                <span class="vorschlag-question-up">UP</span>
+                <span class="vorschlag-question-down">DOWN</span>
+                <span class="vorschlag-question-switch">Switch</span>
+                Frage: {$question} 
+            </div>
         {/foreach}
     </div>    
+    <h3 class="vorschlag-daten">Zusätzliche Daten (Durchschnitt Schwierigkeit, tatsächliche Punkte ...)</h3>
 {/if}
 
 {debug}

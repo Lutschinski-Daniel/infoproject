@@ -5,7 +5,7 @@ include '../../db/db_conn.php';
 include("../../libs/Smarty.class.php");
 
 $response = array();
-$questions_test = array ("Wieso weinst du?", "Warum die Banane krumm?");
+$questions_test = array ("Wieso weinst du?", "Warum die Banane krumm?", "Best baller?", "Favourite ICE?");
 $today = date('d.m.Y');
 
 if( isset($_SESSION['current_lecture_id'])) {

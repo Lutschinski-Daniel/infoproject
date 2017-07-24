@@ -272,6 +272,19 @@ $('body').on('click', '.exam-create-btn', function () {
     });
 });
 
+$('body').on('click', '.vorschlag-question-up', function () {
+    $(this).parent('.exam-question').insertBefore($(this).parent('.exam-question').prev());
+});
+
+$('body').on('click', '.vorschlag-question-down', function () {
+    $(this).parent('.exam-question').insertAfter($(this).parent('.exam-question').next());
+});
+
+$('body').on('click', '.vorschlag-question-switch', function () {
+    var data = "<h1>Replaced!</h1>";
+    $(this).parent('.exam-question').replaceWith(data);
+});
+
 //
 // FUNCTIONS
 //////////////////////////////////////////////

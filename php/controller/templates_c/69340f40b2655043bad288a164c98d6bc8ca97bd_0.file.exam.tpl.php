@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-22 12:43:49
+/* Smarty version 3.1.30, created on 2017-07-24 16:27:26
   from "C:\xampp\htdocs\Crexam\templates\exam.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_59732c65f04164_36036747',
+  'unifunc' => 'content_597603ce235192_84282962',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '69340f40b2655043bad288a164c98d6bc8ca97bd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\exam.tpl',
-      1 => 1500720218,
+      1 => 1500906143,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_59732c65f04164_36036747 (Smarty_Internal_Template $_smarty_tpl) {
+function content_597603ce235192_84282962 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h1>Klausur für: <?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
 </h1>
@@ -50,14 +50,20 @@ function content_59732c65f04164_36036747 (Smarty_Internal_Template $_smarty_tpl)
 </button>
     
 <?php if ($_smarty_tpl->tpl_vars['questions']->value != '') {?>
-    <div class="exam-questions">
+    <h2 class="vorschlag-titel">Klausurvorschlag</h2>
+    <div class="exam-questions-box">
         <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value, 'question');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
-            Frage: <?php echo $_smarty_tpl->tpl_vars['question']->value;?>
- <br />
+            <div class="exam-question">
+                <span class="vorschlag-question-up">UP</span>
+                <span class="vorschlag-question-down">DOWN</span>
+                <span class="vorschlag-question-switch">Switch</span>
+                Frage: <?php echo $_smarty_tpl->tpl_vars['question']->value;?>
+ 
+            </div>
         <?php
 }
 }
@@ -65,6 +71,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
     </div>    
+    <h3 class="vorschlag-daten">Zusätzliche Daten (Durchschnitt Schwierigkeit, tatsächliche Punkte ...)</h3>
 <?php }?>
 
 <?php $_smarty_debug = new Smarty_Internal_Debug;
