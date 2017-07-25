@@ -16,6 +16,8 @@ if( isset($_SESSION['current_lecture_id'])) {
         // SAVE QUESTIONS FOR EXAM HERE!
         // $smarty->assign('questions', $questions);
         $smarty->assign("questions", $questions_test);
+        $smarty->left_delimiter = '<<';
+        $smarty->right_delimiter = '>>';
         $result = $smarty->fetch("../../vorlage/klausur1.tpl");
         file_put_contents("../../tex/klausur1.tex", $result);
         $response = array('success' => 'Klausur wurde erstellt!');

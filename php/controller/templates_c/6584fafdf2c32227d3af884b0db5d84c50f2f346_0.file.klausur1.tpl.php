@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-25 18:16:44
+/* Smarty version 3.1.30, created on 2017-07-25 18:38:18
   from "C:\xampp\htdocs\Crexam\vorlage\klausur1.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_59776eec40bc30_04703555',
+  'unifunc' => 'content_597773faa498f7_13226169',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6584fafdf2c32227d3af884b0db5d84c50f2f346' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\vorlage\\klausur1.tpl',
-      1 => 1500999398,
+      1 => 1501000688,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_59776eec40bc30_04703555 (Smarty_Internal_Template $_smarty_tpl) {
+function content_597773faa498f7_13226169 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
-\documentclass{ article }
-\title{ Klausurtest }
-\author{ Bud Spencer }
-\date{ 30.06.17 }
-\begin{ document }
+\documentclass{article}
+\title{Klausurtest}
+\author{Bud Spencer}
+\date{30.06.17}
+\begin{document}
 \maketitle
 \newpage
 <?php
@@ -43,7 +43,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-\end{ document }
+\end{document}
 
 <?php }
 }
