@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-25 16:17:50
+/* Smarty version 3.1.30, created on 2017-07-25 17:58:24
   from "C:\xampp\htdocs\Crexam\templates\exam.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5977530e53c9f4_90900691',
+  'unifunc' => 'content_59776aa04b7f97_70769096',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '69340f40b2655043bad288a164c98d6bc8ca97bd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\exam.tpl',
-      1 => 1500992228,
+      1 => 1500998230,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5977530e53c9f4_90900691 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59776aa04b7f97_70769096 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h1>Klausur für: <?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
 </h1>
@@ -29,9 +29,9 @@ function content_5977530e53c9f4_90900691 (Smarty_Internal_Template $_smarty_tpl)
     <li>
         Klausurlänge: 
         <select class="exam-laenge">
-            <option <?php if ($_smarty_tpl->tpl_vars['punkte']->value == 60) {?>selected="selected"<?php }?>>60</option>
-            <option <?php if ($_smarty_tpl->tpl_vars['punkte']->value == 90) {?>selected="selected"<?php }?>>90</option>
-            <option <?php if ($_smarty_tpl->tpl_vars['punkte']->value == 120) {?>selected="selected"<?php }?>>120</option>
+            <option value="60">60</option>
+            <option value="90">90</option>
+            <option value="120">120</option>
         </select>
     </li>
     <li>
@@ -45,8 +45,8 @@ function content_5977530e53c9f4_90900691 (Smarty_Internal_Template $_smarty_tpl)
 "/><br />
     </li>
 </ul>
-<button class="exam-create-btn">
-    Klausur erstellen
+<button class="exam-create-vorschlag">
+    Klausurvorschlag
 </button>
     
 <?php if ($_smarty_tpl->tpl_vars['questions']->value != '') {?>
@@ -74,10 +74,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
     </div>    
     <h3 class="vorschlag-daten">Zusätzliche Daten (Durchschnitt Schwierigkeit, tatsächliche Punkte ...)</h3>
-<?php }?>
-
-<?php $_smarty_debug = new Smarty_Internal_Debug;
- $_smarty_debug->display_debug($_smarty_tpl);
-unset($_smarty_debug);
+    <button class="exam-create-btn">
+        Klausur erstellen
+    </button>
+<?php }
 }
 }

@@ -6,25 +6,32 @@ include("../../libs/Smarty.class.php");
 
 $response = array();
 $questions_test = array ("Wieso weinst du?", "Warum die Banane krumm?", "Best baller?", "Favourite ICE?");
-$today = date('d.m.Y');
 
 if( isset($_SESSION['current_lecture_id'])) {
     $smarty = new Smarty;
     $smarty->assign("lecture", $_SESSION['current_lecture_bez']);
     
-    if( isset($_GET['laenge'], $_GET['punkte'], $_GET['datum'])){
+    if (isset ($_GET['save'])) { 
+        // 
+        // SAVE QUESTIONS FOR EXAM HERE!
+        // $smarty->assign('questions', $questions);
+        $smarty->assign("questions", $questions_test);
+        $result = $smarty->fetch("../../vorlage/klausur1.tpl");
+        file_put_contents("../../tex/klausur1.tex", $result);
+        $response = array('success' => 'Klausur wurde erstellt!');
+    } elseif( isset($_GET['laenge'], $_GET['punkte'], $_GET['datum'])){
         $smarty->assign('laenge', $_GET['laenge']);
         $smarty->assign('punkte', $_GET['punkte']);
         $smarty->assign('datum', $_GET['datum']);
         // 
-        // LOAD QUESTIONS FOR EXAM-VORSCHLAG HIER!
+        // LOAD QUESTIONS FOR EXAM-VORSCHLAG HERE!
         // $smarty->assign('questions', $questions);
         $smarty->assign('questions', $questions_test);
         $response = array('success' => $smarty->fetch("../../templates/exam.tpl"));
     } else {
         $smarty->assign('laenge', "");
         $smarty->assign('punkte', 100);
-        $smarty->assign('datum', $today);
+        $smarty->assign('datum', date('d.m.Y'));
         $smarty->assign('questions', "");
         $response = array('success' => $smarty->fetch("../../templates/exam.tpl"));
     }

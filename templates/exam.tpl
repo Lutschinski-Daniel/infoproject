@@ -4,9 +4,9 @@
     <li>
         Klausurlänge: 
         <select class="exam-laenge">
-            <option {if $punkte eq 60}selected="selected"{/if}>60</option>
-            <option {if $punkte eq 90}selected="selected"{/if}>90</option>
-            <option {if $punkte eq 120}selected="selected"{/if}>120</option>
+            <option value="60">60</option>
+            <option value="90">90</option>
+            <option value="120">120</option>
         </select>
     </li>
     <li>
@@ -18,8 +18,8 @@
         <input name="exam-date" class="exam-date" value="{$datum}"/><br />
     </li>
 </ul>
-<button class="exam-create-btn">
-    Klausur erstellen
+<button class="exam-create-vorschlag">
+    Klausurvorschlag
 </button>
     
 {if $questions != ""}
@@ -37,6 +37,7 @@
         {/foreach}
     </div>    
     <h3 class="vorschlag-daten">Zusätzliche Daten (Durchschnitt Schwierigkeit, tatsächliche Punkte ...)</h3>
+    <button class="exam-create-btn">
+        Klausur erstellen
+    </button>
 {/if}
-
-{debug}

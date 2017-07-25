@@ -97,8 +97,8 @@ $('body').on('click', '.settings_li', function () {
     $.ajax({
         url: 'php/controller/settings.php',
         type: "GET",
-        success: function (data) {
-            $(".body-content").html(data);
+        success: function (response) {
+            $(".body-content").html(response.data);
         }
     });
 });
@@ -246,28 +246,65 @@ $('body').on('click', '.create-question-btn', function () {
     });
 });
 
-$('body').on('click', '.exam-create-btn', function () {
+$('body').on('click', '.exam-create-vorschlag', function () {
     resetExamInputErrors();
     if (validateExamInput() === false){
         return;
     };
-
+    
+    var laenge = $('.exam-laenge option:selected').val();
     $.ajax({
         url: 'php/controller/exam.php',
         type: "GET",
         dataType: "json",
         data: {
-            "laenge": $('.exam-laenge option:selected').val(),
+            "laenge": laenge,
             "punkte": $('input[name=exam-punkte]').val(),
             "datum": $('input[name=exam-date]').val()
         },
         success: function (response) {
             if(response.success) {
                 $(".body-content").html(response.success);
+                $('.exam-laenge').val(laenge);
             } 
             if(response.error) {
                 $(".body-content").html(response.error);
             }
+        }
+    });
+});
+
+$('body').on('click', '.save-vorlage-btn', function () {
+     $.ajax({
+        url: 'php/controller/settings.php',
+        type: "GET",
+        dataType: "json",
+        data: {
+            "save": $('.vorlage-textarea').val()
+        },
+        success: function (response) {
+            if(response.success) {
+                showMessageBox(response.success);
+            } 
+            if (response.data) {
+                $(".body-content").html(response.data);
+            }
+        }
+    });
+});
+
+$('body').on('click', '.exam-create-btn', function () {
+     $.ajax({
+        url: 'php/controller/exam.php',
+        type: "GET",
+        dataType: "json",
+        data: {
+            "save": "Whales"
+        },
+        success: function (response) {
+            if(response.success) {
+                showMessageBox(response.success);
+            } 
         }
     });
 });
