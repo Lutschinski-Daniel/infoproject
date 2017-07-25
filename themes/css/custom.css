@@ -348,14 +348,18 @@ a:visited {
 }
 .vorschlag-question-up,
 .vorschlag-question-down,
-.vorschlag-question-switch {
+.vorschlag-question-switch,
+.vorschlag-question-top,
+.vorschlag-question-bot {
   margin: 3px 2;
   padding: 3px;
   border: 1px solid #777;
 }
 .vorschlag-question-up:hover,
 .vorschlag-question-down:hover,
-.vorschlag-question-switch:hover {
+.vorschlag-question-switch:hover,
+.vorschlag-question-top:hover,
+.vorschlag-question-bot:hover {
   background-color: #eee;
 }
 /*******************/

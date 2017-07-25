@@ -27,8 +27,10 @@
     <div class="exam-questions-box">
         {foreach from=$questions item=question}
             <div class="exam-question">
+                <span class="vorschlag-question-top">TOP</span>
                 <span class="vorschlag-question-up">UP</span>
                 <span class="vorschlag-question-down">DOWN</span>
+                <span class="vorschlag-question-bot">BOT</span>
                 <span class="vorschlag-question-switch">Switch</span>
                 Frage: {$question} 
             </div>

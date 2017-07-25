@@ -272,6 +272,14 @@ $('body').on('click', '.exam-create-btn', function () {
     });
 });
 
+$('body').on('click', '.vorschlag-question-top', function () {
+    $(this).parent('.exam-question').prependTo($('.exam-questions-box'));
+});
+
+$('body').on('click', '.vorschlag-question-bot', function () {
+    $('.exam-questions-box').append($(this).parent('.exam-question'));
+});
+
 $('body').on('click', '.vorschlag-question-up', function () {
     $(this).parent('.exam-question').insertBefore($(this).parent('.exam-question').prev());
 });
