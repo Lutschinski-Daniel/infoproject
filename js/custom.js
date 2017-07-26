@@ -238,6 +238,7 @@ $('body').on('click', '.create-question-btn', function () {
         success: function (response) {
             if(response.success){
                 showMessageBox(response.success);
+                clearInput();
             }
             if(response.error){
                 showMessageBox(response.error);

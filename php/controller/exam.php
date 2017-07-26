@@ -12,10 +12,12 @@ if( isset($_SESSION['current_lecture_id'])) {
     $smarty->assign("lecture", $_SESSION['current_lecture_bez']);
     
     if (isset ($_GET['save'])) { 
+        $conn = db_conn::getInstance();
+        $quests = $conn->getAllQuestions4Lec($_SESSION['current_lecture_id']);
         // 
         // SAVE QUESTIONS FOR EXAM HERE!
         // $smarty->assign('questions', $questions);
-        $smarty->assign("questions", $questions_test);
+        $smarty->assign("questions", $quests);
         $smarty->left_delimiter = '<<';
         $smarty->right_delimiter = '>>';
         $result = $smarty->fetch("../../vorlage/klausur1.tpl");
