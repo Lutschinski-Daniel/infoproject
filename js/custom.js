@@ -300,7 +300,9 @@ $('body').on('click', '.exam-create-btn', function () {
         type: "GET",
         dataType: "json",
         data: {
-            "save": "Whales"
+            "save": "save",
+            "datum": $('input[name=exam-date]').val(),
+            "laenge": $('.exam-laenge option:selected').val()
         },
         success: function (response) {
             if(response.success) {

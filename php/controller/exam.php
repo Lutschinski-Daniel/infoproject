@@ -20,6 +20,8 @@ if( isset($_SESSION['current_lecture_id'])) {
         $smarty->assign("questions", $quests);
         $smarty->left_delimiter = '<<';
         $smarty->right_delimiter = '>>';
+        $smarty->assign("date", $_GET['datum']);
+        $smarty->assign("laenge", $_GET['laenge']);
         $result = $smarty->fetch("../../vorlage/klausur1.tpl");
         file_put_contents("../../tex/klausur1.tex", $result);
         $response = array('success' => 'Klausur wurde erstellt!');

@@ -4,8 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/Crexam/php/controller/exam.php</file>
+            <file>file:/C:/xampp/htdocs/Crexam/db/db_conn.php</file>
+            <file>file:/C:/xampp/htdocs/Crexam/tex/klausur1.tex</file>
             <file>file:/C:/xampp/htdocs/Crexam/templates/question_show_all.tpl</file>
             <file>file:/C:/xampp/htdocs/Crexam/vorlage/klausur1.tpl</file>
+            <file>file:/C:/xampp/htdocs/Crexam/php/controller/lecture_navbar.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/js/custom.js</file>
         </group>
     </open-files>

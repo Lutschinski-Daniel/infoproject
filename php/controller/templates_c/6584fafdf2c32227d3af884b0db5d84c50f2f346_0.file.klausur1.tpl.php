@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-26 18:50:48
+/* Smarty version 3.1.30, created on 2017-07-27 17:15:54
   from "C:\xampp\htdocs\Crexam\vorlage\klausur1.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5978c86888a025_54019462',
+  'unifunc' => 'content_597a03aa17cda0_39761237',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6584fafdf2c32227d3af884b0db5d84c50f2f346' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\vorlage\\klausur1.tpl',
-      1 => 1501087846,
+      1 => 1501168547,
       2 => 'file',
     ),
   ),
@@ -20,33 +20,50 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5978c86888a025_54019462 (Smarty_Internal_Template $_smarty_tpl) {
+function content_597a03aa17cda0_39761237 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
-\documentclass[addpoints]{exam}
-\usepackage[ngerman]{babel}	
-
-%
-% Format exam-class-keywords to german
-\pointpoints{Punkt}{Punkte}
-\bonuspointpoints{Extrapunkt}{Extrapunkte}
-\chqword{Augfabe}
-\chpgword{Seite}
-\chpword{Punkte}
-\chbpword{Extrapunkte}
-\chsword{Erreicht}
-\chtword{Total}
-
+\documentclass[addpoints,a4paper,ngerman,12pt,answers]{exam}
+\usepackage {babel}	
 \usepackage[utf8]{inputenc}
-\title{Klausur im Fach ...}
+\usepackage[a4paper,top=2.5cm,bottom=3cm,left=2.5cm,right=2cm]{geometry}
+
+\pointpoints{Punkt}{Punkte}
+\bonuspointpoints{Bonuspunkt}{Bonuspunkte}
+\renewcommand{\solutiontitle}{\noindent\textbf{Lösung:}\enspace}
+ 
+\chqword{Frage}   
+\chpgword{Seite} 
+\chpword{Punkte}   
+\chbpword{Bonus Punkte} 
+\chsword{Erreicht}   
+\chtword{Gesamt}
+
+\hpword{Punkte:} 
+\hsword{Erreicht:}
+\hqword{Aufgabe:}
+\htword{Summe:}
+
+
+
+\pagestyle{headandfoot}
+\runningheadrule
+\firstpageheader{}{}{}
+\runningheader{}{<?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
+}{<?php echo $_smarty_tpl->tpl_vars['date']->value;?>
+}
+\firstpagefooter{}{}{}
+\runningfooter{}{Seite \thepage\ von \numpages}{}
+
+\title{Klausur im Fach <?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
+}
 \author{Professor: Dr. rer. nat., Professor Tobias Eggendorfer}
-\date{30.06.17}
-\setlength{\textheight}{235mm}
-\setlength{\headheight}{13mm}
-\setlength{\topskip}{10mm}
+
+
 \begin{document}
 \maketitle
+\vspace{5cm}
 \makebox [\textwidth]{Name:\enspace\hrulefill}
-
+\vspace{1cm}
 \begin{center}
 \gradetable[h][questions]
 \end{center}

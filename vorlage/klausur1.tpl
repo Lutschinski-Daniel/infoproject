@@ -1,25 +1,42 @@
-\documentclass[addpoints]{exam}
-\usepackage[ngerman]{babel}	
-
-%
-% Format exam-class-keywords to german
-\pointpoints{Punkt}{Punkte}
-\bonuspointpoints{Extrapunkt}{Extrapunkte}
-\qformat{\textbf{Aufgabe \thequestion}\quad (\totalpoints)\hfill}
-\chtword{Gesamtpunkte}
-\cvqword{Aufgabe}
-
+\documentclass[addpoints,a4paper,ngerman,12pt,answers]{exam}
+\usepackage {babel}	
 \usepackage[utf8]{inputenc}
-\title{Klausur im Fach ...}
+\usepackage[a4paper,top=2.5cm,bottom=3cm,left=2.5cm,right=2cm]{geometry}
+
+\pointpoints{Punkt}{Punkte}
+\bonuspointpoints{Bonuspunkt}{Bonuspunkte}
+\renewcommand{\solutiontitle}{\noindent\textbf{Lösung:}\enspace}
+ 
+\chqword{Frage}   
+\chpgword{Seite} 
+\chpword{Punkte}   
+\chbpword{Bonus Punkte} 
+\chsword{Erreicht}   
+\chtword{Gesamt}
+
+\hpword{Punkte:} 
+\hsword{Erreicht:}
+\hqword{Aufgabe:}
+\htword{Summe:}
+
+
+
+\pagestyle{headandfoot}
+\runningheadrule
+\firstpageheader{}{}{}
+\runningheader{}{<<$lecture>>}{<<$date>>}
+\firstpagefooter{}{}{}
+\runningfooter{}{Seite \thepage\ von \numpages}{}
+
+\title{Klausur im Fach <<$lecture>>}
 \author{Professor: Dr. rer. nat., Professor Tobias Eggendorfer}
-\date{30.06.17}
-\setlength{\textheight}{235mm}
-\setlength{\headheight}{13mm}
-\setlength{\topskip}{10mm}
+
+
 \begin{document}
 \maketitle
+\vspace{5cm}
 \makebox [\textwidth]{Name:\enspace\hrulefill}
-
+\vspace{1cm}
 \begin{center}
 \gradetable[h][questions]
 \end{center}
