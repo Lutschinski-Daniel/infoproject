@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-20 20:57:33
+/* Smarty version 3.1.30, created on 2017-07-31 17:33:23
   from "C:\xampp\htdocs\Crexam\templates\question_form_update.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5970fd1d0862a5_87679094',
+  'unifunc' => 'content_597f4dc3904173_24891746',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '51d6675e2be51f4026e1f42aa476904fb1088657' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_form_update.tpl',
-      1 => 1500577046,
+      1 => 1501515194,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5970fd1d0862a5_87679094 (Smarty_Internal_Template $_smarty_tpl) {
+function content_597f4dc3904173_24891746 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="question-update-form" id="<?php echo $_smarty_tpl->tpl_vars['question']->value['id'];?>
 ">
@@ -41,9 +41,9 @@ foreach ($_from as $_smarty_tpl->tpl_vars['mc']->value) {
             <span class="mc-antwort">
                 <input type="text" name="antwort" value="<?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
 "></input><!--
-             --><input name="antwort-gruppe" type="checkbox" value="WAHR" <?php if (($_smarty_tpl->tpl_vars['mc']->value['wahrheitswert'] == 1)) {?>checked<?php }?>>WAHR</input>
+                --><input name="antwort-gruppe" type="checkbox" value="WAHR" <?php if (($_smarty_tpl->tpl_vars['mc']->value['wahrheitswert'] == 1)) {?>checked<?php }?>>WAHR</input>
             </span><br />
-            <?php
+        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
@@ -58,6 +58,24 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
         <label class="punkte-label">Punkte: </label>
         <input id="frage-antwort-punkte" type="number" name="points" value="<?php echo $_smarty_tpl->tpl_vars['question']->value['points'];?>
 " max="50" min="1"></input>
+        <br>
+        <label>Platzbedarf ( halbe Seiten x ... ):</label> 
+        <select class="space-needed" name="space-needed">
+            <?php
+$_smarty_tpl->tpl_vars['var'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['var']->step = 1;$_smarty_tpl->tpl_vars['var']->total = (int) ceil(($_smarty_tpl->tpl_vars['var']->step > 0 ? 4+1 - (1) : 1-(4)+1)/abs($_smarty_tpl->tpl_vars['var']->step));
+if ($_smarty_tpl->tpl_vars['var']->total > 0) {
+for ($_smarty_tpl->tpl_vars['var']->value = 1, $_smarty_tpl->tpl_vars['var']->iteration = 1;$_smarty_tpl->tpl_vars['var']->iteration <= $_smarty_tpl->tpl_vars['var']->total;$_smarty_tpl->tpl_vars['var']->value += $_smarty_tpl->tpl_vars['var']->step, $_smarty_tpl->tpl_vars['var']->iteration++) {
+$_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration == 1;$_smarty_tpl->tpl_vars['var']->last = $_smarty_tpl->tpl_vars['var']->iteration == $_smarty_tpl->tpl_vars['var']->total;?>
+                <?php if (($_smarty_tpl->tpl_vars['var']->value != 3)) {?>
+                    <option value="<?php echo $_smarty_tpl->tpl_vars['var']->value;?>
+" <?php if (($_smarty_tpl->tpl_vars['question']->value['space'] == $_smarty_tpl->tpl_vars['var']->value)) {?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
+</option>
+                <?php }?>
+            <?php }
+}
+?>
+
+        </select>
     <?php }?>
     <br>
     <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 
@@ -86,24 +104,6 @@ $_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration 
             <option value="<?php echo $_smarty_tpl->tpl_vars['var']->value;?>
 " <?php if (($_smarty_tpl->tpl_vars['question']->value['frequency'] == $_smarty_tpl->tpl_vars['var']->value)) {?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
 </option>
-        <?php }
-}
-?>
-
-    </select>
-    <br>
-    <label>Platzbedarf ( halbe Seiten x ... ):</label> 
-    <select class="space-needed" name="space-needed">
-        <?php
-$_smarty_tpl->tpl_vars['var'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['var']->step = 1;$_smarty_tpl->tpl_vars['var']->total = (int) ceil(($_smarty_tpl->tpl_vars['var']->step > 0 ? 4+1 - (1) : 1-(4)+1)/abs($_smarty_tpl->tpl_vars['var']->step));
-if ($_smarty_tpl->tpl_vars['var']->total > 0) {
-for ($_smarty_tpl->tpl_vars['var']->value = 1, $_smarty_tpl->tpl_vars['var']->iteration = 1;$_smarty_tpl->tpl_vars['var']->iteration <= $_smarty_tpl->tpl_vars['var']->total;$_smarty_tpl->tpl_vars['var']->value += $_smarty_tpl->tpl_vars['var']->step, $_smarty_tpl->tpl_vars['var']->iteration++) {
-$_smarty_tpl->tpl_vars['var']->first = $_smarty_tpl->tpl_vars['var']->iteration == 1;$_smarty_tpl->tpl_vars['var']->last = $_smarty_tpl->tpl_vars['var']->iteration == $_smarty_tpl->tpl_vars['var']->total;?>
-            <?php if (($_smarty_tpl->tpl_vars['var']->value != 3)) {?>
-                <option value="<?php echo $_smarty_tpl->tpl_vars['var']->value;?>
-" <?php if (($_smarty_tpl->tpl_vars['question']->value['space'] == $_smarty_tpl->tpl_vars['var']->value)) {?>selected<?php }?>><?php echo $_smarty_tpl->tpl_vars['var']->value;?>
-</option>
-            <?php }?>
         <?php }
 }
 ?>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-20 20:39:10
+/* Smarty version 3.1.30, created on 2017-07-31 17:36:27
   from "C:\xampp\htdocs\Crexam\templates\question_show_all.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5970f8ce009db6_98433695',
+  'unifunc' => 'content_597f4e7b015874_90647394',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'daa77ca0713ee589bc6946660c9419b79ba4d3bc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_show_all.tpl',
-      1 => 1500575940,
+      1 => 1501515383,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5970f8ce009db6_98433695 (Smarty_Internal_Template $_smarty_tpl) {
+function content_597f4e7b015874_90647394 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h1>Alle Fragen der Vorlesung: <?php echo $_smarty_tpl->tpl_vars['lecture_bez']->value;?>
 !</h1>
@@ -73,8 +73,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 </li>
             <li>Häufigkeit: <?php echo $_smarty_tpl->tpl_vars['question']->value['frequency'];?>
 </li>
-            <li>Platzbedarf: <?php echo $_smarty_tpl->tpl_vars['question']->value['space'];?>
-</li>
+            <?php if ($_smarty_tpl->tpl_vars['question']->value['type'] == 1) {?><li>Platzbedarf: <?php echo $_smarty_tpl->tpl_vars['question']->value['space'];?>
+</li><?php }?>
         </ul>
         <span class="edit-question edit-toggle">E</span>
         <span class="delete-question">X</span>

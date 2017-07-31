@@ -112,7 +112,7 @@ class db_conn {
                 . "`difficulty`, `frequency`, `points` ,`space`, `created`, `last_usage`) "
                 . "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
         $id = 0;
-        $dateCre = date("Y-m-d H-i", time());
+        $dateCre = date('d.m.Y');
         $dateLastUsed = "never";
         $stmt->bind_param("iiissiiiiss", 
                 $id, 
@@ -134,7 +134,7 @@ class db_conn {
                 "INSERT INTO `lectures`(`id`, `bezeichnung`, `bezeichnung_kurz`, `created`) "
                 . "VALUES (?,?,?,?)");
         $id = 0;
-        $dateCre = date("Y-m-d H-i", time());
+        $dateCre = date('d.m.Y');
         $stmt->bind_param("isss", 
                 $id, 
                 $params['bezeichnung'], 

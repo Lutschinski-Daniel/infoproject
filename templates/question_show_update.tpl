@@ -23,7 +23,7 @@
     <li>Punkte: {$question.points}</li>
     <li>Schwierigkeit: {$question.difficulty}</li>
     <li>Häufigkeit: {$question.frequency}</li>
-    <li>Platzbedarf: {$question.space}</li>
+    {if $question.type == 1}<li>Platzbedarf: {$question.space}</li>{/if}
 </ul>
 <span class="edit-question edit-toggle">E</span>
 <span class="delete-question">X</span>

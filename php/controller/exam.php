@@ -3,6 +3,7 @@ session_start();
 header("Content-Type: application/json");
 include '../../db/db_conn.php';
 include("../../libs/Smarty.class.php");
+include("../../engine/ExamEngine.php");
 
 $response = array();
 $questions_test = array ("Wieso weinst du?", "Warum die Banane krumm?", "Best baller?", "Favourite ICE?");
@@ -32,7 +33,9 @@ if( isset($_SESSION['current_lecture_id'])) {
         // 
         // LOAD QUESTIONS FOR EXAM-VORSCHLAG HERE!
         // $smarty->assign('questions', $questions);
-        $smarty->assign('questions', $questions_test);
+        $engine = new ExamEngine($_SESSION['current_lecture_id'], $_GET['punkte'], db_conn::getInstance());
+        
+        $smarty->assign('questions', $engine->getTmpExam());
         $response = array('success' => $smarty->fetch("../../templates/exam.tpl"));
     } else {
         $smarty->assign('laenge', "");

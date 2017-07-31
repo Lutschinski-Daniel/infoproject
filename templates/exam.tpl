@@ -32,11 +32,11 @@
                 <span class="vorschlag-question-down">DOWN</span>
                 <span class="vorschlag-question-bot">BOT</span>
                 <span class="vorschlag-question-switch">Switch</span>
-                Frage: {$question} 
+                Frage: {$question.text}
             </div>
         {/foreach}
     </div>    
-    <h3 class="vorschlag-daten">Zusätzliche Daten (Durchschnitt Schwierigkeit, tatsächliche Punkte ...)</h3>
+    <h3 class="vorschlag-daten">Zusätzliche Daten (Durchschnittliche Schwierigkeit, tatsächliche Punkte ...)</h3>
     <button class="exam-create-btn">
         Klausur erstellen
     </button>

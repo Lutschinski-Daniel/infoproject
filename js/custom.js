@@ -164,16 +164,19 @@ $('body').on('click', '.question-update-btn', function () {
     var id = $(this).parent('.question-update-form').attr('id');
     var punkte;
     var antwortText;
+    var space;
 
     // Multiple-Choice
     if ($(".question-update-form").children().hasClass('mc-antwort-label'))
     {
         antwortText = getMCAntwortText();
         punkte = $(".question-update-form input[name='antwort-gruppe']:checked").length;
+        space = 0;
     // Frage-Antwort    
     } else {
         antwortText = $('textarea[name=antwort-text]').val();
         punkte = $('input[name=points]').val();
+        space = $('select[name=space-needed]').val();
     }
     
     if (validateInput() !== true) {
@@ -191,7 +194,7 @@ $('body').on('click', '.question-update-btn', function () {
                 "difficulty": $('select[name=difficulty]').val(),
                 "frequency": $('select[name=frequency]').val(),
                 "points": punkte,
-                "space-needed": $('select[name=space-needed]').val()
+                "space-needed": space
             }
         },
         success: function (data) {
@@ -205,15 +208,18 @@ $('body').on('click', '.question-update-btn', function () {
 $('body').on('click', '.create-question-btn', function () {
     var antwortText;
     var punkte;
+    var space;
 
     // Multiple-Choice
     if ($(".frage-typ option:selected").val() == 0) {
         antwortText = getMCAntwortText();
         punkte = $(".mult-ch-platzhalter input[name='antwort-gruppe']:checked").length;
+        space = 0;
     // Frage-Antwort
     } else {
         antwortText = $('textarea[name=antwort-text]').val();
         punkte = $('input[name=points]').val();
+        space = $('select[name=space-needed]').val();
     };
 
     if (validateInput() !== true) {
@@ -232,7 +238,7 @@ $('body').on('click', '.create-question-btn', function () {
                 "difficulty": $('select[name=difficulty]').val(),
                 "frequency": $('select[name=frequency]').val(),
                 "points": punkte,
-                "space-needed": $('select[name=space-needed]').val()
+                "space-needed": space
             }
         },
         success: function (response) {

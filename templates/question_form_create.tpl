@@ -15,7 +15,7 @@
             {for $var=0 to $anworten_default-1}
                 <span class="mc-antwort">
                     <input type="text" name="antwort"></input><!--
-                 --><input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input>
+                    --><input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input>
                 </span><br />
             {/for}
             <button class="add-answer-btn">Zusätzliche Antwort</button><br />
@@ -26,9 +26,18 @@
             <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"></textarea><br />
             <label class="punkte-label">Punkte: </label>
             <input type="number" name="points" value="10" max="50" min="1"></input>
+            <br>
+            <label>Platzbedarf ( halbe Seiten x ... ):</label> 
+            <select class="space-needed" name="space-needed">
+                {for $var=1 to 4}
+                    {if ($var != 3)}
+                        <option value="{$var}">{$var}</option>
+                    {/if}
+                {/for}
+            </select>
         </div>
     </div>
-   <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 
+    <label>Schwierigkeit ( 1 = leicht, 5 = schwer ):</label> 
     <select class="difficulty" name="difficulty">
         {for $var=1 to 5}
             <option value="{$var}">{$var}</option>
@@ -39,15 +48,6 @@
     <select class="frequency" name="frequency">
         {for $var=1 to 5}
             <option value="{$var}">{$var}</option>
-        {/for}
-    </select>
-    <br>
-    <label>Platzbedarf ( halbe Seiten x ... ):</label> 
-    <select class="space-needed" name="space-needed">
-        {for $var=1 to 4}
-            {if ($var != 3)}
-                <option value="{$var}">{$var}</option>
-            {/if}
         {/for}
     </select>
     <br>
