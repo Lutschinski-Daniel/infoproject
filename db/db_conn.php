@@ -82,6 +82,23 @@ class db_conn {
         $count = $row->fetch_assoc();
         return intval($count['anzahl']);
     }
+    
+    public function getArrayWithFreq($id, $freq){
+        $stmt = $this->connection->prepare("SELECT * FROM `questions` WHERE lecture_id=? "
+                . "AND frequency=? ORDER BY last_usage DESC");
+        $stmt->bind_param("ii", 
+                $id, 
+                $freq
+        );
+        $stmt->execute();
+
+        $quests = array();
+        $result = $stmt->get_result();
+        while ($question = $result->fetch_assoc()) {
+            $quests[] = $question;
+        }
+        return $quests;
+    }
 
     public function deleteQuestionFromDB($id) {
         $stmt = $this->connection->prepare("DELETE FROM `questions` WHERE id=?");
