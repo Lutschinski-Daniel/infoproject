@@ -10,11 +10,11 @@ class ExamEngine {
     private $array_5 = array(); 
     
     private $array_pointer = array(
-        "1" => 0, 
-        "2" => 0,
-        "3" => 0,
-        "4" => 0,
-        "5" => 0
+        "1" => array("pointer"=>0, "count"=>0), 
+        "2" => array("pointer"=>0, "count"=>0),
+        "3" => array("pointer"=>0, "count"=>0),
+        "4" => array("pointer"=>0, "count"=>0),
+        "5" => array("pointer"=>0, "count"=>0)
     );
     
     private $tmp_exam = array();
@@ -27,7 +27,7 @@ class ExamEngine {
     
     public function __construct($lecture_id, $points, $conn_to_db) {
         $this->lecture = $lecture_id;
-        $this->max_points = $points;
+        $this->max_points = intval($points);
         $this->conn = $conn_to_db;
         $this->loadQuestions();
         if( !$this->isPossible() )
@@ -38,23 +38,27 @@ class ExamEngine {
     private function createRandomExam(){
         // Anhand der Max-Points, gebe Klausur zurück
         // speichern der Fragen in $tmp_exam
-        while ($this->tmp_points < $this->max_points) {
+        //while ($this->tmp_points < $this->max_points) {
+        while($this->tmp_points < $this->max_points){
             $arrNo = $this->randomlyGetNextArrayNo();
             $quest = $this->getQuestionFromArray($arrNo);
-            if($quest == null)
+            if($quest == null){
                 continue;
-            else {
+            } else {
                 $this->tmp_exam[] = $quest;
-            $this->tmp_points += $quest['points'];
+                $this->tmp_points += $quest['points'];
             };
         }
+        file_put_contents("6Fragen.txt", var_export($this->tmp_exam, true));
     }
     
-        
     private function getQuestionFromArray($arrNo){
         $arr = $this->getArrWitNo($arrNo);
-        $quest = $arr[$this->array_pointer[$arrNo]];
-        file_put_contents("6Fragen.txt", $quest, FILE_APPEND);
+        $quest = $arr[$this->array_pointer[$arrNo]['pointer']];
+        //
+        // CHECK IF Question should be given back!
+        //$this->array_pointer[$arrNo] =+ 1;
+        return $quest;
     }
     
     private function loadQuestions(){
@@ -63,6 +67,12 @@ class ExamEngine {
         $this->array_3 = $this->conn->getArrayWithFreq($this->lecture, 3);
         $this->array_4 = $this->conn->getArrayWithFreq($this->lecture, 4);
         $this->array_5 = $this->conn->getArrayWithFreq($this->lecture, 5);
+        
+        $this->array_pointer[1]['count'] = count($this->array_1);
+        $this->array_pointer[2]['count'] = count($this->array_2);
+        $this->array_pointer[3]['count'] = count($this->array_3);
+        $this->array_pointer[4]['count'] = count($this->array_4);
+        $this->array_pointer[5]['count'] = count($this->array_5);
         
         file_put_contents("1.txt", var_export($this->array_1, true));
         file_put_contents("2.txt", var_export($this->array_2, true));
@@ -122,9 +132,6 @@ class ExamEngine {
     
     public function getTmpExam(){
         $res = $this->conn->getAllQuestions4Lec($this->lecture);
-        $arrObj = new ArrayObject($res);
-        $v = var_export($arrObj, true);
-        file_put_contents("test.txt", $v);
         return $res;
     }
 }
