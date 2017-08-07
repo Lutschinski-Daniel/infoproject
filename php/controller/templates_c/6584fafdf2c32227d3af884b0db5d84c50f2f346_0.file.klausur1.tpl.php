@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-27 17:15:54
+/* Smarty version 3.1.30, created on 2017-08-07 23:11:43
   from "C:\xampp\htdocs\Crexam\vorlage\klausur1.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_597a03aa17cda0_39761237',
+  'unifunc' => 'content_5988d78f813c96_64502663',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6584fafdf2c32227d3af884b0db5d84c50f2f346' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\vorlage\\klausur1.tpl',
-      1 => 1501168547,
+      1 => 1502139637,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_597a03aa17cda0_39761237 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5988d78f813c96_64502663 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 \documentclass[addpoints,a4paper,ngerman,12pt,answers]{exam}
 \usepackage {babel}	

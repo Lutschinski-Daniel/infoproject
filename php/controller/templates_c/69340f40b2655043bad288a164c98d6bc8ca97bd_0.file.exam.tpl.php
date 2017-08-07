@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-31 18:14:46
+/* Smarty version 3.1.30, created on 2017-08-07 22:27:05
   from "C:\xampp\htdocs\Crexam\templates\exam.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_597f5776bcbfd7_03679855',
+  'unifunc' => 'content_5988cd19754479_78921512',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '69340f40b2655043bad288a164c98d6bc8ca97bd' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\exam.tpl',
-      1 => 1501517682,
+      1 => 1502137535,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_597f5776bcbfd7_03679855 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5988cd19754479_78921512 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h1>Klausur für: <?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
 </h1>
@@ -48,7 +48,7 @@ function content_597f5776bcbfd7_03679855 (Smarty_Internal_Template $_smarty_tpl)
 <button class="exam-create-vorschlag">
     Klausurvorschlag
 </button>
-    
+
 <?php if ($_smarty_tpl->tpl_vars['questions']->value != '') {?>
     <h2 class="vorschlag-titel">Klausurvorschlag</h2>
     <div class="exam-questions-box">
@@ -63,7 +63,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
                 <span class="vorschlag-question-down">DOWN</span>
                 <span class="vorschlag-question-bot">BOT</span>
                 <span class="vorschlag-question-switch">Switch</span>
-                Frage: <?php echo $_smarty_tpl->tpl_vars['question']->value['text'];?>
+                Frage: <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
 
             </div>
         <?php

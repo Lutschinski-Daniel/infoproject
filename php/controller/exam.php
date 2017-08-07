@@ -7,6 +7,7 @@ include("../../engine/ExamEngine.php");
 
 $response = array();
 $questions_test = array ("Wieso weinst du?", "Warum die Banane krumm?", "Best baller?", "Favourite ICE?");
+$engine = ExamEngine::getInstance();
 
 if( isset($_SESSION['current_lecture_id'])) {
     $smarty = new Smarty;
@@ -14,7 +15,8 @@ if( isset($_SESSION['current_lecture_id'])) {
     
     if (isset ($_GET['save'])) { 
         $conn = db_conn::getInstance();
-        $quests = $conn->getAllQuestions4Lec($_SESSION['current_lecture_id']);
+        
+        $quests = $engine->getTmpExam();
         // 
         // SAVE QUESTIONS FOR EXAM HERE!
         // $smarty->assign('questions', $questions);
@@ -33,9 +35,9 @@ if( isset($_SESSION['current_lecture_id'])) {
         // 
         // LOAD QUESTIONS FOR EXAM-VORSCHLAG HERE!
         // $smarty->assign('questions', $questions);
-        $engine = new ExamEngine($_SESSION['current_lecture_id'], $_GET['punkte'], db_conn::getInstance());
-        
+        $engine->startNewExam($_SESSION['current_lecture_id'], $_GET['punkte'], db_conn::getInstance());
         $smarty->assign('questions', $engine->getTmpExam());
+        $_SESSION['quests'] = $engine->getTmpExam();
         $response = array('success' => $smarty->fetch("../../templates/exam.tpl"));
     } else {
         $smarty->assign('laenge', "");

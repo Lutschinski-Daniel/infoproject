@@ -1,5 +1,7 @@
 <?php
 
+include 'Question.php';
+
 class db_conn {
 
     private $host;
@@ -90,12 +92,13 @@ class db_conn {
                 $id, 
                 $freq
         );
-        $stmt->execute();
+       $stmt->execute();
 
         $quests = array();
         $result = $stmt->get_result();
-        while ($question = $result->fetch_assoc()) {
-            $quests[] = $question;
+        
+        while ($obj = mysqli_fetch_object($result)) {
+            $quests[] = $obj;
         }
         return $quests;
     }

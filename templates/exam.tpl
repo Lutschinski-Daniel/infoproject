@@ -21,7 +21,7 @@
 <button class="exam-create-vorschlag">
     Klausurvorschlag
 </button>
-    
+
 {if $questions != ""}
     <h2 class="vorschlag-titel">Klausurvorschlag</h2>
     <div class="exam-questions-box">
@@ -32,7 +32,7 @@
                 <span class="vorschlag-question-down">DOWN</span>
                 <span class="vorschlag-question-bot">BOT</span>
                 <span class="vorschlag-question-switch">Switch</span>
-                Frage: {$question.text}
+                Frage: {$question->text}
             </div>
         {/foreach}
     </div>    
