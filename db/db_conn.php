@@ -42,6 +42,7 @@ class db_conn {
         $stmt->execute();
 
         $result = $stmt->get_result();
+        $stmt->close();
         return $result->fetch_assoc();
     }
 
@@ -51,6 +52,7 @@ class db_conn {
         $stmt->execute();
 
         $result = $stmt->get_result();
+        $stmt->close();
         return $result->fetch_assoc();
     }
 
@@ -61,6 +63,7 @@ class db_conn {
 
         $allQuests = array();
         $result = $stmt->get_result();
+        $stmt->close();
         while ($question = $result->fetch_assoc()) {
             $allQuests[] = $question;
         }
@@ -73,6 +76,7 @@ class db_conn {
         $stmt->execute();
 
         $result = $stmt->get_result();
+        $stmt->close();
         return $result->fetch_assoc();
     }
 
@@ -92,7 +96,7 @@ class db_conn {
                 $id, 
                 $freq
         );
-       $stmt->execute();
+        $stmt->execute();
 
         $quests = array();
         $result = $stmt->get_result();
@@ -124,6 +128,22 @@ class db_conn {
                 $params{'question-id'}
         );
         $stmt->execute();
+        $stmt->close();
+    }
+    
+    public function updateDates($questions) {      
+        $date = date('d.m.Y');
+        foreach($questions as $question){
+            $id = $question->id;
+            $stmt = $this->connection->prepare(
+                "UPDATE `questions` SET `last_usage`=? WHERE `id`=?");
+            $stmt->bind_param("si",
+                    $date,
+                    $id
+            );
+            $stmt->execute();
+            $stmt->close();
+        }
     }
 
     public function saveQuestion2DB($params) {
@@ -162,6 +182,7 @@ class db_conn {
                 $dateCre
         );
         $stmt->execute();
+        $stmt->close();
     }
 
     private function createDatabaseIfNotExistent() {

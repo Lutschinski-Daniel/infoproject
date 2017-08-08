@@ -21,9 +21,10 @@
 <button class="exam-create-vorschlag">
     Klausurvorschlag
 </button>
-
 {if $questions != ""}
     <h2 class="vorschlag-titel">Klausurvorschlag</h2>
+    {if isset($exam_average)}<div class="exam-average">Durchschnittliche Schwierigkeit: {$exam_average}</div>{/if}
+    {if isset($exam_points)}<div class="exam-points">Tatsächliche Punkte: {$exam_points}</div>{/if}
     <div class="exam-questions-box">
         {foreach from=$questions item=question}
             <div class="exam-question">
@@ -36,7 +37,6 @@
             </div>
         {/foreach}
     </div>    
-    <h3 class="vorschlag-daten">Zusätzliche Daten (Durchschnittliche Schwierigkeit, tatsächliche Punkte ...)</h3>
     <button class="exam-create-btn">
         Klausur erstellen
     </button>

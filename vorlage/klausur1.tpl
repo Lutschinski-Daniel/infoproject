@@ -46,10 +46,10 @@
 \begin{questions}
 
 <<foreach from=$questions item=$question>>
-\question[<<$question.points>>]<<$question.text>>
-    <<if ($question.type == 0)>> 
+\question[<<$question->points>>]<<$question->text>>
+<<if ($question->type == 0)>> 
         \begin{checkboxes}
-        <<assign var=answers value=$question.answer|json_decode:1>>
+        <<assign var=answers value=$question->answer|json_decode:1>>
         <<foreach from=$answers item=$mc>>
             \choice <<$mc.antwort>>
         <</foreach>>
@@ -58,9 +58,9 @@
 
     <<else>>
         \newcount\grenze
-        <<if ($question.space == 1)>>\grenze=8<</if>>
-        <<if ($question.space == 2)>>\grenze=16<</if>>
-        <<if ($question.space == 4)>>\grenze=32<</if>>
+        <<if ($question->space == 1)>>\grenze=8<</if>>
+        <<if ($question->space == 2)>>\grenze=16<</if>>
+        <<if ($question->space == 4)>>\grenze=32<</if>>
         \newcount\Scount
         \Scount=0
         \loop\vspace*{1cm}\par\goodbreak\advance\Scount by 1 \ifnum\Scount<\grenze\repeat

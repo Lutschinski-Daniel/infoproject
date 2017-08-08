@@ -1,4 +1,6 @@
 <h1>Alle Fragen der Vorlesung: {$lecture_bez}!</h1>
+<div>Durchschnittliche Schwierigkeit: {$average}</div>
+<div>Anzahl Fragen: {$quest_count}</div>
 {foreach from=$questions item=$question}
     <section class="question-box" id="{$question.id}" name="{$question.id}">
         <div class="question-box-frage-text">Fragetext: {$question.text}

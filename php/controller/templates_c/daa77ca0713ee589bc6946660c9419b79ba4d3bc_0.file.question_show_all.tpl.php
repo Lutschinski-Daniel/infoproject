@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-31 17:36:27
+/* Smarty version 3.1.30, created on 2017-08-08 22:23:32
   from "C:\xampp\htdocs\Crexam\templates\question_show_all.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_597f4e7b015874_90647394',
+  'unifunc' => 'content_598a1dc4de9592_01501450',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'daa77ca0713ee589bc6946660c9419b79ba4d3bc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_show_all.tpl',
-      1 => 1501515383,
+      1 => 1502223808,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,14 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_597f4e7b015874_90647394 (Smarty_Internal_Template $_smarty_tpl) {
+function content_598a1dc4de9592_01501450 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h1>Alle Fragen der Vorlesung: <?php echo $_smarty_tpl->tpl_vars['lecture_bez']->value;?>
 !</h1>
+<div>Durchschnittliche Schwierigkeit: <?php echo $_smarty_tpl->tpl_vars['average']->value;?>
+</div>
+<div>Anzahl Fragen: <?php echo $_smarty_tpl->tpl_vars['quest_count']->value;?>
+</div>
 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value, 'question');
 if ($_from !== null) {

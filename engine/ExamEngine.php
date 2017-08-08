@@ -32,9 +32,6 @@ class ExamEngine {
     } 
     
     private function createRandomExam(){
-        // Anhand der Max-Points, gebe Klausur zurück
-        // speichern der Fragen in $tmp_exam
-        //while ($this->tmp_points < $this->max_points) {
         $count = 0;
         while( !$this->locked() && $this->tmp_points < $this->max_points ){
             $arrNo = $this->randomlyGetNextArrayNo();
@@ -46,22 +43,26 @@ class ExamEngine {
                 $this->tmp_exam[] = $quest;
                 $this->tmp_points += $quest->points;
                 $this->difficulty_for_average += $quest->difficulty;
-                $this->average = $this->difficulty_for_average / count($this->tmp_exam);
+                $this->updateAverage();
             }
         }
         file_put_contents("6Fragen.txt", var_export($this->tmp_exam, true));
     }
     
+    private function updateAverage(){
+        $this->average = $this->difficulty_for_average / count($this->tmp_exam);
+    }
+    
     private function locked(){
         for($i=1; $i<=5; $i++) {
             $count = count($this->map[$i]);
-            $pointer = $this->pointer[$i];
+            $pointer = intval($this->pointer[$i]);
             
             if( $count > $pointer ){
                 return false;
             }
         }
-        // Alle Pointer gleich groß wie "Länge" -> Lock
+        // Alle Pointer mindestens gleich groß wie "Länge" -> Lock!
         return true;
     }
     
@@ -72,10 +73,23 @@ class ExamEngine {
         if( $pointer < $count ){
             $question = $this->map[$arrNo][$pointer];
             if( $this->tmp_points > $this->max_points/3 ){
-                if( $question->difficulty > 3 && $this->average > 3 ){
+                if( isset($this->map_bypassed[$arrNo]) && count($this->map_bypassed[$arrNo]) > 0 ){
+                    for($i=0; $i < count($this->map_bypassed[$arrNo]); $i++){
+                        $quest_by = $this->map_bypassed[$arrNo][$i];
+                        if( $quest_by->difficulty >= 3 && $this->average <= 3 ){
+                            $this->map_bypassed[$arrNo][$i] = null;
+                            return $quest_by;
+                        } elseif( $quest_by->difficulty <= 3 && $this->average >= 3 ) { 
+                            $this->map_bypassed[$arrNo][$i] = null;
+                            return $quest_by;
+                        }
+                    }
+                }
+                             
+                if( $question->difficulty > 3 && $this->average >= 3 ){
                     $this->map_bypassed[$arrNo][] = $question;
                     $question = null;
-                } elseif( $question->difficulty < 3 && $this->average < 3 ) {
+                } elseif( $question->difficulty < 3 && $this->average <= 3 ) {
                     $this->map_bypassed[$arrNo][] = $question;
                     $question = null;
                 }
@@ -113,9 +127,8 @@ class ExamEngine {
         // $tmp_exam updaten
     }
     
-    public function saveAndReset(){
-        // alle letzlich genutzten Fragen vom Datum upaten 
-        // exam null setzen
+    public function saveAndReset($conn){
+        $conn->updateDates($this->tmp_exam);
     }    
     
     private function isPossible(){
@@ -126,6 +139,13 @@ class ExamEngine {
     
     public function getTmpExam(){
         return $this->tmp_exam;
-        //return $this->conn->getAllQuestions4Lec($this->lecture);
+    }
+    
+    public function getAverage(){
+        return number_format($this->average, 2);
+    }
+    
+    public function getPoints(){
+        return $this->tmp_points;
     }
 }
