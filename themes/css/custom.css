@@ -346,8 +346,29 @@ a:visited {
 .vorschlag-daten {
   margin-top: 25px;
 }
-.exam-question {
-  margin-bottom: 15px;
+.exam-question-text {
+  margin-top: 5px;
+}
+hr {
+  border-top: 1px solid #777;
+  align-self: flex-start;
+  width: 40%;
+  margin: 5px 0;
+}
+.switch-questions-box {
+  padding: 5px 0 5px 15px;
+}
+.switch-questions-box .title {
+  padding-bottom: 5px;
+}
+.switch-questions-box .switch-question {
+  margin-bottom: 5px;
+}
+.switch-btn {
+  border: 1px solid #777;
+}
+.switch-btn:hover {
+  background-color: #eee;
 }
 .vorschlag-question-up,
 .vorschlag-question-down,
@@ -415,6 +436,9 @@ a:visited {
   }
   .exam-input-list .exam-date {
     width: 150px;
+  }
+  hr {
+    width: 20%;
   }
 }
 /*# sourceMappingURL=custom.css.map */

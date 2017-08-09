@@ -26,8 +26,29 @@ if( isset($_SESSION['current_lecture_id'])) {
         $smarty->assign("laenge", $_GET['laenge']);
         $result = $smarty->fetch("../../vorlage/klausur1.tpl");
         file_put_contents("../../tex/klausur1.tex", $result);
-        $response = array('success' => 'Klausur wurde erstellt!');
+        $response = array('success' => '<h2>Klausur wurde erstellt! Sie finden sie <br> unter: ***</h2>');
+    } elseif(isset($_GET['switch'])){ 
+        $id = intval($_GET['switch']);
+        $engine = unserialize($_SESSION['engine']);
+        $quests_bypassed = $engine->getQuestionsBypassedToSwitch();
+        $quests_unused = $engine->getQuestionsUnusedToSwitch();
+        $smarty->assign('quests_bypassed', $quests_bypassed);
+        $smarty->assign('quests_unused', $quests_unused);
+        $response = array('switch' => $smarty->fetch("../../templates/exam_switch.tpl"));
+        $_SESSION['engine'] = serialize($engine);
+    } elseif(isset($_GET['swap'])){
+        $id_curr = intval($_GET['curr_quest']);
+        $id_wanted = intval($_GET['wanted_quest']);
+        $engine = unserialize($_SESSION['engine']);
+        $engine->switchQuestionWith($id_curr, $id_wanted);
+        $quests = $engine->getTmpExam();
+        $smarty->assign('questions', $quests);
+        $response = array('success' => $smarty->fetch("../../templates/exam_update.tpl"));
+        $_SESSION['engine'] = serialize($engine);
     } elseif( isset($_GET['laenge'], $_GET['punkte'], $_GET['datum'])){
+        if( isset($_SESSION['engine'])){
+            unset($_SESSION['engine']);
+        }
         $smarty->assign('laenge', $_GET['laenge']);
         $smarty->assign('punkte', $_GET['punkte']);
         $smarty->assign('datum', $_GET['datum']);
@@ -41,6 +62,9 @@ if( isset($_SESSION['current_lecture_id'])) {
         $_SESSION['engine'] = serialize($engine);
         $response = array('success' => $smarty->fetch("../../templates/exam.tpl"));
     } else {
+        if( isset($_SESSION['engine'])){
+            unset($_SESSION['engine']);
+        }
         $smarty->assign('laenge', "");
         $smarty->assign('punkte', 100);
         $smarty->assign('datum', date('d.m.Y'));

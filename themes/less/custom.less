@@ -341,9 +341,36 @@ a {
     margin-top: 25px;
 }
 
-.exam-question {
-    margin-bottom: 15px;
 
+.exam-question-text {
+    margin-top: 5px;
+}
+
+hr {
+    border-top: @standard-border;
+    align-self: flex-start;
+    width: 40%;
+    margin: 5px 0;
+}
+
+.switch-questions-box {
+    padding: 5px 0 5px 15px;
+    
+    .title {
+        padding-bottom: 5px;
+    }
+    
+    .switch-question {
+        margin-bottom: 5px;
+    }
+}
+
+.switch-btn {
+    border: @standard-border;
+    
+    &:hover {
+        background-color: @standard-bg-hover;
+    }
 }
 
 .vorschlag-question-up,
@@ -424,5 +451,9 @@ a {
         .exam-date {
             width: 150px;
         }
+    }
+    
+    hr {
+        width: 20%;
     }
 }

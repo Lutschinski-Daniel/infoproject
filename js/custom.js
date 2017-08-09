@@ -312,7 +312,47 @@ $('body').on('click', '.exam-create-btn', function () {
         },
         success: function (response) {
             if(response.success) {
-                showMessageBox(response.success);
+                $(".body-content").html(response.success);
+            } 
+        }
+    });
+});
+
+$('body').on('click', '.vorschlag-question-switch', function () {
+    var questionToSwitch = $(this).siblings('.exam-question-text'); 
+    
+    $.ajax({
+        url: 'php/controller/exam.php',
+        type: "GET",
+        dataType: "json",
+        data: {
+            "switch": $(this).siblings().first().text(),
+        },
+        success: function (response) {
+            if(response.switch) {
+                questionToSwitch.append(response.switch);
+            } 
+        }
+    });
+    $(this).parent('.exam-question').replaceWith(data);
+});
+
+$('body').on('click', '.switch-btn', function () {
+    var questionToSwitch = $(this).parents('.exam-question').children().first().text(); 
+    var questionPicked = $(this).siblings('.hidden').text();
+    alert("Id1 : " + questionToSwitch + ", Id2: " + questionPicked);
+    $.ajax({
+        url: 'php/controller/exam.php',
+        type: "GET",
+        dataType: "json",
+        data: {
+            "swap": "1",
+            "curr_quest": questionToSwitch,
+            "wanted_quest": questionPicked
+        },
+        success: function (response) {
+            if(response.success) {
+                $(".exam-questions-box").replaceWith(response.success);
             } 
         }
     });
@@ -332,11 +372,6 @@ $('body').on('click', '.vorschlag-question-up', function () {
 
 $('body').on('click', '.vorschlag-question-down', function () {
     $(this).parent('.exam-question').insertAfter($(this).parent('.exam-question').next());
-});
-
-$('body').on('click', '.vorschlag-question-switch', function () {
-    var data = "<h1>Replaced!</h1>";
-    $(this).parent('.exam-question').replaceWith(data);
 });
 
 //
@@ -446,5 +481,8 @@ function clearInput() {
     $('.punkte-label').text('Punkte:');
     $("input[name='antwort']").each(function () {
         $(this).val("");
+    });
+    $("input[name='antwort-gruppe']").each(function () {
+        $(this).prop("checked", false);
     });
 };
