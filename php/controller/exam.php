@@ -30,19 +30,17 @@ if( isset($_SESSION['current_lecture_id'])) {
     } elseif(isset($_GET['switch'])){ 
         $id = intval($_GET['switch']);
         $engine = unserialize($_SESSION['engine']);
-        $quests_bypassed = $engine->getQuestionsBypassedToSwitch();
-        $quests_unused = $engine->getQuestionsUnusedToSwitch();
-        $smarty->assign('quests_bypassed', $quests_bypassed);
-        $smarty->assign('quests_unused', $quests_unused);
+        $smarty = new Smarty;
+        $smarty->assign('quests', $engine->getQuestionsToSwitch($id));
         $response = array('switch' => $smarty->fetch("../../templates/exam_switch.tpl"));
         $_SESSION['engine'] = serialize($engine);
     } elseif(isset($_GET['swap'])){
         $id_curr = intval($_GET['curr_quest']);
         $id_wanted = intval($_GET['wanted_quest']);
         $engine = unserialize($_SESSION['engine']);
-        $engine->switchQuestionWith($id_curr, $id_wanted);
-        $quests = $engine->getTmpExam();
-        $smarty->assign('questions', $quests);
+        $quest = $engine->switchQuestionWith($id_curr, $id_wanted);
+        $smarty = new Smarty;
+        $smarty->assign('question', $quest);
         $response = array('success' => $smarty->fetch("../../templates/exam_update.tpl"));
         $_SESSION['engine'] = serialize($engine);
     } elseif( isset($_GET['laenge'], $_GET['punkte'], $_GET['datum'])){
@@ -56,7 +54,8 @@ if( isset($_SESSION['current_lecture_id'])) {
         // LOAD QUESTIONS FOR EXAM-VORSCHLAG HERE!
         // $smarty->assign('questions', $questions);
         $engine = new ExamEngine($_SESSION['current_lecture_id'], $_GET['punkte'], db_conn::getInstance());
-        $smarty->assign('questions', $engine->getTmpExam());
+        $quests = $engine->getTmpExam();
+        $smarty->assign('questions', $quests);
         $smarty->assign('exam_points', $engine->getPoints());
         $smarty->assign('exam_average', $engine->getAverage());
         $_SESSION['engine'] = serialize($engine);
@@ -68,7 +67,6 @@ if( isset($_SESSION['current_lecture_id'])) {
         $smarty->assign('laenge', "");
         $smarty->assign('punkte', 100);
         $smarty->assign('datum', date('d.m.Y'));
-        $smarty->assign('questions', "");
         $response = array('success' => $smarty->fetch("../../templates/exam.tpl"));
     }
 } else {

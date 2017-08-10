@@ -355,17 +355,26 @@ hr {
   width: 40%;
   margin: 5px 0;
 }
-.switch-questions-box {
+.switch-box {
+  border-left: 3px solid yellow;
+  padding-bottom: 10px;
+  padding: 10px 0;
+}
+.switch-box .switch-questions-box {
   padding: 5px 0 5px 15px;
 }
-.switch-questions-box .title {
+.switch-box .switch-questions-box .title {
   padding-bottom: 5px;
 }
-.switch-questions-box .switch-question {
+.switch-box .switch-questions-box .switch-question {
   margin-bottom: 5px;
+}
+.switch-box .cancel-switch-btn:hover {
+  background-color: #eee;
 }
 .switch-btn {
   border: 1px solid #777;
+  padding: 0 5px;
 }
 .switch-btn:hover {
   background-color: #eee;
@@ -385,6 +394,14 @@ hr {
 .vorschlag-question-top:hover,
 .vorschlag-question-bot:hover {
   background-color: #eee;
+}
+.type-title {
+  padding: 20px;
+}
+.cancel-switch-btn {
+  border: 1px solid #777;
+  padding: 3px;
+  margin: 20px 15px;
 }
 /*******************/
 /* Media queries   */

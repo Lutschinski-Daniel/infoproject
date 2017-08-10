@@ -1,5 +1,5 @@
 <ul class = "lectures-list">
-    <li class = "add-lecture-btn">
+    <li class = "add-lecture-btn" title="Neue Vorlesung erstellen">
         <a href = "#">+</a>
     </li>
     {foreach from=$lectures item=$lecture}

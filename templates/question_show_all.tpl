@@ -3,7 +3,15 @@
 <div>Anzahl Fragen: {$quest_count}</div>
 {foreach from=$questions item=$question}
     <section class="question-box" id="{$question.id}" name="{$question.id}">
-        <div class="question-box-frage-text">Fragetext: {$question.text}
+        <div class="question-box-frage-text">
+            {if $question.type eq 0}
+                MC :
+            {elseif ($question.type eq 1)}
+                Wissen:
+            {else}
+                Transfer:
+            {/if}
+            {$question.text}
         </div>
         <div class="question-box-antwort">
         {if $question.type == 0} <!--Mult-Choice-->
@@ -28,7 +36,7 @@
             <li>Punkte: {$question.points}</li>
             <li>Schwierigkeit: {$question.difficulty}</li>
             <li>Häufigkeit: {$question.frequency}</li>
-            {if $question.type == 1}<li>Platzbedarf: {$question.space}</li>{/if}
+            {if $question.type > 0}<li>Platzbedarf: {$question.space}</li>{/if}
         </ul>
         <span class="edit-question edit-toggle">E</span>
         <span class="delete-question">X</span>

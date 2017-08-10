@@ -14,6 +14,7 @@ class ExamEngine {
   
     private $map;   
     private $map_bypassed;
+    private $array_switched = array();
     private $pointer = array(
         "1" => "0", 
         "2" => "0",
@@ -54,7 +55,6 @@ class ExamEngine {
                 $this->updateAverage();
             }
         }
-        file_put_contents("6Fragen.txt", var_export($this->tmp_exam, true));
     }
     
     private function updateAverage(){
@@ -132,25 +132,83 @@ class ExamEngine {
         return 5;
     }
     
-    public function getQuestionsBypassedToSwitch(){
+    public function getQuestionsBypassedToSwitch($id){
+        $looking_for = "";
+        foreach($this->tmp_exam as $quest){
+            if($quest->id == $id){
+                $looking_for = $quest;
+                break;
+            }
+        }
+        
         $ret_val = array();
         for( $i = 1; $i <= 5; $i++){
             foreach($this->map_bypassed[$i] as $question){
-                if( $question != "" )
+                if( $question != "" && $question->type == $looking_for->type){
                     $ret_val[] = $question;
+                }
             }
         }   
         return $ret_val;
     }
     
-    public function getQuestionsUnusedToSwitch(){
+    public function getQuestionsUnusedToSwitch($id){
+        $looking_for = "";
+        foreach($this->tmp_exam as $quest){
+            if($quest->id == $id){
+                $looking_for = $quest;
+                break;
+            }
+        }
+        
         $ret_val = array();
         for( $i = 1; $i <= 5; $i++){
             for($j = $this->pointer[$i]; $j < count($this->map[$i]); $j++){
-                $ret_val[] = $this->map[$i][$j];
+                $tmp = $this->map[$i][$j];
+                if($tmp->type == $looking_for->type){
+                    $ret_val[] = $tmp;
+                }
             }
         }   
         return $ret_val;
+    }
+    
+    public function getQuestionsToSwitch($id){
+        $looking_for = "";
+        foreach($this->tmp_exam as $quest){
+            if($quest->id == $id){
+                $looking_for = $quest;
+                break;
+            }
+        }
+        $bypassed = array();
+        for( $i = 1; $i <= 5; $i++){
+            foreach($this->map_bypassed[$i] as $question){
+                if( $question != "" && $question->type == $looking_for->type){
+                    $bypassed[] = $question;
+                }
+            }
+        }   
+        
+        $unused = array();
+        for( $i = 1; $i <= 5; $i++){
+            for($j = $this->pointer[$i]; $j < count($this->map[$i]); $j++){
+                $tmp = $this->map[$i][$j];
+                if($tmp->type == $looking_for->type){
+                    $unused[] = $tmp;
+                }
+            }
+        }   
+        
+        $switched = array();
+        foreach($this->array_switched as $tmp_quest){
+            if($tmp_quest->type == $looking_for->type){
+                $switched[] = $tmp_quest;
+            }
+        }
+        
+        $ret_array = array("BY" => $bypassed, "UN" => $unused, "SW" => $switched);
+        return $ret_array;
     }
     
     public function switchQuestionWith($quesiton_old_id, $question_new_id){
@@ -160,13 +218,15 @@ class ExamEngine {
                 $quest = $this->map[$i][$j];
                 if($quest->id != $question_new_id)
                     continue;
-                $question_new = $this->map[$i][$j];
+                $question_new = $quest;
+                array_splice($this->map[$i], $j, 1);
                 break;
             }
         }   
         if ($question_new == ""){
             for( $i = 1; $i <= 5; $i++){
-                foreach($this->map_bypassed[$i] as $question){
+                for($j = 0; $j < count($this->map_bypassed[$i]); $j++){
+                    $question = $this->map_bypassed[$i][$j];
                     if($question == ""){
                         continue;
                     }
@@ -174,17 +234,30 @@ class ExamEngine {
                         continue;
                     }
                     $question_new = $question;
+                    array_splice($this->map_bypassed[$i], $j, 1);
                     break;
                 }
             }  
+        }
+        if ($question_new == ""){
+            for($i = 0; $i < count($this->array_switched); $i++){
+            $question = $this->array_switched[$i];
+                if($question->id != $question_new_id){
+                    continue;
+                }
+                $question_new = $question;
+                array_splice($this->array_switched, $i, 1);
+                break;
+            }
         }
         for($i=0; $i < count($this->tmp_exam); $i++) {
             $quest = $this->tmp_exam[$i];
             if($quest->id != $quesiton_old_id){
                 continue;
             }
+            $this->array_switched[] = $quest;
             $this->tmp_exam[$i] = $question_new;
-            return;
+            return $question_new;
         }
     }
     
@@ -199,7 +272,21 @@ class ExamEngine {
     }
     
     public function getTmpExam(){
-        return $this->tmp_exam;
+        $type_MC = array();
+        $type_WI = array();
+        $type_TR = array();
+        
+        foreach($this->tmp_exam as $quest){
+            if($quest->type === 0){
+                $type_MC[] = $quest;
+            } elseif ($quest->type === 1) {
+                $type_WI[] = $quest;
+            } else {
+                $type_TR[] = $quest;
+            }  
+        }
+        $retMap = array("MC" => $type_MC, "WI" => $type_WI, "TR" => $type_TR);
+        return $retMap;
     }
     
     public function getAverage(){

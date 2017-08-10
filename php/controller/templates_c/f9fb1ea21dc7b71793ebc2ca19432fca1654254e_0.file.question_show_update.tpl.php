@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-31 17:41:17
+/* Smarty version 3.1.30, created on 2017-08-10 20:12:00
   from "C:\xampp\htdocs\Crexam\templates\question_show_update.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_597f4f9d48d3f8_46437067',
+  'unifunc' => 'content_598ca1f012ff99_51038700',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f9fb1ea21dc7b71793ebc2ca19432fca1654254e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_show_update.tpl',
-      1 => 1501515668,
+      1 => 1502379592,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_597f4f9d48d3f8_46437067 (Smarty_Internal_Template $_smarty_tpl) {
+function content_598ca1f012ff99_51038700 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="question-box-frage-text">Fragetext: <?php echo $_smarty_tpl->tpl_vars['question']->value['text'];?>
 
@@ -63,7 +63,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 </li>
     <li>Häufigkeit: <?php echo $_smarty_tpl->tpl_vars['question']->value['frequency'];?>
 </li>
-    <?php if ($_smarty_tpl->tpl_vars['question']->value['type'] == 1) {?><li>Platzbedarf: <?php echo $_smarty_tpl->tpl_vars['question']->value['space'];?>
+    <?php if ($_smarty_tpl->tpl_vars['question']->value['type'] > 0) {?><li>Platzbedarf: <?php echo $_smarty_tpl->tpl_vars['question']->value['space'];?>
 </li><?php }?>
 </ul>
 <span class="edit-question edit-toggle">E</span>

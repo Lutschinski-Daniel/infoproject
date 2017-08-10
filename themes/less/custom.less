@@ -353,20 +353,37 @@ hr {
     margin: 5px 0;
 }
 
-.switch-questions-box {
-    padding: 5px 0 5px 15px;
+.switch-box {
+    border-left: 3px solid yellow;
+    padding-bottom: 10px;
+    padding: 10px 0;
     
-    .title {
-        padding-bottom: 5px;
+    .switch-questions-box {
+        padding: 5px 0 5px 15px;
+    
+        .title {
+         padding-bottom: 5px;
+        }
+    
+        .switch-question {
+            margin-bottom: 5px;
+        }
     }
     
-    .switch-question {
-        margin-bottom: 5px;
+    .cancel-switch-btn {
+        &:hover {
+            background-color: @standard-bg-hover;
+        }
     }
 }
 
+
+
+
+
 .switch-btn {
     border: @standard-border;
+    padding: 0 5px;
     
     &:hover {
         background-color: @standard-bg-hover;
@@ -386,6 +403,17 @@ hr {
         background-color: @standard-bg-hover;
     }
 }
+
+.type-title {
+    padding: 20px;
+}
+
+.cancel-switch-btn{
+    border: @standard-border;
+    padding: 3px;
+    margin: 20px 15px;
+}
+    
 /*******************/
 /* Media queries   */ 
 /*******************/

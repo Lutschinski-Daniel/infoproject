@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-20 19:42:32
+/* Smarty version 3.1.30, created on 2017-08-10 17:37:52
   from "C:\xampp\htdocs\Crexam\templates\lecture_navbar.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5970eb88b05227_31419390',
+  'unifunc' => 'content_598c7dd0b3d4f1_59535413',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8f02a19a81fc64cdfe6b2df7375fba65304620b7' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\lecture_navbar.tpl',
-      1 => 1500572549,
+      1 => 1502379470,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5970eb88b05227_31419390 (Smarty_Internal_Template $_smarty_tpl) {
+function content_598c7dd0b3d4f1_59535413 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <ul class = "lectures-list">
-    <li class = "add-lecture-btn">
+    <li class = "add-lecture-btn" title="Neue Vorlesung erstellen">
         <a href = "#">+</a>
     </li>
     <?php

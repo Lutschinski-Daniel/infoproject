@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../db/db_conn.php';
+include("../../libs/Smarty.class.php");
 header('Content-type: application/json');
 
 if( isset($_SESSION['current_lecture_id'])) {
@@ -17,11 +18,13 @@ $conn->saveLecture2DB($params);
 
 $conn = db_conn::getInstance();
 $lecture = $conn->getLectureWithKurzBez($params['bezeichnung_kurz']);
-
+    
 $response = array();
 if ($lecture != NULL) {
-    $data = '<li class="lecture"><a href="#" id="' . $lecture['id'] . '" >'
-                    . $lecture['bezeichnung_kurz'] . '</a></li>';
+    $smarty = new Smarty;
+    $smarty->assign("id", $lecture["id"]);
+    $smarty->assign("bez_kurz", $lecture["bezeichnung_kurz"]);
+    $data = $smarty->fetch("../../templates/lecture_li.tpl");
     $response = array ( 
         'success' => 'Vorlesung wurde erstellt!', 
         'data' => $data

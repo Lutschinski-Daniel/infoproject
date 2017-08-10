@@ -106,10 +106,16 @@ $('body').on('click', '.settings_li', function () {
 $('body').on('change', '.frage-typ', function () {
     if ($(".frage-typ option:selected").val() == 0) {
         $('.mult-ch-platzhalter').removeClass('platzhalter');
-        $('.frag-ant-platzhalter').addClass('platzhalter');
-    } else {
+        $('.frag-ant-platzhalter-wissen').addClass('platzhalter');
+        $('.frag-ant-platzhalter-transfer').addClass('platzhalter');
+    } else if ($(".frage-typ option:selected").val() == 1){
+        $('.frag-ant-platzhalter-wissen').removeClass('platzhalter');
+        $('.frag-ant-platzhalter-transfer').addClass('platzhalter');
         $('.mult-ch-platzhalter').addClass('platzhalter');
-        $('.frag-ant-platzhalter').removeClass('platzhalter');
+    } else {
+        $('.frag-ant-platzhalter-transfer').removeClass('platzhalter');
+        $('.frag-ant-platzhalter-wissen').addClass('platzhalter');
+        $('.mult-ch-platzhalter').addClass('platzhalter');
     }
     clearInput();
 });
@@ -320,13 +326,14 @@ $('body').on('click', '.exam-create-btn', function () {
 
 $('body').on('click', '.vorschlag-question-switch', function () {
     var questionToSwitch = $(this).siblings('.exam-question-text'); 
-    
+    $('span[class^="vorschlag"]').css("pointer-events", "none");
+
     $.ajax({
         url: 'php/controller/exam.php',
         type: "GET",
         dataType: "json",
         data: {
-            "switch": $(this).siblings().first().text(),
+            "switch": $(this).siblings().first().text()
         },
         success: function (response) {
             if(response.switch) {
@@ -334,13 +341,12 @@ $('body').on('click', '.vorschlag-question-switch', function () {
             } 
         }
     });
-    $(this).parent('.exam-question').replaceWith(data);
 });
 
 $('body').on('click', '.switch-btn', function () {
+    var par = (this).closest('.exam-question');
     var questionToSwitch = $(this).parents('.exam-question').children().first().text(); 
     var questionPicked = $(this).siblings('.hidden').text();
-    alert("Id1 : " + questionToSwitch + ", Id2: " + questionPicked);
     $.ajax({
         url: 'php/controller/exam.php',
         type: "GET",
@@ -352,18 +358,25 @@ $('body').on('click', '.switch-btn', function () {
         },
         success: function (response) {
             if(response.success) {
-                $(".exam-questions-box").replaceWith(response.success);
+                $(response.success).insertBefore(par);
+                par.remove();
+                $('span[class^="vorschlag"]').css("pointer-events", "auto");
             } 
         }
     });
 });
 
+$('body').on('click', '.cancel-switch-btn', function () {
+    $(this).parents('.switch-box').remove(); 
+    $('span[class^="vorschlag"]').css("pointer-events", "auto");
+});
+
 $('body').on('click', '.vorschlag-question-top', function () {
-    $(this).parent('.exam-question').prependTo($('.exam-questions-box'));
+    $(this).parent('.exam-question').prependTo($(this).parents('.exam-questions-box'));
 });
 
 $('body').on('click', '.vorschlag-question-bot', function () {
-    $('.exam-questions-box').append($(this).parent('.exam-question'));
+    $(this).parents('.exam-questions-box').append($(this).parent('.exam-question'));
 });
 
 $('body').on('click', '.vorschlag-question-up', function () {
