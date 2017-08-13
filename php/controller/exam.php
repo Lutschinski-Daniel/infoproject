@@ -37,10 +37,14 @@ if( isset($_SESSION['current_lecture_id'])) {
     } elseif(isset($_GET['swap'])){
         $id_curr = intval($_GET['curr_quest']);
         $id_wanted = intval($_GET['wanted_quest']);
+        $order = $_GET['question_order'];
         $engine = unserialize($_SESSION['engine']);
+        $engine->updateOrder($order);
         $quest = $engine->switchQuestionWith($id_curr, $id_wanted);
         $smarty = new Smarty;
-        $smarty->assign('question', $quest);
+        $smarty->assign('questions', $engine->getTmpExam());
+        $smarty->assign('exam_points', $engine->getPoints());
+        $smarty->assign('exam_average', $engine->getAverage());
         $response = array('success' => $smarty->fetch("../../templates/exam_update.tpl"));
         $_SESSION['engine'] = serialize($engine);
     } elseif( isset($_GET['laenge'], $_GET['punkte'], $_GET['datum'])){

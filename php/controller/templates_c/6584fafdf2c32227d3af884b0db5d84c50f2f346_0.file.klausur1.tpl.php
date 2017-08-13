@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-08 18:10:33
+/* Smarty version 3.1.30, created on 2017-08-11 18:13:29
   from "C:\xampp\htdocs\Crexam\vorlage\klausur1.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5989e279f34b57_10798292',
+  'unifunc' => 'content_598dd7a9e3d919_05826060',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6584fafdf2c32227d3af884b0db5d84c50f2f346' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\vorlage\\klausur1.tpl',
-      1 => 1502208625,
+      1 => 1502468004,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,19 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5989e279f34b57_10798292 (Smarty_Internal_Template $_smarty_tpl) {
+function content_598dd7a9e3d919_05826060 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 \documentclass[addpoints,a4paper,ngerman,12pt,answers]{exam}
 \usepackage {babel}	
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper,top=2.5cm,bottom=3cm,left=2.5cm,right=2cm]{geometry}
+\usepackage{background}
+\usepackage{xcolor}
+
+\SetBgScale{1}
+\SetBgAngle{0}
+\SetBgContents{\rule{.8pt}{0.85\paperheight}}
+\SetBgHshift{6cm}
 
 \pointpoints{Punkt}{Punkte}
 \bonuspointpoints{Bonuspunkt}{Bonuspunkte}
@@ -43,8 +50,6 @@ function content_5989e279f34b57_10798292 (Smarty_Internal_Template $_smarty_tpl)
 \hqword{Aufgabe:}
 \htword{Summe:}
 
-
-
 \pagestyle{headandfoot}
 \runningheadrule
 \firstpageheader{}{}{}
@@ -53,11 +58,11 @@ function content_5989e279f34b57_10798292 (Smarty_Internal_Template $_smarty_tpl)
 }
 \firstpagefooter{}{}{}
 \runningfooter{}{Seite \thepage\ von \numpages}{}
+{\color{red}\runningfootrule}
 
 \title{Klausur im Fach <?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
 }
 \author{Professor: Dr. rer. nat., Professor Tobias Eggendorfer}
-
 
 \begin{document}
 \maketitle
@@ -73,7 +78,7 @@ function content_5989e279f34b57_10798292 (Smarty_Internal_Template $_smarty_tpl)
 \begin{questions}
 
 <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value, 'question');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value['WI'], 'question');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
@@ -119,6 +124,5 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 \end{questions}
 
-\end{document}
-<?php }
+\end{document}<?php }
 }

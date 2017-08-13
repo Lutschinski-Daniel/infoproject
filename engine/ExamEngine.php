@@ -10,7 +10,7 @@ class ExamEngine {
     private $tmp_points = 0;
     private $difficulty_for_average = 0;
     private $tmp_average = 0;
-    private $referenz_average = 3;
+    private $referenz_average = 2.5;
   
     private $map;   
     private $map_bypassed;
@@ -184,7 +184,7 @@ class ExamEngine {
         $bypassed = array();
         for( $i = 1; $i <= 5; $i++){
             foreach($this->map_bypassed[$i] as $question){
-                if( $question != "" && $question->type == $looking_for->type){
+                if( $question != ""){
                     $bypassed[] = $question;
                 }
             }
@@ -193,23 +193,32 @@ class ExamEngine {
         $unused = array();
         for( $i = 1; $i <= 5; $i++){
             for($j = $this->pointer[$i]; $j < count($this->map[$i]); $j++){
-                $tmp = $this->map[$i][$j];
-                if($tmp->type == $looking_for->type){
-                    $unused[] = $tmp;
-                }
+                $unused[] = $this->map[$i][$j];
             }
         }   
         
         $switched = array();
         foreach($this->array_switched as $tmp_quest){
-            if($tmp_quest->type == $looking_for->type){
-                $switched[] = $tmp_quest;
-            }
+            $switched[] = $tmp_quest;
         }
         
         $ret_array = array("BY" => $bypassed, "UN" => $unused, "SW" => $switched);
         return $ret_array;
     }
+    
+     public function updateOrder($order){
+         $tmp;
+         foreach($order as $id){
+             foreach($this->tmp_exam as $question){
+                if($question->id != $id){
+                     continue;
+                }
+                $tmp[] = $question;
+                break;
+             }
+         }
+         $this->tmp_exam = $tmp;
+     }
     
     public function switchQuestionWith($quesiton_old_id, $question_new_id){
         $question_new ="";
@@ -223,6 +232,7 @@ class ExamEngine {
                 break;
             }
         }   
+        
         if ($question_new == ""){
             for( $i = 1; $i <= 5; $i++){
                 for($j = 0; $j < count($this->map_bypassed[$i]); $j++){
@@ -239,6 +249,7 @@ class ExamEngine {
                 }
             }  
         }
+        
         if ($question_new == ""){
             for($i = 0; $i < count($this->array_switched); $i++){
             $question = $this->array_switched[$i];
@@ -250,6 +261,7 @@ class ExamEngine {
                 break;
             }
         }
+        
         for($i=0; $i < count($this->tmp_exam); $i++) {
             $quest = $this->tmp_exam[$i];
             if($quest->id != $quesiton_old_id){
@@ -290,10 +302,19 @@ class ExamEngine {
     }
     
     public function getAverage(){
-        return number_format($this->tmp_average, 2);
+        $average = 0;
+        foreach($this->tmp_exam as $question){
+            $average = $average + $question->difficulty;
+        }
+        $average = $average / count($this->tmp_exam);
+        return number_format($average, 2);
     }
     
     public function getPoints(){
-        return $this->tmp_points;
+        $points = 0;
+        foreach($this->tmp_exam as $question){
+            $points = $points + $question->points;
+        }
+        return $points;
     }
 }

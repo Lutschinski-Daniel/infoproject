@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-10 23:09:16
+/* Smarty version 3.1.30, created on 2017-08-13 19:34:42
   from "C:\xampp\htdocs\Crexam\templates\exam_switch.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_598ccb7c3251d1_17799420',
+  'unifunc' => 'content_59908db2335cc7_41997562',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'be4d755dff502afc1a46a256e02a9f67ac872668' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\exam_switch.tpl',
-      1 => 1502399343,
+      1 => 1502645665,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_598ccb7c3251d1_17799420 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59908db2335cc7_41997562 (Smarty_Internal_Template $_smarty_tpl) {
 if (!is_callable('smarty_function_counter')) require_once 'C:\\xampp\\htdocs\\Crexam\\libs\\plugins\\function.counter.php';
 ?>
 <div class="switch-box">
@@ -39,7 +39,15 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
                 <div class="switch-question"> 
                     <span class="hidden"><?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
  </span>
-                    <span class="switch-btn">+</span> <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+                    <span class="switch-btn">+</span> 
+                    <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
+                        MC
+                    <?php } elseif ($_smarty_tpl->tpl_vars['question']->value->type == 1) {?>    
+                        WI
+                    <?php } else { ?>
+                        TR
+                    <?php }?>
+                    <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
  
                 </div>
             <?php
@@ -64,7 +72,15 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
                 <div class="switch-question"> 
                     <span class="hidden"><?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
  </span>
-                    <span class="switch-btn">+</span> <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+                    <span class="switch-btn">+</span>
+                    <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
+                        MC
+                    <?php } elseif ($_smarty_tpl->tpl_vars['question']->value->type == 1) {?>    
+                        WI
+                    <?php } else { ?>
+                        TR
+                    <?php }?>
+                    <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
  
                 </div>
             <?php
@@ -89,7 +105,17 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
                 <div class="switch-question"> 
                     <span class="hidden"><?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
  </span>
-                    <span class="switch-btn">+</span> <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+                    <span class="switch-btn">+</span> 
+                    <span class="quesiton-type">
+                    <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
+                        MC
+                    <?php } elseif ($_smarty_tpl->tpl_vars['question']->value->type == 1) {?>    
+                        WI
+                    <?php } else { ?>
+                        TR
+                    <?php }?>
+                    </span>
+                    <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
  
                 </div>
             <?php

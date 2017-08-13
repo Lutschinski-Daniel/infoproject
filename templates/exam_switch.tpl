@@ -8,7 +8,15 @@
             {foreach from=$quests['BY'] item=question}
                 <div class="switch-question"> 
                     <span class="hidden">{$question->id} </span>
-                    <span class="switch-btn">+</span> {$question->text} 
+                    <span class="switch-btn">+</span> 
+                    {if $question->type == 0}
+                        MC
+                    {elseif $question->type == 1}    
+                        WI
+                    {else}
+                        TR
+                    {/if}
+                    {$question->text} 
                 </div>
             {/foreach}
             {counter}
@@ -21,7 +29,15 @@
             {foreach from=$quests['UN'] item=question}
                 <div class="switch-question"> 
                     <span class="hidden">{$question->id} </span>
-                    <span class="switch-btn">+</span> {$question->text} 
+                    <span class="switch-btn">+</span>
+                    {if $question->type == 0}
+                        MC
+                    {elseif $question->type == 1}    
+                        WI
+                    {else}
+                        TR
+                    {/if}
+                    {$question->text} 
                 </div>
             {/foreach}
             {counter}
@@ -34,7 +50,17 @@
             {foreach from=$quests['SW'] item=question}
                 <div class="switch-question"> 
                     <span class="hidden">{$question->id} </span>
-                    <span class="switch-btn">+</span> {$question->text} 
+                    <span class="switch-btn">+</span> 
+                    <span class="quesiton-type">
+                    {if $question->type == 0}
+                        MC
+                    {elseif $question->type == 1}    
+                        WI
+                    {else}
+                        TR
+                    {/if}
+                    </span>
+                    {$question->text} 
                 </div>
             {/foreach}
             {counter}

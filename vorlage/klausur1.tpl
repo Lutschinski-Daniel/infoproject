@@ -2,6 +2,13 @@
 \usepackage {babel}	
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper,top=2.5cm,bottom=3cm,left=2.5cm,right=2cm]{geometry}
+\usepackage{background}
+\usepackage{xcolor}
+
+\SetBgScale{1}
+\SetBgAngle{0}
+\SetBgContents{\rule{.8pt}{0.85\paperheight}}
+\SetBgHshift{6cm}
 
 \pointpoints{Punkt}{Punkte}
 \bonuspointpoints{Bonuspunkt}{Bonuspunkte}
@@ -19,8 +26,6 @@
 \hqword{Aufgabe:}
 \htword{Summe:}
 
-
-
 \pagestyle{headandfoot}
 \runningheadrule
 \firstpageheader{}{}{}
@@ -30,7 +35,6 @@
 
 \title{Klausur im Fach <<$lecture>>}
 \author{Professor: Dr. rer. nat., Professor Tobias Eggendorfer}
-
 
 \begin{document}
 \maketitle
@@ -45,7 +49,7 @@
 
 \begin{questions}
 
-<<foreach from=$questions item=$question>>
+<<foreach from=$questions['WI'] item=$question>>
 \question[<<$question->points>>]<<$question->text>>
 <<if ($question->type == 0)>> 
         \begin{checkboxes}

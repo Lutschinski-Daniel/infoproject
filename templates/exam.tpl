@@ -10,7 +10,7 @@
         </select>
     </li>
     <li>
-        Punkte (max):
+        Punkte (min):
         <input type="number" name="exam-punkte" min="1" max="200" value="{$punkte}" class="exam-punkte" col="3"/>
     </li>
     <li>

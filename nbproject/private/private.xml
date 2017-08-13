@@ -6,12 +6,11 @@
             <file>file:/C:/xampp/htdocs/Crexam/php/controller/exam.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/themes/less/custom.less</file>
             <file>file:/C:/xampp/htdocs/Crexam/templates/exam_switch.tpl</file>
-            <file>file:/C:/xampp/htdocs/Crexam/libs/sysplugins/smarty_internal_template.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/templates/exam.tpl</file>
+            <file>file:/C:/xampp/htdocs/Crexam/libs/sysplugins/smarty_internal_data.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/templates/exam_update.tpl</file>
             <file>file:/C:/xampp/htdocs/Crexam/engine/ExamEngine.php</file>
             <file>file:/C:/xampp/htdocs/Crexam/js/custom.js</file>
-            <file>file:/C:/xampp/htdocs/Crexam/themes/less/variables.less</file>
         </group>
     </open-files>
 </project-private>

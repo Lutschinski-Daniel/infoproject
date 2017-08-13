@@ -327,7 +327,6 @@ $('body').on('click', '.exam-create-btn', function () {
 $('body').on('click', '.vorschlag-question-switch', function () {
     var questionToSwitch = $(this).siblings('.exam-question-text'); 
     $('span[class^="vorschlag"]').css("pointer-events", "none");
-
     $.ajax({
         url: 'php/controller/exam.php',
         type: "GET",
@@ -344,9 +343,10 @@ $('body').on('click', '.vorschlag-question-switch', function () {
 });
 
 $('body').on('click', '.switch-btn', function () {
-    var par = (this).closest('.exam-question');
     var questionToSwitch = $(this).parents('.exam-question').children().first().text(); 
     var questionPicked = $(this).siblings('.hidden').text();
+    var question_order = getQuestionOrder();
+    
     $.ajax({
         url: 'php/controller/exam.php',
         type: "GET",
@@ -354,13 +354,12 @@ $('body').on('click', '.switch-btn', function () {
         data: {
             "swap": "1",
             "curr_quest": questionToSwitch,
-            "wanted_quest": questionPicked
+            "wanted_quest": questionPicked,
+            "question_order": question_order
         },
         success: function (response) {
             if(response.success) {
-                $(response.success).insertBefore(par);
-                par.remove();
-                $('span[class^="vorschlag"]').css("pointer-events", "auto");
+                $(".exam-box").html(response.success);
             } 
         }
     });
@@ -390,6 +389,14 @@ $('body').on('click', '.vorschlag-question-down', function () {
 //
 // FUNCTIONS
 //////////////////////////////////////////////
+function getQuestionOrder(){
+    order = [];
+    $(".exam-question").each(function () {
+        order.push($(this).children('.hidden').text());
+    });
+    return order;
+}
+
 function resetExamInputErrors(){
     $('input[name=exam-date]').removeClass('input-error');
     $('input[name=exam-punkte]').removeClass('input-error');
