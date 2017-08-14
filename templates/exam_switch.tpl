@@ -7,16 +7,7 @@
             {*{foreach from=$quests_unused item=question}*}
             {foreach from=$quests['BY'] item=question}
                 <div class="switch-question"> 
-                    <span class="hidden">{$question->id} </span>
-                    <span class="switch-btn">+</span> 
-                    {if $question->type == 0}
-                        MC
-                    {elseif $question->type == 1}    
-                        WI
-                    {else}
-                        TR
-                    {/if}
-                    {$question->text} 
+                    {include file="./exam_switch_question.tpl"}
                 </div>
             {/foreach}
             {counter}
@@ -28,16 +19,7 @@
             </div>
             {foreach from=$quests['UN'] item=question}
                 <div class="switch-question"> 
-                    <span class="hidden">{$question->id} </span>
-                    <span class="switch-btn">+</span>
-                    {if $question->type == 0}
-                        MC
-                    {elseif $question->type == 1}    
-                        WI
-                    {else}
-                        TR
-                    {/if}
-                    {$question->text} 
+                    {include file="./exam_switch_question.tpl"}
                 </div>
             {/foreach}
             {counter}
@@ -49,18 +31,7 @@
             </div>
             {foreach from=$quests['SW'] item=question}
                 <div class="switch-question"> 
-                    <span class="hidden">{$question->id} </span>
-                    <span class="switch-btn">+</span> 
-                    <span class="quesiton-type">
-                    {if $question->type == 0}
-                        MC
-                    {elseif $question->type == 1}    
-                        WI
-                    {else}
-                        TR
-                    {/if}
-                    </span>
-                    {$question->text} 
+                    {include file="./exam_switch_question.tpl"}
                 </div>
             {/foreach}
             {counter}

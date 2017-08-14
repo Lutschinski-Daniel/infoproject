@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-13 19:34:42
+/* Smarty version 3.1.30, created on 2017-08-14 18:07:18
   from "C:\xampp\htdocs\Crexam\templates\exam_switch.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_59908db2335cc7_41997562',
+  'unifunc' => 'content_5991cab68b3062_31016488',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'be4d755dff502afc1a46a256e02a9f67ac872668' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\exam_switch.tpl',
-      1 => 1502645665,
+      1 => 1502726827,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:./exam_switch_question.tpl' => 3,
   ),
 ),false)) {
-function content_59908db2335cc7_41997562 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5991cab68b3062_31016488 (Smarty_Internal_Template $_smarty_tpl) {
 if (!is_callable('smarty_function_counter')) require_once 'C:\\xampp\\htdocs\\Crexam\\libs\\plugins\\function.counter.php';
 ?>
 <div class="switch-box">
@@ -37,18 +38,9 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
                 <div class="switch-question"> 
-                    <span class="hidden"><?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
- </span>
-                    <span class="switch-btn">+</span> 
-                    <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
-                        MC
-                    <?php } elseif ($_smarty_tpl->tpl_vars['question']->value->type == 1) {?>    
-                        WI
-                    <?php } else { ?>
-                        TR
-                    <?php }?>
-                    <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
- 
+                    <?php $_smarty_tpl->_subTemplateRender("file:./exam_switch_question.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+?>
+
                 </div>
             <?php
 }
@@ -70,18 +62,9 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
                 <div class="switch-question"> 
-                    <span class="hidden"><?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
- </span>
-                    <span class="switch-btn">+</span>
-                    <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
-                        MC
-                    <?php } elseif ($_smarty_tpl->tpl_vars['question']->value->type == 1) {?>    
-                        WI
-                    <?php } else { ?>
-                        TR
-                    <?php }?>
-                    <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
- 
+                    <?php $_smarty_tpl->_subTemplateRender("file:./exam_switch_question.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+?>
+
                 </div>
             <?php
 }
@@ -103,20 +86,9 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
                 <div class="switch-question"> 
-                    <span class="hidden"><?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
- </span>
-                    <span class="switch-btn">+</span> 
-                    <span class="quesiton-type">
-                    <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
-                        MC
-                    <?php } elseif ($_smarty_tpl->tpl_vars['question']->value->type == 1) {?>    
-                        WI
-                    <?php } else { ?>
-                        TR
-                    <?php }?>
-                    </span>
-                    <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
- 
+                    <?php $_smarty_tpl->_subTemplateRender("file:./exam_switch_question.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+?>
+
                 </div>
             <?php
 }

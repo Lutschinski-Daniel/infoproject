@@ -29,8 +29,6 @@ class ExamEngine {
         $this->conn = $conn_to_db;
         $this->loadQuestions();
         $this->initMapBypassed();
-        if( !$this->isPossible() )
-            return; // TODO: FEHLER SETZEN
         $this->createRandomExam();
     } 
     
@@ -206,7 +204,7 @@ class ExamEngine {
         return $ret_array;
     }
     
-     public function updateOrder($order){
+    private function updateOrder($order){
          $tmp;
          foreach($order as $id){
              foreach($this->tmp_exam as $question){
@@ -269,7 +267,6 @@ class ExamEngine {
             }
             $this->array_switched[] = $quest;
             $this->tmp_exam[$i] = $question_new;
-            return $question_new;
         }
     }
     
@@ -277,16 +274,14 @@ class ExamEngine {
         $conn->updateDates($this->tmp_exam);
     }    
     
-    private function isPossible(){
-        // Check if klausur possible (genug fragen etc.)
-        // return TRUE/FALSE
-        return true;
-    }
-    
-    public function getTmpExam(){
+    public function getTmpExam($order){
         $type_MC = array();
         $type_WI = array();
         $type_TR = array();
+
+        if($order != null){
+            $this->updateOrder($order);
+        }
         
         foreach($this->tmp_exam as $quest){
             if($quest->type === 0){

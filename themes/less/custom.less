@@ -156,7 +156,7 @@ a {
 }
 
 .body-content {
-    padding: 10px;
+    padding: 5px;
     background-color: lightblue;
     height: 100%;
     overflow: auto;
@@ -343,7 +343,9 @@ a {
 
 
 .exam-question-text {
+    clear: both;
     margin-top: 5px;
+    width: 400px;
 }
 
 hr {
@@ -362,11 +364,20 @@ hr {
         padding: 5px 0 5px 15px;
     
         .title {
-         padding-bottom: 5px;
+            margin-bottom: 10px;
         }
     
         .switch-question {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            
+            .quesiton-type {
+                margin-right: 5px;
+            }
+        }
+        
+        .switch-question-text{
+            width: 400px;
+            margin: 3px 0 0 22px;
         }
     }
     
@@ -395,17 +406,20 @@ hr {
 .vorschlag-question-switch,
 .vorschlag-question-top,
 .vorschlag-question-bot {
-    margin: 3px 2;
-    padding: 3px;
     border: @standard-border;
-    
+   
     &:hover {
         background-color: @standard-bg-hover;
     }
 }
 
+span[class^='vorschlag']{
+    margin: 3px 2px;
+    padding: 3px;
+}
+
 .type-title {
-    padding: 20px;
+    padding: 10px 0 15px 20px;
 }
 
 .cancel-switch-btn{
@@ -413,7 +427,44 @@ hr {
     padding: 3px;
     margin: 20px 15px;
 }
+
+.questions-info-box {
+    margin: 15px;
+}
     
+.short-info-div {
+    float: left; 
+    margin: 6px 0;
+    
+    span {
+        border-right: @standard-border;
+        padding: 0 8px 0 0;
+            
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
+
+.nav-arrow-div {
+    float: left; 
+    margin: 6px 0;
+}
+
+.switch-question-info {
+    span {
+        border-right: @standard-border;
+        padding: 0 6px 0 0;
+            
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
+
+.exam-question {
+    padding: 6px;
+}
 /*******************/
 /* Media queries   */ 
 /*******************/
@@ -482,6 +533,21 @@ hr {
     }
     
     hr {
-        width: 20%;
+        width: 25%;
+    }
+    
+    .exam-question-text {
+        width: 550px;
+    }
+    
+    .body-content {
+        padding: 10px;
+    }
+    
+    .switch-question {
+        hr {
+            margin-top: 10px;
+            width: 50%;
+        }
     }
 }

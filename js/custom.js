@@ -155,7 +155,7 @@ $('body').on('click', '.edit-toggle', function () {
             "update_id": $(this).parent('.question-box').attr('id')
         },
         success: function (data) {
-            $("section[name="+id+"]").html(data);
+            $("div[name="+id+"]").html(data);
             $('.mc-punkte-label').text($(".mc-antwort input[name='antwort-gruppe']:checked").length);
         }
     });
@@ -325,7 +325,7 @@ $('body').on('click', '.exam-create-btn', function () {
 });
 
 $('body').on('click', '.vorschlag-question-switch', function () {
-    var questionToSwitch = $(this).siblings('.exam-question-text'); 
+    var questionToSwitch = $(this).parent().siblings('.exam-question-text'); 
     $('span[class^="vorschlag"]').css("pointer-events", "none");
     $.ajax({
         url: 'php/controller/exam.php',
@@ -346,6 +346,7 @@ $('body').on('click', '.switch-btn', function () {
     var questionToSwitch = $(this).parents('.exam-question').children().first().text(); 
     var questionPicked = $(this).siblings('.hidden').text();
     var question_order = getQuestionOrder();
+    var final_order = updateOrderIndex(question_order, questionToSwitch, questionPicked);
     
     $.ajax({
         url: 'php/controller/exam.php',
@@ -371,19 +372,19 @@ $('body').on('click', '.cancel-switch-btn', function () {
 });
 
 $('body').on('click', '.vorschlag-question-top', function () {
-    $(this).parent('.exam-question').prependTo($(this).parents('.exam-questions-box'));
+    $(this).parents('.exam-question').prependTo($(this).parents('.exam-questions-box'));
 });
 
 $('body').on('click', '.vorschlag-question-bot', function () {
-    $(this).parents('.exam-questions-box').append($(this).parent('.exam-question'));
+    $(this).parents('.exam-questions-box').append($(this).parents('.exam-question'));
 });
 
 $('body').on('click', '.vorschlag-question-up', function () {
-    $(this).parent('.exam-question').insertBefore($(this).parent('.exam-question').prev());
+    $(this).parents('.exam-question').insertBefore($(this).parents('.exam-question').prev());
 });
 
 $('body').on('click', '.vorschlag-question-down', function () {
-    $(this).parent('.exam-question').insertAfter($(this).parent('.exam-question').next());
+    $(this).parents('.exam-question').insertAfter($(this).parents('.exam-question').next());
 });
 
 //
@@ -395,6 +396,15 @@ function getQuestionOrder(){
         order.push($(this).children('.hidden').text());
     });
     return order;
+}
+
+function updateOrderIndex(array, old_id, new_id){
+    $.each(array, function(index, value) {
+        if( value === old_id){
+            array[index] = new_id;
+        }
+    });
+    return array;
 }
 
 function resetExamInputErrors(){

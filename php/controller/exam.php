@@ -13,7 +13,7 @@ if( isset($_SESSION['current_lecture_id'])) {
     
     if (isset ($_GET['save'])) { 
         $engine = unserialize($_SESSION['engine']);
-        $quests = $engine->getTmpExam();
+        $quests = $engine->getTmpExam(null);
         $engine->saveAndReset(db_conn::getInstance());
         unset($_SESSION['engine']);
         // 
@@ -39,13 +39,12 @@ if( isset($_SESSION['current_lecture_id'])) {
         $id_wanted = intval($_GET['wanted_quest']);
         $order = $_GET['question_order'];
         $engine = unserialize($_SESSION['engine']);
-        $engine->updateOrder($order);
-        $quest = $engine->switchQuestionWith($id_curr, $id_wanted);
+        $engine->switchQuestionWith($id_curr, $id_wanted);
         $smarty = new Smarty;
-        $smarty->assign('questions', $engine->getTmpExam());
+        $smarty->assign('questions', $engine->getTmpExam($order));
         $smarty->assign('exam_points', $engine->getPoints());
         $smarty->assign('exam_average', $engine->getAverage());
-        $response = array('success' => $smarty->fetch("../../templates/exam_update.tpl"));
+        $response = array('success' => $smarty->fetch("../../templates/exam_questions.tpl"));
         $_SESSION['engine'] = serialize($engine);
     } elseif( isset($_GET['laenge'], $_GET['punkte'], $_GET['datum'])){
         if( isset($_SESSION['engine'])){
@@ -58,7 +57,7 @@ if( isset($_SESSION['current_lecture_id'])) {
         // LOAD QUESTIONS FOR EXAM-VORSCHLAG HERE!
         // $smarty->assign('questions', $questions);
         $engine = new ExamEngine($_SESSION['current_lecture_id'], $_GET['punkte'], db_conn::getInstance());
-        $quests = $engine->getTmpExam();
+        $quests = $engine->getTmpExam(null);
         $smarty->assign('questions', $quests);
         $smarty->assign('exam_points', $engine->getPoints());
         $smarty->assign('exam_average', $engine->getAverage());

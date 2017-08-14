@@ -1,8 +1,13 @@
-<h1>Alle Fragen der Vorlesung: {$lecture_bez}!</h1>
-<div>Durchschnittliche Schwierigkeit: {$average}</div>
-<div>Anzahl Fragen: {$quest_count}</div>
+<div class="questions-info-box">
+    <h1>Alle Fragen der Vorlesung: {$lecture_bez}!</h1>
+    <div>Durchschnittliche Schwierigkeit: {$average}</div>
+    <div>Fragen insgesamt: {$quest_count}</div>
+    <div title='Multiple-Choice-Fragen'>MC: {$anz_MC}</div>
+    <div title='Wissenfragen'>WI: {$anz_WI}</div>
+    <div title='Transferfragen'>TR: {$anz_TR}</div>
+</div>
 {foreach from=$questions item=$question}
-    <section class="question-box" id="{$question.id}" name="{$question.id}">
+    <div class="question-box" id="{$question.id}" name="{$question.id}">
         <div class="question-box-frage-text">
             {if $question.type eq 0}
                 MC :
@@ -37,10 +42,11 @@
             <li>Schwierigkeit: {$question.difficulty}</li>
             <li>Häufigkeit: {$question.frequency}</li>
             {if $question.type > 0}<li>Platzbedarf: {$question.space}</li>{/if}
+            <li>Letzte Verwendung: {$question.last_usage}</li>
         </ul>
         <span class="edit-question edit-toggle">E</span>
         <span class="delete-question">X</span>
-    </section>
+    </div>
 {/foreach}
 
 
