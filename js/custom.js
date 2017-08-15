@@ -307,7 +307,7 @@ $('body').on('click', '.save-vorlage-btn', function () {
 });
 
 $('body').on('click', '.exam-create-btn', function () {
-     $.ajax({
+    $.ajax({
         url: 'php/controller/exam.php',
         type: "GET",
         dataType: "json",
