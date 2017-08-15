@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-15 22:30:47
+/* Smarty version 3.1.30, created on 2017-08-16 01:14:32
   from "C:\xampp\htdocs\Crexam\vorlage\klausur1.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_599359f71921a3_28872753',
+  'unifunc' => 'content_599380582f83c4_87399202',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6584fafdf2c32227d3af884b0db5d84c50f2f346' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\vorlage\\klausur1.tpl',
-      1 => 1502829041,
+      1 => 1502838866,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_599359f71921a3_28872753 (Smarty_Internal_Template $_smarty_tpl) {
+function content_599380582f83c4_87399202 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 \documentclass[addpoints,a4paper,ngerman,10pt,answers]{exam}
 \usepackage {babel}	
@@ -40,16 +40,16 @@ function content_599359f71921a3_28872753 (Smarty_Internal_Template $_smarty_tpl)
 \pagestyle{headandfoot}
 \headrule
 \footrule
-\extraheadheight{3cm}
-\header{\begin{minipage}{0.4\textwidth}\textbf{Name, Vorname:}\\[\baselineskip]\textbf{Matrikelnummer:}\\[\baselineskip]\textbf{Prüfer: Prof. Dr. Tobias Eggendorfer}\end{minipage}}
-{}{\begin{minipage}{0.225\textwidth} \vspace{.7cm}\textbf{Übertrag:}\\\textbf{Punkte:}\\\textbf{Gesamt:}\end{minipage}}
+\extraheadheight{4cm}
+\header{\begin{minipage}{0.4\textwidth}\textbf{Name, Vorname:}\\[\baselineskip]\textbf{Matrikelnummer:}\\[\baselineskip]\textbf{Prüfer: Prof. Dr. Tobias Eggendorfer}\vspace{.42cm}\end{minipage}}
+{}{\parbox{0.225\textwidth}{\textbf{Übertrag:}\\\vspace{.1cm}\textbf{Punkte:}\\\vspace{.1cm}\textbf{Gesamt:}}}
 \footer{\textbf{<?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
 }}{}{\textbf{Blatt \thepage\ / \numpages}}
 
 \newcommand\BackGroundImage[1]{%
 \BgThispage
 \backgroundsetup{
-pages=all,scale=1,angle=0,position={current page.north}, hshift=5cm, vshift=-2cm, opacity=1,
+pages=all,scale=1,angle=0,position={current page.north}, hshift=5cm, vshift=-2.5cm, opacity=1,
 contents={%
 \includegraphics[width=5cm]{#1}
 }}}
@@ -115,12 +115,30 @@ Hilfsmitteln führt zum sofortigen Ausschluß von der Prüfung.
 {\textbf{\large Erreichte Punktzahl:\ \underline{\hspace{1.2cm}}\ / \numpoints\ $\rightarrow$ Note:\ \underline{\hspace{1.2cm}}}}
 \end{flushleft}
 \end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.20\textwidth}
+Punkte\hspace{.15cm} Note\\\vspace{.3cm}
+<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['noten']->value, 'note', false, 'key');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['key']->value => $_smarty_tpl->tpl_vars['note']->value) {
+echo $_smarty_tpl->tpl_vars['note']->value;?>
+ \hspace{.8cm} <?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+ \\\vspace{.1cm}
+<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+ 
+\vspace{2.5cm}
+\end{minipage}
+
 \newpage
 \newcounter{counter}
 \addtocounter{counter}{1}
 \begin{questions}
 \pointsinrightmargin
-
 <?php if (count($_smarty_tpl->tpl_vars['questions']->value['MC']) > 0) {?>
 \fullwidth{\textbf{\large Teil \thecounter\ - Mutltiple Choice Fragen}}
 \addtocounter{counter}{1}
@@ -135,7 +153,8 @@ für diese Frage zur Bewertung mit null Punkten.\\\vspace{.25cm}
 Bei Fragen, bei denen mehrere Antwortmöglichkeiten bestehen, erhalten Sie für
 jede richtige Antwort einen Punkt, für jedes falsch gesetzte Kreuz zwei Punkte
 Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\end{minipage}}
-\fullwidth{\textbf{Gesamtpunktzahl: xx Punkte}}
+\fullwidth{\textbf{Gesamtpunktzahl: <?php echo $_smarty_tpl->tpl_vars['bereichspunkte']->value['p_MC'];?>
+ Punkte}}
 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value['MC'], 'question');
 if ($_from !== null) {
@@ -166,23 +185,24 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-\clearpage
 <?php }?>
 
 <?php if (count($_smarty_tpl->tpl_vars['questions']->value['WI']) > 0) {?>
+\clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Wissensfragen}}
 \addtocounter{counter}{1}
 \vspace{.5cm}
-\fullwidth{\textbf{Gesamtpunktzahl: xx Punkte}}
+\fullwidth{\textbf{Gesamtpunktzahl: <?php echo $_smarty_tpl->tpl_vars['bereichspunkte']->value['p_WI'];?>
+ Punkte}}
 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value['WI'], 'question');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
 \question[<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
-]\begin{minipage}{0.70\textwidth}<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+] \parbox[t][][t]{0.65\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
 \linebreak(<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
-\ Punkte)\end{minipage}
+\ Punkte)}
 <?php $_smarty_tpl->_assignInScope('spacecount', 0);
 if (($_smarty_tpl->tpl_vars['question']->value->space == 1)) {
 $_smarty_tpl->_assignInScope('spacecount', 6);
@@ -202,22 +222,24 @@ $_smarty_tpl->_assignInScope('spacecount', 24);
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-\clearpage
 <?php }?>
 
 <?php if (count($_smarty_tpl->tpl_vars['questions']->value['TR']) > 0) {?>
+\clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Transferaufgaben}}
 \addtocounter{counter}{1}
 \vspace{.5cm}
+\fullwidth{\textbf{Gesamtpunktzahl: <?php echo $_smarty_tpl->tpl_vars['bereichspunkte']->value['p_TR'];?>
+ Punkte}}
 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value['TR'], 'question');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
 \question[<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
-]\begin{minipage}{0.70\textwidth}<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+] \parbox[t][][t]{0.65\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
 \linebreak(<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
-\ Punkte)\end{minipage}
+\ Punkte)}
 <?php $_smarty_tpl->_assignInScope('spacecount', 0);
 if (($_smarty_tpl->tpl_vars['question']->value->space == 1)) {
 $_smarty_tpl->_assignInScope('spacecount', 6);
@@ -231,21 +253,19 @@ $_smarty_tpl->_assignInScope('spacecount', 24);
 \multido{}{<?php echo $_smarty_tpl->tpl_vars['spacecount']->value;?>
 }{\vspace*{1cm}}
 \vspace{1cm}
-\clearpage
 <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-\clearpage
 <?php }?>
-\droppoints
 
-\multido{}{2}{\newpage
+\multido{}{2}{
+\newpage
 \fullwidth{\textbf{\large Anhang - Platz für Ihre Notizen}}
 \vspace{.5cm}
-\fullwidth{\begin{minipage}{0.78\textwidth}Die folgenden Seiten können Sie für Ihre Notizen, Nebenrechnungen etc. nutzen.
+\fullwidth{\begin{minipage}{0.75\textwidth}Die folgenden Seiten können Sie für Ihre Notizen, Nebenrechnungen etc. nutzen.
 Der Inhalt dieserSeiten wird, sofern Sie es nicht explizit markieren, \underline{nicht} bewertet.\end{minipage}}}
 
 \end{questions}

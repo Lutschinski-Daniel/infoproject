@@ -16,15 +16,15 @@
 \pagestyle{headandfoot}
 \headrule
 \footrule
-\extraheadheight{3cm}
-\header{\begin{minipage}{0.4\textwidth}\textbf{Name, Vorname:}\\[\baselineskip]\textbf{Matrikelnummer:}\\[\baselineskip]\textbf{Prüfer: Prof. Dr. Tobias Eggendorfer}\end{minipage}}
-{}{\begin{minipage}{0.225\textwidth} \vspace{.7cm}\textbf{Übertrag:}\\\textbf{Punkte:}\\\textbf{Gesamt:}\end{minipage}}
+\extraheadheight{4cm}
+\header{\begin{minipage}{0.4\textwidth}\textbf{Name, Vorname:}\\[\baselineskip]\textbf{Matrikelnummer:}\\[\baselineskip]\textbf{Prüfer: Prof. Dr. Tobias Eggendorfer}\vspace{.42cm}\end{minipage}}
+{}{\parbox{0.225\textwidth}{\textbf{Übertrag:}\\\vspace{.1cm}\textbf{Punkte:}\\\vspace{.1cm}\textbf{Gesamt:}}}
 \footer{\textbf{<<$lecture>>}}{}{\textbf{Blatt \thepage\ / \numpages}}
 
 \newcommand\BackGroundImage[1]{%
 \BgThispage
 \backgroundsetup{
-pages=all,scale=1,angle=0,position={current page.north}, hshift=5cm, vshift=-2cm, opacity=1,
+pages=all,scale=1,angle=0,position={current page.north}, hshift=5cm, vshift=-2.5cm, opacity=1,
 contents={%
 \includegraphics[width=5cm]{#1}
 }}}
@@ -89,12 +89,20 @@ Hilfsmitteln führt zum sofortigen Ausschluß von der Prüfung.
 {\textbf{\large Erreichte Punktzahl:\ \underline{\hspace{1.2cm}}\ / \numpoints\ $\rightarrow$ Note:\ \underline{\hspace{1.2cm}}}}
 \end{flushleft}
 \end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.20\textwidth}
+Punkte\hspace{.15cm} Note\\\vspace{.3cm}
+<<foreach from=$noten item=$note key=$key>>
+<<$note>> \hspace{.8cm} <<$key>> \\\vspace{.1cm}
+<</foreach>> 
+\vspace{2.5cm}
+\end{minipage}
+
 \newpage
 \newcounter{counter}
 \addtocounter{counter}{1}
 \begin{questions}
 \pointsinrightmargin
-
 <<if count($questions['MC']) > 0>>
 \fullwidth{\textbf{\large Teil \thecounter\ - Mutltiple Choice Fragen}}
 \addtocounter{counter}{1}
@@ -109,7 +117,7 @@ für diese Frage zur Bewertung mit null Punkten.\\\vspace{.25cm}
 Bei Fragen, bei denen mehrere Antwortmöglichkeiten bestehen, erhalten Sie für
 jede richtige Antwort einen Punkt, für jedes falsch gesetzte Kreuz zwei Punkte
 Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\end{minipage}}
-\fullwidth{\textbf{Gesamtpunktzahl: xx Punkte}}
+\fullwidth{\textbf{Gesamtpunktzahl: <<$bereichspunkte['p_MC']>> Punkte}}
 <<foreach from=$questions['MC'] item=$question>>
 \question[<<$question->points>>]\begin{minipage}{0.70\textwidth}<<$question->text>>\end{minipage}
 \begin{checkboxes}
@@ -120,16 +128,16 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 \end{checkboxes}
 \vspace{1cm}
 <</foreach>>
-\clearpage
 <</if>>
 
 <<if count($questions['WI']) > 0>>
+\clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Wissensfragen}}
 \addtocounter{counter}{1}
 \vspace{.5cm}
-\fullwidth{\textbf{Gesamtpunktzahl: xx Punkte}}
+\fullwidth{\textbf{Gesamtpunktzahl: <<$bereichspunkte['p_WI']>> Punkte}}
 <<foreach from=$questions['WI'] item=$question>>
-\question[<<$question->points>>]\begin{minipage}{0.70\textwidth}<<$question->text>>\linebreak(<<$question->points>>\ Punkte)\end{minipage}
+\question[<<$question->points>>] \parbox[t][][t]{0.65\textwidth}{<<$question->text>>\linebreak(<<$question->points>>\ Punkte)}
 <<assign var="spacecount" value=0>>
 <<if ($question->space == 1)>><<$spacecount=6>><</if>>
 <<if ($question->space == 2)>><<$spacecount=12>><</if>>
@@ -137,31 +145,30 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 \multido{}{<<$spacecount>>}{\vspace*{1cm}}
 \vspace{1cm}
 <</foreach>>
-\clearpage
 <</if>>
 
 <<if count($questions['TR']) > 0>>
+\clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Transferaufgaben}}
 \addtocounter{counter}{1}
 \vspace{.5cm}
+\fullwidth{\textbf{Gesamtpunktzahl: <<$bereichspunkte['p_TR']>> Punkte}}
 <<foreach from=$questions['TR'] item=$question>>
-\question[<<$question->points>>]\begin{minipage}{0.70\textwidth}<<$question->text>>\linebreak(<<$question->points>>\ Punkte)\end{minipage}
+\question[<<$question->points>>] \parbox[t][][t]{0.65\textwidth}{<<$question->text>>\linebreak(<<$question->points>>\ Punkte)}
 <<assign var="spacecount" value=0>>
 <<if ($question->space == 1)>><<$spacecount=6>><</if>>
 <<if ($question->space == 2)>><<$spacecount=12>><</if>>
 <<if ($question->space == 4)>><<$spacecount=24>><</if>>
 \multido{}{<<$spacecount>>}{\vspace*{1cm}}
 \vspace{1cm}
-\clearpage
 <</foreach>>
-\clearpage
 <</if>>
-\droppoints
 
-\multido{}{2}{\newpage
+\multido{}{2}{
+\newpage
 \fullwidth{\textbf{\large Anhang - Platz für Ihre Notizen}}
 \vspace{.5cm}
-\fullwidth{\begin{minipage}{0.78\textwidth}Die folgenden Seiten können Sie für Ihre Notizen, Nebenrechnungen etc. nutzen.
+\fullwidth{\begin{minipage}{0.75\textwidth}Die folgenden Seiten können Sie für Ihre Notizen, Nebenrechnungen etc. nutzen.
 Der Inhalt dieserSeiten wird, sofern Sie es nicht explizit markieren, \underline{nicht} bewertet.\end{minipage}}}
 
 \end{questions}

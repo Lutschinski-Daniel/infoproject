@@ -312,4 +312,21 @@ class ExamEngine {
         }
         return $points;
     }
+    
+    public function getBereichsPunkte(){
+        $p_MC = 0;
+        $p_WI = 0;
+        $p_TR = 0;
+        foreach($this->tmp_exam as $quest){
+            if($quest->type === 0){
+                $p_MC += $quest->points;
+            } elseif($quest->type === 1){
+                $p_WI += $quest->points;
+            } else {
+                $p_TR += $quest->points;
+            }
+        }
+        $ret = array("p_MC" => $p_MC, "p_WI" => $p_WI, "p_TR" => $p_TR);
+        return $ret;
+    }
 }

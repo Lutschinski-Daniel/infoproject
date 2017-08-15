@@ -314,7 +314,8 @@ $('body').on('click', '.exam-create-btn', function () {
         data: {
             "save": "save",
             "datum": $('input[name=exam-date]').val(),
-            "laenge": $('.exam-laenge option:selected').val()
+            "laenge": $('.exam-laenge option:selected').val(),
+            "question_order": getQuestionOrder()
         },
         success: function (response) {
             if(response.success) {

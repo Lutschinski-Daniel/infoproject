@@ -19,11 +19,14 @@ if( isset($_SESSION['current_lecture_id'])) {
         // 
         // SAVE QUESTIONS FOR EXAM HERE!
         // $smarty->assign('questions', $questions);
-        $smarty->assign("questions", $quests);
+        $smarty->assign("questions", $engine->getTmpExam($_GET['question_order']));
         $smarty->left_delimiter = '<<';
         $smarty->right_delimiter = '>>';
         $smarty->assign("date", $_GET['datum']);
         $smarty->assign("laenge", $_GET['laenge']);
+        $noten = json_decode(file_get_contents('../../config_punkte_90.json'));
+        $smarty->assign("noten", $noten);
+        $smarty->assign("bereichspunkte", $engine->getBereichsPunkte());
         $result = $smarty->fetch("../../vorlage/klausur1.tpl");
         file_put_contents("../../tex/klausur1.tex", $result);
         $response = array('success' => '<h2>Klausur wurde erstellt! Sie finden sie <br> unter: ***</h2>');
