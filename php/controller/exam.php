@@ -10,15 +10,25 @@ $response = array();
 if( isset($_SESSION['current_lecture_id'])) {
     $smarty = new Smarty;
     $smarty->assign("lecture", $_SESSION['current_lecture_bez']);
-    
-    if (isset ($_GET['save'])) { 
+
+    if(isset($_GET['point_update'])){
+        $engine = unserialize($_SESSION['engine']);
+        $engine->updatePointsForId(intval($_GET['point_update']),intval($_GET['id']));
+        $response = array('success' => 'Aufgabenpunkte für diese Klausur aktualisiert');
+        $_SESSION['engine'] = serialize($engine);
+    } elseif(isset($_GET['delete'])){
+        $engine = unserialize($_SESSION['engine']);
+        $engine->deleteFromTmpExam(intval($_GET['delete']));
+        $smarty->assign('questions', $engine->getTmpExam($_GET['order']));
+        $smarty->assign('exam_points', $engine->getPoints());
+        $smarty->assign('exam_average', $engine->getAverage());
+        $response = array('success' => $smarty->fetch("../../templates/exam_questions.tpl"));
+        $_SESSION['engine'] = serialize($engine);
+    } elseif (isset($_GET['save'])) { 
         $engine = unserialize($_SESSION['engine']);
         $quests = $engine->getTmpExam(null);
         $engine->saveAndReset(db_conn::getInstance());
         unset($_SESSION['engine']);
-        // 
-        // SAVE QUESTIONS FOR EXAM HERE!
-        // $smarty->assign('questions', $questions);
         $smarty->assign("questions", $engine->getTmpExam($_GET['question_order']));
         $smarty->left_delimiter = '<<';
         $smarty->right_delimiter = '>>';
@@ -27,8 +37,11 @@ if( isset($_SESSION['current_lecture_id'])) {
         $noten = json_decode(file_get_contents('../../config_punkte_90.json'));
         $smarty->assign("noten", $noten);
         $smarty->assign("bereichspunkte", $engine->getBereichsPunkte());
-        $result = $smarty->fetch("../../vorlage/klausur1.tpl");
-        file_put_contents("../../tex/klausur1.tex", $result);
+        $exam = $smarty->fetch("../../vorlage/klausur1.tpl");
+        file_put_contents("../../tex/klausur1.tex", $exam);
+        $smarty->assign("prof", 1);
+        $loesung = $smarty->fetch("../../vorlage/klausur1.tpl");
+        file_put_contents("../../tex/musterloesung/musterloesung.tex", $loesung);
         $response = array('success' => '<h2>Klausur wurde erstellt! Sie finden sie <br> unter: ***</h2>');
     } elseif(isset($_GET['switch'])){ 
         $id = intval($_GET['switch']);

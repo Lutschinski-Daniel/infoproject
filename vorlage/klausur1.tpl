@@ -10,8 +10,14 @@
 \usepackage[document]{ragged2e}
 \usepackage[scaled]{uarial}
 
-\nopointsinmargin
+\renewcommand{\solutiontitle}{\noindent\textbf{Lösung:}\enspace}
 \pointformat{}
+\nopointsinmargin
+<<if isset($prof)>>
+\printanswers
+<<else>>
+\noprintanswers
+<</if>>
 
 \pagestyle{headandfoot}
 \headrule
@@ -123,7 +129,11 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 \begin{checkboxes}
 <<assign var=answers value=$question->answer|json_decode:1>>
 <<foreach from=$answers item=$mc>>
+<<if $mc.wahrheitswert == 1>>
+\correctchoice <<$mc.antwort>>
+<<else>>
 \choice <<$mc.antwort>>
+<</if>>
 <</foreach>>
 \end{checkboxes}
 \vspace{1cm}
@@ -139,10 +149,19 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 <<foreach from=$questions['WI'] item=$question>>
 \question[<<$question->points>>] \parbox[t][][t]{0.65\textwidth}{<<$question->text>>\linebreak(<<$question->points>>\ Punkte)}
 <<assign var="spacecount" value=0>>
-<<if ($question->space == 1)>><<$spacecount=6>><</if>>
-<<if ($question->space == 2)>><<$spacecount=12>><</if>>
-<<if ($question->space == 4)>><<$spacecount=24>><</if>>
+<<if ($question->space == 1)>><<$spacecount=5>><</if>>
+<<if ($question->space == 2)>><<$spacecount=10>><</if>>
+<<if ($question->space == 4)>><<$spacecount=20>><</if>>
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{<<$question->answer>>}
+\end{solution}
+\end{minipage}
+\else
 \multido{}{<<$spacecount>>}{\vspace*{1cm}}
+\fi
 \vspace{1cm}
 <</foreach>>
 <</if>>
@@ -156,10 +175,19 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 <<foreach from=$questions['TR'] item=$question>>
 \question[<<$question->points>>] \parbox[t][][t]{0.65\textwidth}{<<$question->text>>\linebreak(<<$question->points>>\ Punkte)}
 <<assign var="spacecount" value=0>>
-<<if ($question->space == 1)>><<$spacecount=6>><</if>>
-<<if ($question->space == 2)>><<$spacecount=12>><</if>>
-<<if ($question->space == 4)>><<$spacecount=24>><</if>>
+<<if ($question->space == 1)>><<$spacecount=5>><</if>>
+<<if ($question->space == 2)>><<$spacecount=10>><</if>>
+<<if ($question->space == 4)>><<$spacecount=20>><</if>>
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution} 
+\parbox[t][][t]{.8\textwidth}{<<$question->answer>>}
+\end{solution}
+\end{minipage}
+\else
 \multido{}{<<$spacecount>>}{\vspace*{1cm}}
+\fi
 \vspace{1cm}
 <</foreach>>
 <</if>>

@@ -388,10 +388,6 @@ hr {
     }
 }
 
-
-
-
-
 .switch-btn {
     border: @standard-border;
     padding: 0 5px;
@@ -401,13 +397,17 @@ hr {
     }
 }
 
-.vorschlag-question-up,
-.vorschlag-question-down,
-.vorschlag-question-switch,
-.vorschlag-question-top,
-.vorschlag-question-bot {
+.nav-arrow-div span{
     border: @standard-border;
    
+    &:hover {
+        background-color: @standard-bg-hover;
+    }
+}
+
+.vorschlag-question-edit {
+    padding: 3px 25px;
+    
     &:hover {
         background-color: @standard-bg-hover;
     }
@@ -464,6 +464,10 @@ span[class^='vorschlag']{
 
 .exam-question {
     padding: 6px;
+}
+
+.vorlage-textarea {
+    width: 600px;
 }
 /*******************/
 /* Media queries   */ 

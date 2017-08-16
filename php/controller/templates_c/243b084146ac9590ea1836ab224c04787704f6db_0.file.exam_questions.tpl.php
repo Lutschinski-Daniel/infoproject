@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-14 17:20:41
+/* Smarty version 3.1.30, created on 2017-08-16 17:17:54
   from "C:\xampp\htdocs\Crexam\templates\exam_questions.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5991bfc9c484c1_96324276',
+  'unifunc' => 'content_599462228bbf46_23220964',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '243b084146ac9590ea1836ab224c04787704f6db' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\exam_questions.tpl',
-      1 => 1502724037,
+      1 => 1502896579,
       2 => 'file',
     ),
   ),
@@ -21,13 +21,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:./exam_question.tpl' => 3,
   ),
 ),false)) {
-function content_5991bfc9c484c1_96324276 (Smarty_Internal_Template $_smarty_tpl) {
+function content_599462228bbf46_23220964 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h2 class="vorschlag-titel">Klausurvorschlag</h2>
 <?php if (isset($_smarty_tpl->tpl_vars['exam_average']->value)) {?><div class="exam-average">Durchschnittliche Schwierigkeit: <?php echo $_smarty_tpl->tpl_vars['exam_average']->value;?>
 </div><?php }
-if (isset($_smarty_tpl->tpl_vars['exam_points']->value)) {?><div class="exam-points">Tatsächliche Punkte: <?php echo $_smarty_tpl->tpl_vars['exam_points']->value;?>
-</div><?php }
+if (isset($_smarty_tpl->tpl_vars['exam_points']->value)) {?><div class="exam-points">Tatsächliche Punkte: <span><?php echo $_smarty_tpl->tpl_vars['exam_points']->value;?>
+</span></div><?php }
 if (count($_smarty_tpl->tpl_vars['questions']->value['MC']) > 0) {?>
     <div class="type-title">Multiple-Choice</div>
     <div class="exam-questions-box">

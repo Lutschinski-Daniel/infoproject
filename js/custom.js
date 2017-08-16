@@ -290,7 +290,7 @@ $('body').on('click', '.exam-create-vorschlag', function () {
 $('body').on('click', '.save-vorlage-btn', function () {
      $.ajax({
         url: 'php/controller/settings.php',
-        type: "GET",
+        type: "POST",
         dataType: "json",
         data: {
             "save": $('.vorlage-textarea').val()
@@ -343,6 +343,74 @@ $('body').on('click', '.vorschlag-question-switch', function () {
     });
 });
 
+$('body').on('click', '.vorschlag-question-delete', function () {
+    var quest = $(this).parents('.exam-question');
+    var id = quest.children('.hidden').text();
+
+    $.ajax({
+        url: 'php/controller/exam.php',
+        type: "GET",
+        dataType: "json",
+        data: {
+            "delete": id,
+            "order": getQuestionOrder()
+        },
+        success: function (response) {
+            if(response.success) {
+                $(".exam-box").html(response.success);
+                showMessageBox("Aufgabe aus Klausurvorschlag entfernt!");
+            } 
+        }
+    });
+});
+
+$('body').on('click', '.vorschlag-question-edit', function () {
+    $('span[class="vorschlag-question-edit"]').css("pointer-events", "none");
+    $(this).addClass('hidden');
+    $(this).siblings().removeClass('hidden');
+});
+
+$('body').on('click', '.point-minus', function () {
+    var obj_quest = $(this).parents('.exam-question').find('.vorschlag-question-points');
+    var obj_total = $('.exam-points').children('span');
+    obj_quest.text((obj_quest.text()-1)); 
+    obj_total.text((obj_total.text()-1));
+});
+
+$('body').on('click', '.point-plus', function () {
+    var obj_quest = $(this).parents('.exam-question').find('.vorschlag-question-points');
+    var obj_total = $('.exam-points').children('span');
+    var quest_count = parseInt(obj_quest.text()) + 1;
+    var total_count = parseInt(obj_total.text()) + 1;
+    obj_quest.text(quest_count); 
+    obj_total.text(total_count);
+});
+
+$('body').on('click', '.point-done', function () {
+    $(this).addClass('hidden');
+    $(this).siblings('span[class^="point-"]').addClass('hidden');
+    $(this).siblings('.vorschlag-question-edit').removeClass('hidden');
+    $('span[class="vorschlag-question-edit"]').css("pointer-events", "auto");
+    
+    var id = $(this).parents('.exam-question').children('.hidden').text();
+    var points = $(this).parents('.exam-question').find('.vorschlag-question-points').text();
+    
+    $.ajax({
+        url: 'php/controller/exam.php',
+        type: "GET",
+        dataType: "json",
+        data: {
+            "point_update": points,
+            "id": id
+        },
+        success: function (response) {
+            if(response.success) {
+                showMessageBox(response.success);
+            } 
+        }
+    });
+});
+
 $('body').on('click', '.switch-btn', function () {
     var questionToSwitch = $(this).parents('.exam-question').children().first().text(); 
     var questionPicked = $(this).siblings('.hidden').text();
@@ -357,7 +425,7 @@ $('body').on('click', '.switch-btn', function () {
             "swap": "1",
             "curr_quest": questionToSwitch,
             "wanted_quest": questionPicked,
-            "question_order": question_order
+            "question_order": final_order
         },
         success: function (response) {
             if(response.success) {

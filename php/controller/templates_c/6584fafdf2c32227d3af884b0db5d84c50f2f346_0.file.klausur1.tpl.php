@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-16 01:14:32
+/* Smarty version 3.1.30, created on 2017-08-16 15:57:04
   from "C:\xampp\htdocs\Crexam\vorlage\klausur1.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_599380582f83c4_87399202',
+  'unifunc' => 'content_59944f30979343_19903609',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6584fafdf2c32227d3af884b0db5d84c50f2f346' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\vorlage\\klausur1.tpl',
-      1 => 1502838866,
+      1 => 1502891776,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_599380582f83c4_87399202 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59944f30979343_19903609 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 \documentclass[addpoints,a4paper,ngerman,10pt,answers]{exam}
 \usepackage {babel}	
@@ -33,9 +33,16 @@ function content_599380582f83c4_87399202 (Smarty_Internal_Template $_smarty_tpl)
 \usepackage{calc}
 \usepackage[document]{ragged2e}
 \usepackage[scaled]{uarial}
+\usepackage{blindtext}
 
-\nopointsinmargin
+\renewcommand{\solutiontitle}{\noindent\textbf{Lösung:}\enspace}
 \pointformat{}
+\nopointsinmargin
+<?php if (isset($_smarty_tpl->tpl_vars['prof']->value)) {?>
+\printanswers
+<?php } else { ?>
+\noprintanswers
+<?php }?>
 
 \pagestyle{headandfoot}
 \headrule
@@ -168,10 +175,13 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['answers']->value, 'mc');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['mc']->value) {
-?>
+if ($_smarty_tpl->tpl_vars['mc']->value['wahrheitswert'] == 1) {?>
+\correctchoice <?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
+
+<?php } else { ?>
 \choice <?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
 
-<?php
+<?php }
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
@@ -205,16 +215,26 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 \ Punkte)}
 <?php $_smarty_tpl->_assignInScope('spacecount', 0);
 if (($_smarty_tpl->tpl_vars['question']->value->space == 1)) {
-$_smarty_tpl->_assignInScope('spacecount', 6);
+$_smarty_tpl->_assignInScope('spacecount', 5);
 }
 if (($_smarty_tpl->tpl_vars['question']->value->space == 2)) {
-$_smarty_tpl->_assignInScope('spacecount', 12);
+$_smarty_tpl->_assignInScope('spacecount', 10);
 }
 if (($_smarty_tpl->tpl_vars['question']->value->space == 4)) {
-$_smarty_tpl->_assignInScope('spacecount', 24);
+$_smarty_tpl->_assignInScope('spacecount', 20);
 }?>
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->answer;?>
+}
+\end{solution}
+\end{minipage}
+\else
 \multido{}{<?php echo $_smarty_tpl->tpl_vars['spacecount']->value;?>
 }{\vspace*{1cm}}
+\fi
 \vspace{1cm}
 <?php
 }
@@ -242,16 +262,26 @@ foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 \ Punkte)}
 <?php $_smarty_tpl->_assignInScope('spacecount', 0);
 if (($_smarty_tpl->tpl_vars['question']->value->space == 1)) {
-$_smarty_tpl->_assignInScope('spacecount', 6);
+$_smarty_tpl->_assignInScope('spacecount', 5);
 }
 if (($_smarty_tpl->tpl_vars['question']->value->space == 2)) {
-$_smarty_tpl->_assignInScope('spacecount', 12);
+$_smarty_tpl->_assignInScope('spacecount', 10);
 }
 if (($_smarty_tpl->tpl_vars['question']->value->space == 4)) {
-$_smarty_tpl->_assignInScope('spacecount', 24);
+$_smarty_tpl->_assignInScope('spacecount', 20);
 }?>
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution} 
+\parbox[t][][t]{.8\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->answer;?>
+}
+\end{solution}
+\end{minipage}
+\else
 \multido{}{<?php echo $_smarty_tpl->tpl_vars['spacecount']->value;?>
 }{\vspace*{1cm}}
+\fi
 \vspace{1cm}
 <?php
 }

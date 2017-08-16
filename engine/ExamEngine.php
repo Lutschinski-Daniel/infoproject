@@ -329,4 +329,24 @@ class ExamEngine {
         $ret = array("p_MC" => $p_MC, "p_WI" => $p_WI, "p_TR" => $p_TR);
         return $ret;
     }
+    
+    public function deleteFromTmpExam($id){
+        for($i = 0; $i < count($this->tmp_exam); $i++){
+            $question = $this->tmp_exam[$i];
+            if($question->id === $id){
+                $this->array_switched[] = $question;
+                array_splice($this->tmp_exam, $i, 1);
+                break;
+            }
+        }
+    }
+    
+    public function updatePointsForId($points, $id){
+        foreach($this->tmp_exam as $question){
+            if($question->id === $id){
+                $question->points = $points;
+                break;
+            }
+        }
+    }
 }
