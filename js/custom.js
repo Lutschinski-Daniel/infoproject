@@ -22,13 +22,27 @@ $(".logo").click(function () {
 });
 
 $('body').on('click', '.create-lecture-btn', function () {
+    var bez = $('input[name=bezeichnung]');
+    var bez_kurz = $('input[name=bezeichnung_kurz]');
+    bez.removeClass('input-error');
+    bez.removeClass('input-error');
+    
+    if(!bez.val()){
+        $('input[name=bezeichnung]').addClass('input-error');
+        return;
+    }
+    if(!bez_kurz.val()){
+        $('input[name=bezeichnung_kurz]').addClass('input-error');
+        return;
+    }
+    
     $.ajax({
         url: 'php/controller/lecture_to_db.php',
         type: "GET",
         dataType: "json",
         data: {
-            "bezeichnung": $('input[name=bezeichnung]').val(),
-            "bezeichnung_kurz": $('input[name=bezeichnung_kurz]').val()
+            "bezeichnung": bez,
+            "bezeichnung_kurz": bez_kurz
         },
         success: function (response) {
             if(response.success){
@@ -368,6 +382,7 @@ $('body').on('click', '.vorschlag-question-edit', function () {
     $('span[class="vorschlag-question-edit"]').css("pointer-events", "none");
     $(this).addClass('hidden');
     $(this).siblings().removeClass('hidden');
+    $('span[class^="point-"]').addClass('point-active');
 });
 
 $('body').on('click', '.point-minus', function () {
@@ -391,6 +406,7 @@ $('body').on('click', '.point-done', function () {
     $(this).siblings('span[class^="point-"]').addClass('hidden');
     $(this).siblings('.vorschlag-question-edit').removeClass('hidden');
     $('span[class="vorschlag-question-edit"]').css("pointer-events", "auto");
+    $('span[class^="point-"]').removeClass('point-active');
     
     var id = $(this).parents('.exam-question').children('.hidden').text();
     var points = $(this).parents('.exam-question').find('.vorschlag-question-points').text();
@@ -431,6 +447,19 @@ $('body').on('click', '.switch-btn', function () {
             if(response.success) {
                 $(".exam-box").html(response.success);
             } 
+        }
+    });
+});
+
+$('body').on('click', '.download-exam-files-btn', function () {
+    $.ajax({
+        url: 'php/controller/exam_download.php',
+        type: "GET",
+        headers: {
+            "X-Download":"yes",
+        },
+        data: {
+            "download": 1
         }
     });
 });
@@ -508,7 +537,7 @@ function getMCAntwortText() {
 };
 
 function showMessageBox(message) {
-    $('.global-message-div').text(message).show().delay(1000).fadeOut(1500);
+    $('.global-message-div').text(message).show().delay(1300).fadeOut(1500);
 };
 
 

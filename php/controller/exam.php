@@ -11,7 +11,12 @@ if( isset($_SESSION['current_lecture_id'])) {
     $smarty = new Smarty;
     $smarty->assign("lecture", $_SESSION['current_lecture_bez']);
 
-    if(isset($_GET['point_update'])){
+    if(isset($_GET['download'])){
+        header("Content-Type: application/html");
+        header("Content-Length: ".filesize("../../tex/newhtml.html")); 
+        header("Content-disposition: attachment; filename=newhtml.html");
+        readfile("../../tex/newhtml.html");
+    } elseif(isset($_GET['point_update'])){
         $engine = unserialize($_SESSION['engine']);
         $engine->updatePointsForId(intval($_GET['point_update']),intval($_GET['id']));
         $response = array('success' => 'Aufgabenpunkte für diese Klausur aktualisiert');
@@ -37,12 +42,13 @@ if( isset($_SESSION['current_lecture_id'])) {
         $noten = json_decode(file_get_contents('../../config_punkte_90.json'));
         $smarty->assign("noten", $noten);
         $smarty->assign("bereichspunkte", $engine->getBereichsPunkte());
-        $exam = $smarty->fetch("../../vorlage/klausur1.tpl");
-        file_put_contents("../../tex/klausur1.tex", $exam);
+        $exam = $smarty->fetch("../../vorlage/klausur.tpl");
+        file_put_contents("../../tex/klausur.tex", $exam);
         $smarty->assign("prof", 1);
-        $loesung = $smarty->fetch("../../vorlage/klausur1.tpl");
+        $loesung = $smarty->fetch("../../vorlage/klausur.tpl");
         file_put_contents("../../tex/musterloesung/musterloesung.tex", $loesung);
-        $response = array('success' => '<h2>Klausur wurde erstellt! Sie finden sie <br> unter: ***</h2>');
+        $smarty_new = new Smarty;
+        $response = array('success' => $smarty_new->fetch("../../templates/exam_saved.tpl"));
     } elseif(isset($_GET['switch'])){ 
         $id = intval($_GET['switch']);
         $engine = unserialize($_SESSION['engine']);

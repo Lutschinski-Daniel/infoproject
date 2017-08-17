@@ -1,4 +1,4 @@
 <footer class="footer">
-    by LU
+    by Daniel Lutschinski
 </footer>
 

@@ -42,5 +42,5 @@
             Keine passende Frage vorhanden!
         </div>
     {/if}
-    <span class="cancel-switch-btn">cancel</span>
+    <span class="cancel-switch-btn"><i class="material-icons">clear</i> cancel</span>
 </div>  

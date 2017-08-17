@@ -15,6 +15,7 @@ if (isset($_SESSION['current_lecture_id'])) {
         <!-- INCLUDE BOOTSTRAP -->
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="themes/css/custom.css">
     </head>
     <body>

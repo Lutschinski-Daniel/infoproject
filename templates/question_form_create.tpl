@@ -19,7 +19,7 @@
                     --><input name="antwort-gruppe" type="checkbox" value="WAHR">WAHR</input>
                 </span><br />
             {/for}
-            <button class="add-answer-btn">Zusätzliche Antwort</button><br />
+            <button class="add-answer-btn"><i class="material-icons">add</i> Zusätzliche Antwort</button><br />
             <label>Punkte: </label><label class="mc-punkte-label">0</label>
         </div>
         <div class="frag-ant-platzhalter-wissen">

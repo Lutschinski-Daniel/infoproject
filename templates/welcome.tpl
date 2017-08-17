@@ -1,4 +1,2 @@
-<h1>Welcome to creXam! :)</h1>
-
-<h2>Important things to pay attention to!</h2>
-Fragen ausgewogen mit Schwierigkeitsgraden versehen.
+<h3>Hier könnte eine Bedienungsanleitung stehen.</h3> 
+<h3>Oder ein Dashboard findet hier Platz.</h3>

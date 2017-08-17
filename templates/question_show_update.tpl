@@ -25,5 +25,5 @@
     <li>Häufigkeit: {$question.frequency}</li>
     {if $question.type > 0}<li>Platzbedarf: {$question.space}</li>{/if}
 </ul>
-<span class="edit-question edit-toggle">E</span>
-<span class="delete-question">X</span>
+<span class="edit-question edit-toggle"><i class="material-icons">settings</i></span>
+<span class="delete-question"><i class="material-icons">delete</i></span>

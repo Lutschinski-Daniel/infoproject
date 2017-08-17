@@ -161,6 +161,9 @@ select {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+button {
+  padding: 7px 15px;
+}
 /*******************/
 /* MY OWN LESS/CSS */
 /*******************/
@@ -190,7 +193,7 @@ a:visited {
   bottom: 26px;
 }
 .body-menu {
-  background-color: khaki;
+  background-color: #F0E68C;
   float: left;
   height: 100%;
   border-right: 1px solid #777;
@@ -294,21 +297,19 @@ a:visited {
   position: absolute;
   right: 5px;
   top: 5px;
-  border: 1px solid #777;
   padding: 5px;
 }
 .edit-question.edit-toggle:hover {
-  background-color: #eee;
+  color: #595959;
 }
 .delete-question {
   position: absolute;
   right: 5px;
   top: 35px;
-  border: 1px solid #777;
   padding: 5px;
 }
 .delete-question:hover {
-  background-color: red;
+  color: red;
 }
 .frage-antwort-textareas {
   width: 100%;
@@ -323,10 +324,11 @@ a:visited {
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: #AAA;
+  background-color: white;
   text-align: center;
   height: 50px;
   width: 300px;
+  border: 1px solid #777;
 }
 .input-error {
   border: 2px solid red;
@@ -335,13 +337,16 @@ a:visited {
   list-style-type: none;
 }
 .exam-create-btn {
-  margin-top: 15px;
+  margin: 15px 0 30px 6px;
 }
 .vorschlag-titel {
   margin: 25px 0 15px 0;
 }
 .exam-points {
   margin-bottom: 15px;
+}
+.exam-points span {
+  font-weight: 700;
 }
 .vorschlag-daten {
   margin-top: 25px;
@@ -358,7 +363,7 @@ hr {
   margin: 5px 0;
 }
 .switch-box {
-  border-left: 3px solid yellow;
+  border-left: 3px solid #F0E68C;
   padding-bottom: 10px;
   padding: 10px 0;
 }
@@ -376,72 +381,122 @@ hr {
 }
 .switch-box .switch-questions-box .switch-question-text {
   width: 400px;
-  margin: 3px 0 0 22px;
-}
-.switch-box .cancel-switch-btn:hover {
-  background-color: #eee;
+  margin: 3px 0 0 33px;
 }
 .switch-btn {
-  border: 1px solid #777;
-  padding: 0 5px;
+  padding: 2px 4px 3px 4px;
+  border: 1px solid black;
+  border-radius: 2px;
 }
 .switch-btn:hover {
-  background-color: #eee;
-}
-.nav-arrow-div span {
-  border: 1px solid #777;
-}
-.nav-arrow-div span:hover {
   background-color: #eee;
 }
 .vorschlag-question-edit {
   padding: 3px 25px;
 }
-.vorschlag-question-edit:hover {
-  background-color: #eee;
-}
 span[class^='vorschlag'] {
-  margin: 3px 2px;
+  margin: 3px 0;
   padding: 3px;
 }
 .type-title {
-  padding: 10px 0 15px 20px;
+  padding: 10px 0 10px 20px;
+  margin-left: 6px;
+  font-size: 20px;
+  font-weight: 700;
+  border: 1px solid #777;
+  width: 400px;
 }
 .cancel-switch-btn {
   border: 1px solid #777;
+  border-radius: 3px;
   padding: 3px;
   margin: 20px 15px;
+}
+.cancel-switch-btn:hover {
+  background-color: #eee;
 }
 .questions-info-box {
   margin: 15px;
 }
 .short-info-div {
   float: left;
-  margin: 6px 0;
+  background-color: #F0E68C;
+  margin: 6px 15px 6px 0;
+  display: inline-flex;
+  padding: 3px 0;
+  font-weight: 700;
 }
 .short-info-div span {
-  border-right: 1px solid #777;
-  padding: 0 8px 0 0;
+  padding: 0 20px 0 0;
 }
-.short-info-div span:last-child {
-  border-right: none;
+.short-info-div span:first-child {
+  margin-left: 10px;
+  padding-left: 10px;
 }
 .nav-arrow-div {
   float: left;
-  margin: 6px 0;
+  margin: 6px 5px 6px 0;
+  background-color: chocolate;
+  padding: 3px 0;
 }
 .switch-question-info span {
   border-right: 1px solid #777;
   padding: 0 6px 0 0;
+  margin-left: 13px;
 }
 .switch-question-info span:last-child {
   border-right: none;
 }
 .exam-question {
   padding: 6px;
+  margin-bottom: 20px;
 }
 .vorlage-textarea {
   width: 600px;
+}
+.material-icons {
+  vertical-align: middle;
+  font-size: 20px;
+}
+span:hover {
+  color: #4d4d4d;
+  cursor: pointer;
+  background-color: none;
+}
+.point-active {
+  background-color: #F0E68C;
+  padding: 3px 0;
+  margin-left: 2px;
+}
+.point-active:last-child {
+  margin-right: 2px;
+}
+.save-vorlage-btn {
+  padding: 8px 15px;
+}
+.download-exam-files-btn {
+  margin-top: 20px;
+  padding: 10px 15px;
+  width: 150px;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+  border: 1px solid #777;
+}
+.download-exam-files-btn a {
+  text-decoration: none;
+}
+.download-exam-files-btn:hover {
+  background-color: #eee;
+}
+.exam-create-vorschlag {
+  margin-top: 5px;
+  padding: 7px 15px;
+}
+.exam-answer-text {
+  width: 400px;
+}
+.add-answer-btn {
+  padding: 2px 5px;
 }
 /*******************/
 /* Media queries   */
@@ -452,13 +507,25 @@ span[class^='vorschlag'] {
     display: inline;
   }
 }
-/* Small devices (500px and up) */
+/* Small devices (500 and up) */
 @media screen and (min-width: 500px) {
   .navigation li.hidden-mobil {
     display: inline;
   }
 }
-/* Small devices (tablets, 768px and up) */
+/* Bigger devices (700px and up) */
+@media screen and (min-width: 700px) {
+  .exam-question-text {
+    width: 500px;
+  }
+  .exam-answer-text {
+    width: 500px;
+  }
+  .type-title {
+    width: 500px;
+  }
+}
+/* Big devices (tablets, 768px and up) */
 @media screen and (min-width: 768px) {
   .lectures-list {
     width: 180px;
@@ -498,7 +565,16 @@ span[class^='vorschlag'] {
     width: 25%;
   }
   .exam-question-text {
-    width: 550px;
+    width: 700px;
+    padding: 5px 5px 5px 5px;
+  }
+  .exam-answer-text {
+    width: 700px;
+    padding: 5px 5px 10px 5px;
+    border-bottom: 1px solid #777;
+  }
+  .type-title {
+    width: 700px;
   }
   .body-content {
     padding: 10px;

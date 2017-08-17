@@ -26,6 +26,6 @@
         {include file='./exam_questions.tpl'}
     </div>
     <button class="exam-create-btn">
-        Klausur erstellen
+        Klausur erstellen <i class="material-icons">done_all</i> 
     </button>
 {/if}
