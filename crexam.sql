@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Aug 2017 um 18:22
+-- Erstellungszeit: 19. Aug 2017 um 19:10
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 7.1.1
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `crexam`
 --
+CREATE DATABASE IF NOT EXISTS `crexam` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `crexam`;
 
 -- --------------------------------------------------------
 
@@ -26,12 +28,13 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `lectures`
 --
 
-CREATE TABLE `lectures` (
-  `id` tinyint(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `lectures` (
+  `id` tinyint(3) NOT NULL AUTO_INCREMENT,
   `bezeichnung` varchar(128) DEFAULT NULL,
   `bezeichnung_kurz` varchar(6) DEFAULT NULL,
-  `created` varchar(16) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `lectures`
@@ -47,8 +50,8 @@ INSERT INTO `lectures` (`id`, `bezeichnung`, `bezeichnung_kurz`, `created`) VALU
 -- Tabellenstruktur für Tabelle `questions`
 --
 
-CREATE TABLE `questions` (
-  `id` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `questions` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
   `lecture_id` tinyint(3) NOT NULL,
   `type` tinyint(1) DEFAULT NULL,
   `text` varchar(4096) DEFAULT NULL,
@@ -58,8 +61,9 @@ CREATE TABLE `questions` (
   `points` int(11) DEFAULT '1',
   `space` tinyint(2) DEFAULT '1',
   `created` varchar(16) DEFAULT NULL,
-  `last_usage` varchar(16) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `last_usage` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `questions`
@@ -86,36 +90,6 @@ INSERT INTO `questions` (`id`, `lecture_id`, `type`, `text`, `answer`, `difficul
 (22, 2, 2, 'Das ist ein Test. Warum braucht es Transferaufgaben? WÃ¤re es nicht besser ...?', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 3, 3, 10, 1, '19.08.2017', '19.08.2017'),
 (24, 2, 1, 'Wie oft muss man gewinnen, damit es mÃ¶glich ist? ErklÃ¤ren Sie das PhÃ¤nomen!', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.', 3, 5, 13, 1, '19.08.2017', '19.08.2017');
 
---
--- Indizes der exportierten Tabellen
---
-
---
--- Indizes für die Tabelle `lectures`
---
-ALTER TABLE `lectures`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `questions`
---
-ALTER TABLE `questions`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT für exportierte Tabellen
---
-
---
--- AUTO_INCREMENT für Tabelle `lectures`
---
-ALTER TABLE `lectures`
-  MODIFY `id` tinyint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT für Tabelle `questions`
---
-ALTER TABLE `questions`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
