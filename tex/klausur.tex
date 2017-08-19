@@ -1,0 +1,292 @@
+\documentclass[addpoints,a4paper,ngerman,10pt,answers]{exam}
+\usepackage {babel}	
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,top=2.5cm,bottom=3cm,left=2.25cm,right=2cm]{geometry}
+\usepackage{background}
+\usepackage{enumitem}
+\usepackage{multido}
+\usepackage{eso-pic}
+\usepackage{calc}
+\usepackage[document]{ragged2e}
+\usepackage[scaled]{uarial}
+
+\renewcommand{\solutiontitle}{\noindent\textbf{Lösung:}\enspace}
+\pointformat{}
+\nopointsinmargin
+\noprintanswers
+
+\pagestyle{headandfoot}
+\headrule
+\footrule
+\extraheadheight{4cm}
+\header{\begin{minipage}{0.4\textwidth}\textbf{Name, Vorname:}\\[\baselineskip]\textbf{Matrikelnummer:}\\[\baselineskip]\textbf{Prüfer: Prof. Dr. Tobias Eggendorfer}\vspace{.42cm}\end{minipage}}
+{}{\parbox{0.225\textwidth}{\textbf{Übertrag:}\\\vspace{.1cm}\textbf{Punkte:}\\\vspace{.1cm}\textbf{Gesamt:}}}
+\footer{\textbf{Datenbanken}}{}{\textbf{Blatt \thepage\ / \numpages}}
+
+\newcommand\BackGroundImage[1]{%
+\BgThispage
+\backgroundsetup{
+pages=all,scale=1,angle=0,position={current page.north}, hshift=5cm, vshift=-2.5cm, opacity=1,
+contents={%
+\includegraphics[width=5cm]{#1}
+}}}
+
+
+\newlength{\rightrule}
+\setlength{\rightrule}{.90\textwidth}
+\AddToShipoutPicture{%
+   \AtPageLowerLeft{%
+     \put(\LenToUnit{\rightrule},60){\rule{.5pt}{1.2\textheight}}  
+   }
+}
+
+\begin{document}
+\BackGroundImage{logo}
+
+\begin{minipage}{0.75\textwidth} 
+\begin{flushleft}
+{\textbf{\large Hinweise:}}
+\vspace{.6cm}
+\begin{enumerate}[leftmargin=*]
+\item[1.] Schreiben Sie auf \underline{\textit{\textbf{jedes}}} Blatt Ihren Namen und Matrikelnummer.
+\\[\baselineskip]
+\item[2.] Diese Prüfung hat einen Umfang von \numpages\ Seiten. Bitte prüfen Sie Ihre Angabe
+auf Vollständigkeit.
+\\[\baselineskip]
+\item[3.] Lassen Sie den Prüfungsbogen bitte zusammengeheftet.
+\\[\baselineskip]
+\item[4.] Schreiben Sie bitte Ihre Antworten in die vorgesehenen Felder. Bitte lassen Sie
+den vorgesehenen Korrekturrand rechts frei. Sollte Ihnen der Platz nicht
+reichen, schreiben Sie bitte auf der Rückseite der Bögen. Geben Sie dabei klar
+an, auf welche Aufgabe sich Ihre Lösung bezieht.\\
+Für umfangreichere Antworten kann es auch leere Seiten zwischen den
+Aufgaben geben. Bitte arbeiten Sie die ganze Prüfung durch.
+\\[\baselineskip]
+\item[5.] Schreiben Sie bitte lesbar. Unlesbare Antworten werden nicht bewertet.
+\\[\baselineskip]
+\item[6.] Bitte schreiben Sie nicht mit roter (Korrektur) oder grüner (Zweitkorrektur)
+Farbe.
+\\[\baselineskip]
+\item[7.] Geben Sie eindeutige Antworten. Wenn Sie mehr als eine mögliche Lösung
+angeben, wird die schlechteste bewertet.
+\\[\baselineskip]
+\item[8.] Geben Sie bei Berechnungen etc. stets Ihren Rechenweg an.
+\\[\baselineskip]
+\item[9.] „Schmierpapier“ ist mit abzugeben. Sie finden am Schluß dieses
+Prüfungsbogens Seiten für Ihre Notizen / Nebenrechnungen. Der Inhalt dieser
+Seiten wird \underline{nicht} bewertet.
+\\[\baselineskip]
+\item[10.] Diese Prüfung hat einen Umfang von \numpoints\ Punkten.
+\\[\baselineskip]
+\item[11.] Die Prüfung wurde für eine Bearbeitungszeit von 60 Minuten konzipiert.
+\\[\baselineskip]
+\item[12.] Die Verwendung von anderen als den unten angegebenen zulässigen
+Hilfsmitteln führt zum sofortigen Ausschluß von der Prüfung.
+\end{enumerate}
+\vspace{.75cm}
+{\textbf{\large Zulässige Hilfsmittel:}}
+\\[2\baselineskip]
+- keine -
+\\[2\baselineskip]
+{\textbf{\large Erreichte Punktzahl:\ \underline{\hspace{1.2cm}}\ / \numpoints\ $\rightarrow$ Note:\ \underline{\hspace{1.2cm}}}}
+\end{flushleft}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.20\textwidth}
+Punkte\hspace{.15cm} Note\\\vspace{.3cm}
+99 \hspace{.8cm} 1,0 \\\vspace{.1cm}
+98 \hspace{.8cm} 1,1 \\\vspace{.1cm}
+97 \hspace{.8cm} 1,2 \\\vspace{.1cm}
+95 \hspace{.8cm} 1,3 \\\vspace{.1cm}
+93 \hspace{.8cm} 1,4 \\\vspace{.1cm}
+92 \hspace{.8cm} 1,5 \\\vspace{.1cm}
+90 \hspace{.8cm} 1,6 \\\vspace{.1cm}
+88 \hspace{.8cm} 1,7 \\\vspace{.1cm}
+87 \hspace{.8cm} 1,8 \\\vspace{.1cm}
+85 \hspace{.8cm} 1,9 \\\vspace{.1cm}
+83 \hspace{.8cm} 2,0 \\\vspace{.1cm}
+82 \hspace{.8cm} 2,1 \\\vspace{.1cm}
+80 \hspace{.8cm} 2,2 \\\vspace{.1cm}
+78 \hspace{.8cm} 2,3 \\\vspace{.1cm}
+77 \hspace{.8cm} 2,4 \\\vspace{.1cm}
+75 \hspace{.8cm} 2,5 \\\vspace{.1cm}
+73 \hspace{.8cm} 2,6 \\\vspace{.1cm}
+72 \hspace{.8cm} 2,7 \\\vspace{.1cm}
+70 \hspace{.8cm} 2,8 \\\vspace{.1cm}
+68 \hspace{.8cm} 2,9 \\\vspace{.1cm}
+67 \hspace{.8cm} 3,0 \\\vspace{.1cm}
+65 \hspace{.8cm} 3,1 \\\vspace{.1cm}
+63 \hspace{.8cm} 3,2 \\\vspace{.1cm}
+62 \hspace{.8cm} 3,3 \\\vspace{.1cm}
+60 \hspace{.8cm} 3,4 \\\vspace{.1cm}
+58 \hspace{.8cm} 3,5 \\\vspace{.1cm}
+57 \hspace{.8cm} 3,6 \\\vspace{.1cm}
+55 \hspace{.8cm} 3,7 \\\vspace{.1cm}
+53 \hspace{.8cm} 3,8 \\\vspace{.1cm}
+52 \hspace{.8cm} 3,9 \\\vspace{.1cm}
+50 \hspace{.8cm} 4,0 \\\vspace{.1cm}
+49 \hspace{.8cm} 5,0 \\\vspace{.1cm}
+ 
+\vspace{2.5cm}
+\end{minipage}
+
+\newpage
+\newcounter{counter}
+\addtocounter{counter}{1}
+\begin{questions}
+\pointsinrightmargin
+\fullwidth{\textbf{\large Teil \thecounter\ - Mutltiple Choice Fragen}}
+\addtocounter{counter}{1}
+\vspace{1cm}
+\fullwidth{\textbf{Hinweis:}}
+\fullwidth{\begin{minipage}{0.75\textwidth} Markieren Sie die korrekten Antworten eindeutig durch ein Kreuz. Sollten Sie Ihre
+Markierung ändern müssen, schwärzen Sie bitte das entsprechende Feld. Soweit
+nichts anderes angegeben ist, ist eine Antwort pro Frage richtig.\\\vspace{.25cm}
+Eine richtige Antwort bedeutet einen Punkt. Unabhängig von der Zahl der richtigen
+Antworten führt eine Falschantwort in einer Frage mit nur einer richtigen Antwort
+für diese Frage zur Bewertung mit null Punkten.\\\vspace{.25cm}
+Bei Fragen, bei denen mehrere Antwortmöglichkeiten bestehen, erhalten Sie für
+jede richtige Antwort einen Punkt, für jedes falsch gesetzte Kreuz zwei Punkte
+Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\end{minipage}}
+\fullwidth{\textbf{Gesamtpunktzahl: 1 Punkte}}
+\question[1]\begin{minipage}{0.70\textwidth}Alle Guten Dinge sind ...\end{minipage}
+\begin{checkboxes}
+\choice Koi
+\choice Zwei
+\correctchoice Drei
+
+\end{checkboxes}
+\vspace{1cm}
+
+
+\clearpage
+\fullwidth{\textbf{\large Teil \thecounter\ - Wissensfragen}}
+\addtocounter{counter}{1}
+\vspace{.5cm}
+\fullwidth{\textbf{Gesamtpunktzahl: 80 Punkte}}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Warum ich? Warum ich? Warum ich? Warum ich? Warum ich? Warum ich? Warum ich? Warum ich?\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{Warum du? Warum du? Warum du? Warum du? Warum du? Warum du? Warum du? Warum du? Warum du? Warum du?}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+\question[20] \parbox[t][][t]{0.65\textwidth}{Wie alt bist du?\linebreak(20\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{42}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Schwarzennegger? Schwarzennegger? Schwarzennegger? Schwarzennegger? Schwarzennegger? Schwarzennegger?\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{Arnold!}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Podolski spielt wo?\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Wann wurde der PCIe erfunden?\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{Früher}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Nenne alle Hauptstädte der Welt\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{10}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Hallo\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution}
+\parbox[t][][t]{0.8\textwidth}{Hallo}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+
+
+\clearpage
+\fullwidth{\textbf{\large Teil \thecounter\ - Transferaufgaben}}
+\addtocounter{counter}{1}
+\vspace{.5cm}
+\fullwidth{\textbf{Gesamtpunktzahl: 20 Punkte}}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Wenn 1 gleich 5, und 2 gleich 9, wie schwer sind die Aufgaben?\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution} 
+\parbox[t][][t]{.8\textwidth}{}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+\question[10] \parbox[t][][t]{0.65\textwidth}{Mal was anderes...\linebreak(10\ Punkte)}
+
+\ifprintanswers
+\begin{minipage}{0.7\textwidth}
+\begin{solution} 
+\parbox[t][][t]{.8\textwidth}{}
+\end{solution}
+\end{minipage}
+\else
+\multido{}{5}{\vspace*{1cm}}
+\fi
+\vspace{1cm}
+
+
+\multido{}{2}{
+\newpage
+\fullwidth{\textbf{\large Anhang - Platz für Ihre Notizen}}
+\vspace{.5cm}
+\fullwidth{\begin{minipage}{0.75\textwidth}Die folgenden Seiten können Sie für Ihre Notizen, Nebenrechnungen etc. nutzen.
+Der Inhalt dieserSeiten wird, sofern Sie es nicht explizit markieren, \underline{nicht} bewertet.\end{minipage}}}
+
+\end{questions}
+\end{document}

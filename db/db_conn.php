@@ -1,7 +1,5 @@
 <?php
 
-include 'Question.php';
-
 class db_conn {
 
     private $host;
@@ -77,7 +75,7 @@ class db_conn {
 
         $result = $stmt->get_result();
         $stmt->close();
-        return $result->fetch_assoc();
+        return mysqli_fetch_object($result);
     }
 
     public function getQuestionCountForLec($id) {
