@@ -8,9 +8,9 @@ $response = array();
 if (isset($_GET['delete_id'])) {
     $id = intval($_GET['delete_id']);
     if( $conn->deleteQuestionFromDB($id) === false ){
-        $response = array ("error" => "Deletion error!");
+        $response = array ("error" => "Fehler beim Löschvorgang!");
     } else {
-        $response = array ("success" => "Question deleted!");
+        $response = array ("success" => "Aufgabe aus Datenbank gelöscht!");
     }
 }
 

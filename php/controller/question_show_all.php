@@ -10,16 +10,16 @@ if (isset($_SESSION['current_lecture_bez'])) {
 
     $difficulty = 0;
     foreach($questions as $question){
-        $difficulty += $question['difficulty'];
+        $difficulty += $question->difficulty;
     }
     $average = number_format($difficulty/count($questions), 2);
     $anz_MC = 0;
     $anz_WI = 0;
     $anz_TR = 0;
     foreach($questions as $quest){
-        if($quest['type'] == 0){
+        if($quest->type == 0){
             $anz_MC++;
-        }elseif ($quest['type'] == 1) {
+        }elseif ($quest->type == 1) {
             $anz_WI++;
         }else{
             $anz_TR++;

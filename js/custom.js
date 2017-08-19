@@ -41,8 +41,8 @@ $('body').on('click', '.create-lecture-btn', function () {
         type: "GET",
         dataType: "json",
         data: {
-            "bezeichnung": bez,
-            "bezeichnung_kurz": bez_kurz
+            "bezeichnung": bez.val(),
+            "bezeichnung_kurz": bez_kurz.val()
         },
         success: function (response) {
             if(response.success){

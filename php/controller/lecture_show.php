@@ -12,11 +12,10 @@ $anzahl_fragen = $conn->getQuestionCountForLec($id);
 if ($lecture == NULL)
     echo "Fehler beim Laden der Vorlesung!";
 else {
-    $_SESSION['current_lecture_id'] = $lecture["id"];
-    $_SESSION['current_lecture_bez'] = $lecture["bezeichnung"];
+    $_SESSION['current_lecture_id'] = $lecture->id;
+    $_SESSION['current_lecture_bez'] = $lecture->bezeichnung;
     $smarty = new Smarty;
-    $smarty->assign("bez", $lecture["bezeichnung"]);
-    $smarty->assign("bez_kurz", $lecture["bezeichnung_kurz"]);
+    $smarty->assign("lecture", $lecture);
     $smarty->assign("anz_fragen", $anzahl_fragen);
     echo $smarty->fetch("../../templates/lecture_show.tpl");
 }

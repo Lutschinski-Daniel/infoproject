@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-19 12:16:32
+/* Smarty version 3.1.30, created on 2017-08-19 12:51:55
   from "C:\xampp\htdocs\Crexam\templates\question_show_all.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_599810001e6b07_74341962',
+  'unifunc' => 'content_5998184ba3a697_69488459',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'daa77ca0713ee589bc6946660c9419b79ba4d3bc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_show_all.tpl',
-      1 => 1503136849,
+      1 => 1503139910,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_599810001e6b07_74341962 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5998184ba3a697_69488459 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="questions-info-box">
     <h1>Alle Fragen der Vorlesung: <?php echo $_smarty_tpl->tpl_vars['lecture_bez']->value;?>
@@ -41,24 +41,24 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
-    <div class="question-box" id="<?php echo $_smarty_tpl->tpl_vars['question']->value['id'];?>
-" name="<?php echo $_smarty_tpl->tpl_vars['question']->value['id'];?>
+    <div class="question-box" id="<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
+" name="<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
 ">
         <div class="question-box-frage-text"><b>
-            <?php if ($_smarty_tpl->tpl_vars['question']->value['type'] == 0) {?>
+            <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
                 MC :
-            <?php } elseif (($_smarty_tpl->tpl_vars['question']->value['type'] == 1)) {?>
+            <?php } elseif (($_smarty_tpl->tpl_vars['question']->value->type == 1)) {?>
                 Wissen:
             <?php } else { ?>
                 Transfer:
             <?php }?>
             </b>
-            <?php echo $_smarty_tpl->tpl_vars['question']->value['text'];?>
+            <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
 
         </div>
         <div class="question-box-antwort">
-        <?php if ($_smarty_tpl->tpl_vars['question']->value['type'] == 0) {?> <!--Mult-Choice-->
-            <?php $_smarty_tpl->_assignInScope('answers', json_decode($_smarty_tpl->tpl_vars['question']->value['answer'],1));
+        <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?> <!--Mult-Choice-->
+            <?php $_smarty_tpl->_assignInScope('answers', json_decode($_smarty_tpl->tpl_vars['question']->value->answer,1));
 ?>
             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['answers']->value, 'mc');
@@ -83,20 +83,20 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
         <?php } else { ?><!--Frage-Antwort-->
-            Musterantwort: <?php echo $_smarty_tpl->tpl_vars['question']->value['answer'];?>
+            Musterantwort: <?php echo $_smarty_tpl->tpl_vars['question']->value->answer;?>
 
         <?php }?>
         </div>
         <ul class="question-additional-info">
-            <li>Punkte: <?php echo $_smarty_tpl->tpl_vars['question']->value['points'];?>
+            <li>Punkte: <?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
 </li>
-            <li>Schwierigkeit: <?php echo $_smarty_tpl->tpl_vars['question']->value['difficulty'];?>
+            <li>Schwierigkeit: <?php echo $_smarty_tpl->tpl_vars['question']->value->difficulty;?>
 </li>
-            <li>Häufigkeit: <?php echo $_smarty_tpl->tpl_vars['question']->value['frequency'];?>
+            <li>Häufigkeit: <?php echo $_smarty_tpl->tpl_vars['question']->value->frequency;?>
 </li>
-            <?php if ($_smarty_tpl->tpl_vars['question']->value['type'] > 0) {?><li>Platzbedarf: <?php echo $_smarty_tpl->tpl_vars['question']->value['space'];?>
+            <?php if ($_smarty_tpl->tpl_vars['question']->value->type > 0) {?><li>Platzbedarf: <?php echo $_smarty_tpl->tpl_vars['question']->value->space;?>
 </li><?php }?>
-            <li>Letzte Verwendung: <?php echo $_smarty_tpl->tpl_vars['question']->value['last_usage'];?>
+            <li>Letzte Verwendung: <?php echo $_smarty_tpl->tpl_vars['question']->value->last_usage;?>
 </li>
         </ul>
         <span class="edit-question edit-toggle"><i class="material-icons">settings</i></span>

@@ -1,7 +1,7 @@
 <div class="question-update-form" id="{$question->id}">
 
     <label class="frage-text-label">Fragetext:</label> <br />
-    <textarea name="frage-text" rows="5" class="frage-antwort-textareas">{$question->text}</textarea>
+    <textarea name="frage-text" rows="5" class="frage-antwort-textareas" maxlength="4096">{$question->text}</textarea>
     <br>
     {if ($question->type === 0)}
         <label class="mc-antwort-label">Anworten:</label><br />
@@ -16,7 +16,7 @@
         <label>Punkte: </label><label class="mc-punkte-label">0</label>
     {else}
         <label>Musterantwort:</label><br />
-        <textarea name="antwort-text" rows="6" class="frage-antwort-textareas">{$question->answer}</textarea><br />
+        <textarea name="antwort-text" rows="6" class="frage-antwort-textareas" maxlength="4096">{$question->answer}</textarea><br />
         <label class="punkte-label">Punkte: </label>
         <input id="frage-antwort-punkte" type="number" name="points" value="{$question->points}" max="50" min="1"></input>
         <br>

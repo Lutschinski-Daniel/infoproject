@@ -8,7 +8,7 @@
         <option value="2">Transfer</option>
     </select><br>
     <label class="frage-text-label">Fragetext:</label> <br />
-    <textarea name="frage-text" rows="5" class="frage-antwort-textareas"></textarea>
+    <textarea name="frage-text" rows="5" class="frage-antwort-textareas" maxlength="4096"></textarea>
     <br>
     <div class="frage-typ-platzhalter">
         <div class="mult-ch-platzhalter platzhalter">
@@ -24,7 +24,7 @@
         </div>
         <div class="frag-ant-platzhalter-wissen">
             <label>Musterantwort:</label><br />
-            <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"></textarea><br />
+            <textarea name="antwort-text" rows="6" class="frage-antwort-textareas" maxlength="4096"></textarea><br />
             <label class="punkte-label">Punkte: </label>
             <input type="number" name="points" value="10" max="50" min="1"></input>
             <br>

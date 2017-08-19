@@ -4,7 +4,7 @@
     </li>
     {foreach from=$lectures item=$lecture}
         <li class="lecture">
-            <a href="#" id="{$lecture.id}">{$lecture.bezeichnung_kurz}</a>
+            <a href="#" id="{$lecture->id}">{$lecture->bezeichnung_kurz}</a>
         </li>
     {/foreach}
 </ul>

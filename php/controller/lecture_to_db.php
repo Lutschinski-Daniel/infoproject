@@ -11,19 +11,16 @@ if( isset($_SESSION['current_lecture_id'])) {
 
 $conn = db_conn::getInstance();
 $params = array(
-    "bezeichnung" => $_GET['bezeichnung'],
-    "bezeichnung_kurz" => $_GET['bezeichnung_kurz'],
+    "bezeichnung" => substr($_GET['bezeichnung'], 0, 128),
+    "bezeichnung_kurz" => substr($_GET['bezeichnung_kurz'], 0, 8),
 );
 $conn->saveLecture2DB($params);
-
-$conn = db_conn::getInstance();
 $lecture = $conn->getLectureWithKurzBez($params['bezeichnung_kurz']);
     
 $response = array();
 if ($lecture != NULL) {
     $smarty = new Smarty;
-    $smarty->assign("id", $lecture["id"]);
-    $smarty->assign("bez_kurz", $lecture["bezeichnung_kurz"]);
+    $smarty->assign("lecture", $lecture);
     $data = $smarty->fetch("../../templates/lecture_li.tpl");
     $response = array ( 
         'success' => 'Vorlesung wurde erstellt!', 

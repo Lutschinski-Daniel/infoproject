@@ -1,3 +1,3 @@
 <li class="lecture">
-    <a href="#" id="{$id}">{$bez_kurz}</a>
+    <a href="#" id="{$lecture->id}">{$lecture->bezeichnung_kurz}</a>
 </li>

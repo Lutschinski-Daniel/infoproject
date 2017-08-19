@@ -11,8 +11,7 @@ class db_conn {
     private $config = null;
 
     private function __construct() {
-
-        $json = json_decode(file_get_contents(__DIR__ . '\..\config.json'));
+        $json = json_decode(file_get_contents(__DIR__.'\..\config.json'));
         $this->config = $json;
         $this->host = $this->config->{'host'};
         $this->user = $this->config->{'user'};
@@ -31,7 +30,16 @@ class db_conn {
     }
 
     public function getAllLectures() {
-        return mysqli_query($this->connection, "SELECT * FROM lectures");
+        $stmt = $this->connection->prepare("SELECT * FROM lectures");
+        $stmt->execute();
+        
+        $lectures = array();
+        $result = $stmt->get_result();
+        while ($obj = mysqli_fetch_object($result)) {
+            $lectures[] = $obj;
+        }
+        $stmt->close();
+        return $lectures;
     }
 
     public function getLectureWithId($id) {
@@ -41,7 +49,7 @@ class db_conn {
 
         $result = $stmt->get_result();
         $stmt->close();
-        return $result->fetch_assoc();
+        return mysqli_fetch_object($result);
     }
 
     public function getLectureWithKurzBez($kurzBez) {
@@ -51,7 +59,7 @@ class db_conn {
 
         $result = $stmt->get_result();
         $stmt->close();
-        return $result->fetch_assoc();
+        return mysqli_fetch_object($result);
     }
 
     public function getAllQuestions4Lec($id) {
@@ -62,7 +70,7 @@ class db_conn {
         $allQuests = array();
         $result = $stmt->get_result();
         $stmt->close();
-        while ($question = $result->fetch_assoc()) {
+        while ($question = mysqli_fetch_object($result)) {
             $allQuests[] = $question;
         }
         return $allQuests;
@@ -84,6 +92,7 @@ class db_conn {
         $stmt->execute();
         $row = $stmt->get_result();
         $count = $row->fetch_assoc();
+        $stmt->close();
         return intval($count['anzahl']);
     }
     
@@ -98,18 +107,19 @@ class db_conn {
 
         $quests = array();
         $result = $stmt->get_result();
-        
         while ($obj = mysqli_fetch_object($result)) {
             $quests[] = $obj;
         }
+        $stmt->close();
         return $quests;
     }
 
     public function deleteQuestionFromDB($id) {
         $stmt = $this->connection->prepare("DELETE FROM `questions` WHERE id=?");
         $stmt->bind_param("i", $id);
-
-        return $stmt->execute();
+        $stmt->execute();
+        $stmt->close();
+        return;
     }
 
     public function updateQuestionInDB($params) {
@@ -127,6 +137,7 @@ class db_conn {
         );
         $stmt->execute();
         $stmt->close();
+        return;
     }
     
     public function updateDates($questions) {      
@@ -164,7 +175,9 @@ class db_conn {
                 $params{'space-needed'}, 
                 $dateCre, $dateLastUsed
         );
-        return $stmt->execute();
+        $stmt->execute();
+        $stmt->close();
+        return;
     }
 
     public function saveLecture2DB($params) {
@@ -193,8 +206,8 @@ class db_conn {
                     id int(5) NOT NULL AUTO_INCREMENT,
                     lecture_id tinyint(3) NOT NULL,
                     type tinyint(1) DEFAULT NULL,
-                    text varchar(128) DEFAULT NULL,
-                    answer varchar(1024) DEFAULT NULL,
+                    text varchar(4096) DEFAULT NULL,
+                    answer varchar(4096) DEFAULT NULL,
                     difficulty tinyint(2) DEFAULT 3,
                     frequency tinyint(2) DEFAULT 3,
                     points INT DEFAULT 1,
