@@ -1,12 +1,13 @@
 <?php
+
+header('Content-type: application/json');
 include '../../db/db_conn.php';
 
-$conn = db_conn::getInstance();
-header('Content-type: application/json');
 $response = array();
-
-if (isset($_GET['delete_id'])) {
+if (isset($_GET['delete_id'])) {    
     $id = intval($_GET['delete_id']);
+    $conn = db_conn::getInstance();
+    
     if( $conn->deleteQuestionFromDB($id) === false ){
         $response = array ("error" => "Fehler beim Löschvorgang!");
     } else {

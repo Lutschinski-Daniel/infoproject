@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-19 12:16:35
+/* Smarty version 3.1.30, created on 2017-08-19 16:26:19
   from "C:\xampp\htdocs\Crexam\templates\question_form_update.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_59981003ac11d3_07637000',
+  'unifunc' => 'content_59984a8b65d204_30786000',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '51d6675e2be51f4026e1f42aa476904fb1088657' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_form_update.tpl',
-      1 => 1503137716,
+      1 => 1503152739,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_59981003ac11d3_07637000 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59984a8b65d204_30786000 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="question-update-form" id="<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
 ">
 
-    <label class="frage-text-label">Fragetext:</label> <br />
-    <textarea name="frage-text" rows="5" class="frage-antwort-textareas"><?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+    <label class="frage-text-label"><b>Fragetext:</b></label> <br />
+    <textarea name="frage-text" rows="5" class="frage-antwort-textareas" maxlength="4096"><?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
 </textarea>
     <br>
     <?php if (($_smarty_tpl->tpl_vars['question']->value->type === 0)) {?>
@@ -53,7 +53,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
         <label>Punkte: </label><label class="mc-punkte-label">0</label>
     <?php } else { ?>
         <label>Musterantwort:</label><br />
-        <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"><?php echo $_smarty_tpl->tpl_vars['question']->value->answer;?>
+        <textarea name="antwort-text" rows="6" class="frage-antwort-textareas" maxlength="4096"><?php echo $_smarty_tpl->tpl_vars['question']->value->answer;?>
 </textarea><br />
         <label class="punkte-label">Punkte: </label>
         <input id="frage-antwort-punkte" type="number" name="points" value="<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>

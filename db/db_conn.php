@@ -18,7 +18,7 @@ class db_conn {
         $this->name = $this->config->{'name'};
         $this->pass = $this->config->{'pass'};
         
-        $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->name);
+        $this->connection = new mysqli($this->host, $this->user, $this->pass);
         $this->createDatabaseIfNotExistent();
     }
 
@@ -200,6 +200,7 @@ class db_conn {
         $query = "CREATE DATABASE IF NOT EXISTS " . $this->name;
         if ($this->connection->query($query) !== TRUE) {
             echo "Database not created. " . $this->connection->error;
+            return;
         }
 
         $query = "CREATE TABLE IF NOT EXISTS " . $this->name . ".Questions (
@@ -218,6 +219,7 @@ class db_conn {
                 );";
         if ($this->connection->query($query) !== TRUE) {
             echo "Table Questions not created. " . $this->connection->error;
+            return;
         }
 
         $query = "CREATE TABLE IF NOT EXISTS " . $this->name . ".Lectures (
@@ -229,6 +231,8 @@ class db_conn {
                 );";
         if ($this->connection->query($query) !== TRUE) {
             echo "Table Lectures not created. " . $this->connection->error;
+            return;
         }
+        $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->name);
     }
 }

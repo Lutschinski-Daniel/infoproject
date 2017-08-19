@@ -1,4 +1,14 @@
-<div class="question-box-frage-text">Fragetext: {$question->text}
+<div class="question-box-frage-text">
+    <b>
+        {if $question->type eq 0}
+            MC :
+        {elseif ($question->type eq 1)}
+            Wissen:
+        {else}
+            Transfer:
+        {/if}
+    </b>
+    {$question->text}
 </div>
 <div class="question-box-antwort">
     {if $question->type == 0} <!--Mult-Choice-->

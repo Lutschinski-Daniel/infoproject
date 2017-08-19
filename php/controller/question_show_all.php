@@ -3,7 +3,6 @@ session_start();
 include("../../libs/Smarty.class.php");
 include '../../db/db_conn.php';
 
-
 if (isset($_SESSION['current_lecture_bez'])) {
     $conn = db_conn::getInstance();
     $questions = $conn->getAllQuestions4Lec($_SESSION['current_lecture_id']);
@@ -12,7 +11,10 @@ if (isset($_SESSION['current_lecture_bez'])) {
     foreach($questions as $question){
         $difficulty += $question->difficulty;
     }
-    $average = number_format($difficulty/count($questions), 2);
+    $average = 0;
+    if(count($questions) > 0){
+        $average = number_format($difficulty/count($questions), 2);
+    }
     $anz_MC = 0;
     $anz_WI = 0;
     $anz_TR = 0;

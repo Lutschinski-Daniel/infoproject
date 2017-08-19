@@ -61,11 +61,16 @@ $('body').on('click', '.lecture', function () {
     $.ajax({
         url: 'php/controller/lecture_show.php',
         type: "GET",
+        dataType: "json",
         data: {
             "lecture_id": $(this).find('a:first').attr('id')
         },
-        success: function (data) {
-            $(".body-content").html(data);
+        success: function (response) {
+            if( response.success) {
+                $(".body-content").html(response.success);
+            } else if (response.error) {
+                showMessageBox(response.error);
+            }
         }
     });
 });
@@ -121,14 +126,8 @@ $('body').on('change', '.frage-typ', function () {
     if ($(".frage-typ option:selected").val() == 0) {
         $('.mult-ch-platzhalter').removeClass('platzhalter');
         $('.frag-ant-platzhalter-wissen').addClass('platzhalter');
-        $('.frag-ant-platzhalter-transfer').addClass('platzhalter');
-    } else if ($(".frage-typ option:selected").val() == 1){
-        $('.frag-ant-platzhalter-wissen').removeClass('platzhalter');
-        $('.frag-ant-platzhalter-transfer').addClass('platzhalter');
-        $('.mult-ch-platzhalter').addClass('platzhalter');
     } else {
-        $('.frag-ant-platzhalter-transfer').removeClass('platzhalter');
-        $('.frag-ant-platzhalter-wissen').addClass('platzhalter');
+        $('.frag-ant-platzhalter-wissen').removeClass('platzhalter');
         $('.mult-ch-platzhalter').addClass('platzhalter');
     }
     clearInput();
@@ -205,7 +204,7 @@ $('body').on('click', '.question-update-btn', function () {
 
     $.ajax({
         url: 'php/controller/question_to_db_update.php',
-        type: "GET",
+        type: "POST",
         data: {
             "question": {
                 "current_question_id": id,
@@ -248,7 +247,7 @@ $('body').on('click', '.create-question-btn', function () {
 
     $.ajax({
         url: 'php/controller/question_to_db.php',
-        type: "GET",
+        type: "POST",
         dataType: "json",
         data: {
             "question": {
@@ -281,10 +280,11 @@ $('body').on('click', '.exam-create-vorschlag', function () {
     
     var laenge = $('.exam-laenge option:selected').val();
     $.ajax({
-        url: 'php/controller/exam.php',
+        url: 'php/controller/exam_vorschlag.php',
         type: "GET",
         dataType: "json",
         data: {
+            "vorschlag": 1,
             "laenge": laenge,
             "punkte": $('input[name=exam-punkte]').val(),
             "datum": $('input[name=exam-date]').val()
@@ -322,7 +322,7 @@ $('body').on('click', '.save-vorlage-btn', function () {
 
 $('body').on('click', '.exam-create-btn', function () {
     $.ajax({
-        url: 'php/controller/exam.php',
+        url: 'php/controller/exam_save.php',
         type: "GET",
         dataType: "json",
         data: {
@@ -343,16 +343,18 @@ $('body').on('click', '.vorschlag-question-switch', function () {
     var questionToSwitch = $(this).parent().siblings('.exam-question-text'); 
     $('span[class^="vorschlag"]').css("pointer-events", "none");
     $.ajax({
-        url: 'php/controller/exam.php',
+        url: 'php/controller/exam_vorschlag_quest_switch.php',
         type: "GET",
         dataType: "json",
         data: {
             "switch": $(this).siblings().first().text()
         },
         success: function (response) {
-            if(response.switch) {
-                questionToSwitch.append(response.switch);
-            } 
+            if(response.success) {
+                questionToSwitch.append(response.success);
+            } else if (response.error) {
+                showMessageBox(response.error);
+            }
         }
     });
 });
@@ -362,7 +364,7 @@ $('body').on('click', '.vorschlag-question-delete', function () {
     var id = quest.children('.hidden').text();
 
     $.ajax({
-        url: 'php/controller/exam.php',
+        url: 'php/controller/exam_vorschlag_quest_delete.php',
         type: "GET",
         dataType: "json",
         data: {
@@ -373,7 +375,9 @@ $('body').on('click', '.vorschlag-question-delete', function () {
             if(response.success) {
                 $(".exam-box").html(response.success);
                 showMessageBox("Aufgabe aus Klausurvorschlag entfernt!");
-            } 
+            } else if (response.error){
+                showMessageBox(response.error);
+            }
         }
     });
 });
@@ -412,7 +416,7 @@ $('body').on('click', '.point-done', function () {
     var points = $(this).parents('.exam-question').find('.vorschlag-question-points').text();
     
     $.ajax({
-        url: 'php/controller/exam.php',
+        url: 'php/controller/exam_point_update.php',
         type: "GET",
         dataType: "json",
         data: {
@@ -422,44 +426,35 @@ $('body').on('click', '.point-done', function () {
         success: function (response) {
             if(response.success) {
                 showMessageBox(response.success);
-            } 
+            } else if (response.error) {
+                showMessageBox(response.error);
+            }
         }
     });
 });
 
 $('body').on('click', '.switch-btn', function () {
-    var questionToSwitch = $(this).parents('.exam-question').children().first().text(); 
+    var questionToSwap = $(this).parents('.exam-question').children().first().text(); 
     var questionPicked = $(this).siblings('.hidden').text();
     var question_order = getQuestionOrder();
-    var final_order = updateOrderIndex(question_order, questionToSwitch, questionPicked);
+    var final_order = updateOrderIndex(question_order, questionToSwap, questionPicked);
     
     $.ajax({
-        url: 'php/controller/exam.php',
+        url: 'php/controller/exam_vorschlag_quest_swap.php',
         type: "GET",
         dataType: "json",
         data: {
             "swap": "1",
-            "curr_quest": questionToSwitch,
+            "curr_quest": questionToSwap,
             "wanted_quest": questionPicked,
             "question_order": final_order
         },
         success: function (response) {
             if(response.success) {
                 $(".exam-box").html(response.success);
-            } 
-        }
-    });
-});
-
-$('body').on('click', '.download-exam-files-btn', function () {
-    $.ajax({
-        url: 'php/controller/exam_download.php',
-        type: "GET",
-        headers: {
-            "X-Download":"yes",
-        },
-        data: {
-            "download": 1
+            } else if (response.error) {
+                showMessageBox(response.error);
+            }
         }
     });
 });

@@ -372,6 +372,8 @@ hr {
 }
 .switch-box .switch-questions-box .title {
   margin-bottom: 10px;
+  font-weight: 700;
+  padding-bottom: 10px;
 }
 .switch-box .switch-questions-box .switch-question {
   margin-bottom: 10px;

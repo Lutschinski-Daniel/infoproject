@@ -1,4 +1,4 @@
-<h1>Neue Frage erstellen für Vorlesung: {$vorlesung}</h1>
+<h1>Neue Aufgabe erstellen für Vorlesung: {$vorlesung}</h1>
 
 <div class="add-question-form">
     <label>Typ:</label> 
@@ -25,21 +25,6 @@
         <div class="frag-ant-platzhalter-wissen">
             <label>Musterantwort:</label><br />
             <textarea name="antwort-text" rows="6" class="frage-antwort-textareas" maxlength="4096"></textarea><br />
-            <label class="punkte-label">Punkte: </label>
-            <input type="number" name="points" value="10" max="50" min="1"></input>
-            <br>
-            <label>Platzbedarf ( halbe Seiten x ... ):</label> 
-            <select class="space-needed" name="space-needed">
-                {for $var=1 to 4}
-                    {if ($var != 3)}
-                        <option value="{$var}">{$var}</option>
-                    {/if}
-                {/for}
-            </select>
-        </div>
-        <div class="frag-ant-platzhalter-transfer platzhalter">
-            <label>Musterantwort:</label><br />
-            <textarea name="antwort-text" rows="6" class="frage-antwort-textareas"></textarea><br />
             <label class="punkte-label">Punkte: </label>
             <input type="number" name="points" value="10" max="50" min="1"></input>
             <br>

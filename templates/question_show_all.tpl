@@ -1,5 +1,5 @@
 <div class="questions-info-box">
-    <h1>Alle Fragen der Vorlesung: {$lecture_bez}!</h1>
+    <h1>Alle Aufgaben der Vorlesung: {$lecture_bez}!</h1>
     <h4>Durchschnittliche Schwierigkeit: {$average}</h4>
     <h4>Fragen insgesamt: {$quest_count}</h4>
     <div title='Multiple-Choice-Fragen'>MC: {$anz_MC}</div>

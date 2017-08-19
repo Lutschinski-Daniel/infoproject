@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-19 12:08:08
+/* Smarty version 3.1.30, created on 2017-08-19 18:13:07
   from "C:\xampp\htdocs\Crexam\vorlage\klausur.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_59980e08cbcf64_60830241',
+  'unifunc' => 'content_59986393e3def3_85674040',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1a17df39564e85e65370f9b7ba002302f6f0059b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\vorlage\\klausur.tpl',
-      1 => 1503136849,
+      1 => 1503159182,
       2 => 'file',
     ),
   ),
@@ -20,11 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_59980e08cbcf64_60830241 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59986393e3def3_85674040 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 \documentclass[addpoints,a4paper,ngerman,10pt,answers]{exam}
 \usepackage {babel}	
-\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc} 
 \usepackage[a4paper,top=2.5cm,bottom=3cm,left=2.25cm,right=2cm]{geometry}
 \usepackage{background}
 \usepackage{enumitem}
@@ -32,11 +33,15 @@ function content_59980e08cbcf64_60830241 (Smarty_Internal_Template $_smarty_tpl)
 \usepackage{eso-pic}
 \usepackage{calc}
 \usepackage[document]{ragged2e}
-\usepackage[scaled]{uarial}
+%Einbinden von Times New Roman
+\usepackage{mathptmx}
 
+% Lösung statt Solution der Exam-Klasse, dazu kein Punkte anzeigen (aber rechnen)
 \renewcommand{\solutiontitle}{\noindent\textbf{Lösung:}\enspace}
 \pointformat{}
 \nopointsinmargin
+
+%Lösungen drucken, wenn Musterlösung
 <?php if (isset($_smarty_tpl->tpl_vars['prof']->value)) {?>
 \printanswers
 <?php } else { ?>
@@ -44,14 +49,20 @@ function content_59980e08cbcf64_60830241 (Smarty_Internal_Template $_smarty_tpl)
 <?php }?>
 
 \pagestyle{headandfoot}
+
+%Header-Formatierung
 \headrule
-\footrule
 \extraheadheight{4cm}
 \header{\begin{minipage}{0.4\textwidth}\textbf{Name, Vorname:}\\[\baselineskip]\textbf{Matrikelnummer:}\\[\baselineskip]\textbf{Prüfer: Prof. Dr. Tobias Eggendorfer}\vspace{.42cm}\end{minipage}}
 {}{\parbox{0.225\textwidth}{\textbf{Übertrag:}\\\vspace{.1cm}\textbf{Punkte:}\\\vspace{.1cm}\textbf{Gesamt:}}}
-\footer{\textbf{<?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
-}}{}{\textbf{Blatt \thepage\ / \numpages}}
 
+% Footer-Formatierung
+\footrule
+\footer{\textbf{<?php echo $_smarty_tpl->tpl_vars['lecture']->value;?>
+}}{<?php echo $_smarty_tpl->tpl_vars['date']->value;?>
+}{\textbf{Blatt \thepage\ / \numpages}}
+
+% Logo-Positionierung
 \newcommand\BackGroundImage[1]{%
 \BgThispage
 \backgroundsetup{
@@ -61,6 +72,7 @@ contents={%
 }}}
 
 
+% Vertikale Linie, um Korrekturrand abzugrenzen
 \newlength{\rightrule}
 \setlength{\rightrule}{.90\textwidth}
 \AddToShipoutPicture{%
@@ -72,6 +84,7 @@ contents={%
 \begin{document}
 \BackGroundImage{logo}
 
+% Hinweise
 \begin{minipage}{0.75\textwidth} 
 \begin{flushleft}
 {\textbf{\large Hinweise:}}
@@ -122,6 +135,7 @@ Hilfsmitteln führt zum sofortigen Ausschluß von der Prüfung.
 \end{flushleft}
 \end{minipage}
 \hspace{1cm}
+% Hier werden die Punkte/Noten ausgelesen
 \begin{minipage}{0.20\textwidth}
 Punkte\hspace{.15cm} Note\\\vspace{.3cm}
 <?php
@@ -145,6 +159,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 \addtocounter{counter}{1}
 \begin{questions}
 \pointsinrightmargin
+
+% Multiple-Choice-Bereich
 <?php if (count($_smarty_tpl->tpl_vars['questions']->value['MC']) > 0) {?>
 \fullwidth{\textbf{\large Teil \thecounter\ - Mutltiple Choice Fragen}}
 \addtocounter{counter}{1}
@@ -161,25 +177,26 @@ jede richtige Antwort einen Punkt, für jedes falsch gesetzte Kreuz zwei Punkte
 Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\end{minipage}}
 \fullwidth{\textbf{Gesamtpunktzahl: <?php echo $_smarty_tpl->tpl_vars['bereichspunkte']->value['p_MC'];?>
  Punkte}}
+
 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['questions']->value['MC'], 'question');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
 \question[<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
-]\begin{minipage}{0.70\textwidth}<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
-\end{minipage}
+]\parbox[t][][t]{0.68\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+}
 \begin{checkboxes}
 <?php $_smarty_tpl->_assignInScope('answers', json_decode($_smarty_tpl->tpl_vars['question']->value->answer,1));
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['answers']->value, 'mc');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['mc']->value) {
 if ($_smarty_tpl->tpl_vars['mc']->value['wahrheitswert'] == 1) {?>
-\correctchoice <?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
-
+\correctchoice \parbox[t][][t]{0.6\textwidth}{<?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
+}
 <?php } else { ?>
-\choice <?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
-
+\choice \parbox[t][][t]{0.5\textwidth}{<?php echo $_smarty_tpl->tpl_vars['mc']->value['antwort'];?>
+}
 <?php }
 }
 }
@@ -196,6 +213,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 <?php }?>
 
+% Wissensaufgaben-Bereich
 <?php if (count($_smarty_tpl->tpl_vars['questions']->value['WI']) > 0) {?>
 \clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Wissensfragen}}
@@ -209,7 +227,8 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
 \question[<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
-] \parbox[t][][t]{0.65\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+] \parbox[t][][t]{0.68\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+
 \linebreak(<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
 \ Punkte)}
 <?php $_smarty_tpl->_assignInScope('spacecount', 0);
@@ -243,6 +262,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 <?php }?>
 
+% Transferaufgaben-Bereich
 <?php if (count($_smarty_tpl->tpl_vars['questions']->value['TR']) > 0) {?>
 \clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Transferaufgaben}}
@@ -256,8 +276,8 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 ?>
 \question[<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
-] \parbox[t][][t]{0.65\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
-\linebreak(<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
+] \parbox[t][][t]{0.68\textwidth}{<?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+ \linebreak(<?php echo $_smarty_tpl->tpl_vars['question']->value->points;?>
 \ Punkte)}
 <?php $_smarty_tpl->_assignInScope('spacecount', 0);
 if (($_smarty_tpl->tpl_vars['question']->value->space == 1)) {
@@ -290,6 +310,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 
 <?php }?>
 
+% Anhang
 \multido{}{2}{
 \newpage
 \fullwidth{\textbf{\large Anhang - Platz für Ihre Notizen}}

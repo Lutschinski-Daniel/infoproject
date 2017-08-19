@@ -1,6 +1,7 @@
 \documentclass[addpoints,a4paper,ngerman,10pt,answers]{exam}
 \usepackage {babel}	
-\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc} 
 \usepackage[a4paper,top=2.5cm,bottom=3cm,left=2.25cm,right=2cm]{geometry}
 \usepackage{background}
 \usepackage{enumitem}
@@ -8,11 +9,15 @@
 \usepackage{eso-pic}
 \usepackage{calc}
 \usepackage[document]{ragged2e}
-\usepackage[scaled]{uarial}
+%Einbinden von Times New Roman
+\usepackage{mathptmx}
 
+% Lösung statt Solution der Exam-Klasse, dazu kein Punkte anzeigen (aber rechnen)
 \renewcommand{\solutiontitle}{\noindent\textbf{Lösung:}\enspace}
 \pointformat{}
 \nopointsinmargin
+
+%Lösungen drucken, wenn Musterlösung
 <<if isset($prof)>>
 \printanswers
 <<else>>
@@ -20,13 +25,18 @@
 <</if>>
 
 \pagestyle{headandfoot}
+
+%Header-Formatierung
 \headrule
-\footrule
 \extraheadheight{4cm}
 \header{\begin{minipage}{0.4\textwidth}\textbf{Name, Vorname:}\\[\baselineskip]\textbf{Matrikelnummer:}\\[\baselineskip]\textbf{Prüfer: Prof. Dr. Tobias Eggendorfer}\vspace{.42cm}\end{minipage}}
 {}{\parbox{0.225\textwidth}{\textbf{Übertrag:}\\\vspace{.1cm}\textbf{Punkte:}\\\vspace{.1cm}\textbf{Gesamt:}}}
-\footer{\textbf{<<$lecture>>}}{}{\textbf{Blatt \thepage\ / \numpages}}
 
+% Footer-Formatierung
+\footrule
+\footer{\textbf{<<$lecture>>}}{<<$date>>}{\textbf{Blatt \thepage\ / \numpages}}
+
+% Logo-Positionierung
 \newcommand\BackGroundImage[1]{%
 \BgThispage
 \backgroundsetup{
@@ -36,6 +46,7 @@ contents={%
 }}}
 
 
+% Vertikale Linie, um Korrekturrand abzugrenzen
 \newlength{\rightrule}
 \setlength{\rightrule}{.90\textwidth}
 \AddToShipoutPicture{%
@@ -47,6 +58,7 @@ contents={%
 \begin{document}
 \BackGroundImage{logo}
 
+% Hinweise
 \begin{minipage}{0.75\textwidth} 
 \begin{flushleft}
 {\textbf{\large Hinweise:}}
@@ -96,6 +108,7 @@ Hilfsmitteln führt zum sofortigen Ausschluß von der Prüfung.
 \end{flushleft}
 \end{minipage}
 \hspace{1cm}
+% Hier werden die Punkte/Noten ausgelesen
 \begin{minipage}{0.20\textwidth}
 Punkte\hspace{.15cm} Note\\\vspace{.3cm}
 <<foreach from=$noten item=$note key=$key>>
@@ -109,6 +122,8 @@ Punkte\hspace{.15cm} Note\\\vspace{.3cm}
 \addtocounter{counter}{1}
 \begin{questions}
 \pointsinrightmargin
+
+% Multiple-Choice-Bereich
 <<if count($questions['MC']) > 0>>
 \fullwidth{\textbf{\large Teil \thecounter\ - Mutltiple Choice Fragen}}
 \addtocounter{counter}{1}
@@ -124,15 +139,16 @@ Bei Fragen, bei denen mehrere Antwortmöglichkeiten bestehen, erhalten Sie für
 jede richtige Antwort einen Punkt, für jedes falsch gesetzte Kreuz zwei Punkte
 Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\end{minipage}}
 \fullwidth{\textbf{Gesamtpunktzahl: <<$bereichspunkte['p_MC']>> Punkte}}
+
 <<foreach from=$questions['MC'] item=$question>>
-\question[<<$question->points>>]\begin{minipage}{0.70\textwidth}<<$question->text>>\end{minipage}
+\question[<<$question->points>>]\parbox[t][][t]{0.68\textwidth}{<<$question->text>>}
 \begin{checkboxes}
 <<assign var=answers value=$question->answer|json_decode:1>>
 <<foreach from=$answers item=$mc>>
 <<if $mc.wahrheitswert == 1>>
-\correctchoice <<$mc.antwort>>
+\correctchoice \parbox[t][][t]{0.6\textwidth}{<<$mc.antwort>>}
 <<else>>
-\choice <<$mc.antwort>>
+\choice \parbox[t][][t]{0.5\textwidth}{<<$mc.antwort>>}
 <</if>>
 <</foreach>>
 \end{checkboxes}
@@ -140,6 +156,7 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 <</foreach>>
 <</if>>
 
+% Wissensaufgaben-Bereich
 <<if count($questions['WI']) > 0>>
 \clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Wissensfragen}}
@@ -147,7 +164,8 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 \vspace{.5cm}
 \fullwidth{\textbf{Gesamtpunktzahl: <<$bereichspunkte['p_WI']>> Punkte}}
 <<foreach from=$questions['WI'] item=$question>>
-\question[<<$question->points>>] \parbox[t][][t]{0.65\textwidth}{<<$question->text>>\linebreak(<<$question->points>>\ Punkte)}
+\question[<<$question->points>>] \parbox[t][][t]{0.68\textwidth}{<<$question->text>>
+\linebreak(<<$question->points>>\ Punkte)}
 <<assign var="spacecount" value=0>>
 <<if ($question->space == 1)>><<$spacecount=5>><</if>>
 <<if ($question->space == 2)>><<$spacecount=10>><</if>>
@@ -166,6 +184,7 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 <</foreach>>
 <</if>>
 
+% Transferaufgaben-Bereich
 <<if count($questions['TR']) > 0>>
 \clearpage
 \fullwidth{\textbf{\large Teil \thecounter\ - Transferaufgaben}}
@@ -173,7 +192,7 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 \vspace{.5cm}
 \fullwidth{\textbf{Gesamtpunktzahl: <<$bereichspunkte['p_TR']>> Punkte}}
 <<foreach from=$questions['TR'] item=$question>>
-\question[<<$question->points>>] \parbox[t][][t]{0.65\textwidth}{<<$question->text>>\linebreak(<<$question->points>>\ Punkte)}
+\question[<<$question->points>>] \parbox[t][][t]{0.68\textwidth}{<<$question->text>> \linebreak(<<$question->points>>\ Punkte)}
 <<assign var="spacecount" value=0>>
 <<if ($question->space == 1)>><<$spacecount=5>><</if>>
 <<if ($question->space == 2)>><<$spacecount=10>><</if>>
@@ -192,6 +211,7 @@ Abzug. In keinem Fall können Sie weniger als 0 Punkte erhalten.\vspace{.6cm}\en
 <</foreach>>
 <</if>>
 
+% Anhang
 \multido{}{2}{
 \newpage
 \fullwidth{\textbf{\large Anhang - Platz für Ihre Notizen}}

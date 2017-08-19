@@ -1,6 +1,6 @@
 <div class="question-update-form" id="{$question->id}">
 
-    <label class="frage-text-label">Fragetext:</label> <br />
+    <label class="frage-text-label"><b>Fragetext:</b></label> <br />
     <textarea name="frage-text" rows="5" class="frage-antwort-textareas" maxlength="4096">{$question->text}</textarea>
     <br>
     {if ($question->type === 0)}

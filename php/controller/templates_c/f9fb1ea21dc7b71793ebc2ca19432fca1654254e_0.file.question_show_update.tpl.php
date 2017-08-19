@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-08-19 12:16:45
+/* Smarty version 3.1.30, created on 2017-08-19 16:26:25
   from "C:\xampp\htdocs\Crexam\templates\question_show_update.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5998100d066da2_42374894',
+  'unifunc' => 'content_59984a912e5fa8_32587333',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f9fb1ea21dc7b71793ebc2ca19432fca1654254e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Crexam\\templates\\question_show_update.tpl',
-      1 => 1503137761,
+      1 => 1503152769,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,19 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5998100d066da2_42374894 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59984a912e5fa8_32587333 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
-<div class="question-box-frage-text">Fragetext: <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
+<div class="question-box-frage-text">
+    <b>
+        <?php if ($_smarty_tpl->tpl_vars['question']->value->type == 0) {?>
+            MC :
+        <?php } elseif (($_smarty_tpl->tpl_vars['question']->value->type == 1)) {?>
+            Wissen:
+        <?php } else { ?>
+            Transfer:
+        <?php }?>
+    </b>
+    <?php echo $_smarty_tpl->tpl_vars['question']->value->text;?>
 
 </div>
 <div class="question-box-antwort">

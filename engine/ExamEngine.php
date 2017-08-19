@@ -4,14 +4,16 @@ class ExamEngine {
     
     private $conn;
     private $lecture;
-    private $max_points;
+    private $min_points;
     
     private $tmp_exam = array();
     private $tmp_points = 0;
     private $difficulty_for_average = 0;
     private $tmp_average = 0;
     private $referenz_average = 2.5;
-  
+    private $question_threshold = 15;
+    private $question_count = 0;
+    
     private $map;   
     private $map_bypassed;
     private $array_switched = array();
@@ -25,11 +27,14 @@ class ExamEngine {
     
     public function __construct($lecture_id, $points, $conn_to_db) {
         $this->lecture = $lecture_id;
-        $this->max_points = intval($points);
+        $this->min_points = intval($points);
         $this->conn = $conn_to_db;
-        $this->loadQuestions();
-        $this->initMapBypassed();
-        $this->createRandomExam();
+        $this->question_count = $this->conn->getQuestionCountForLec($lecture_id);
+        if($this->examCreationPossible()){
+            $this->loadQuestions();
+            $this->initMapBypassed();
+            $this->createRandomExam();
+        }
     } 
     
     private function initMapBypassed(){
@@ -39,14 +44,24 @@ class ExamEngine {
     }
     
     private function createRandomExam(){
-        $count = 0;
-        while( !$this->locked() && $this->tmp_points < $this->max_points ){
+        while( !$this->locked() && $this->tmp_points < $this->min_points ){
             $arrNo = $this->randomlyGetNextArrayNo();
             $quest = $this->getQuestionFromArray($arrNo);
             if($quest == null){
-                $count++;
                 continue;
             } else {
+                $this->tmp_exam[] = $quest;
+                $this->tmp_points += $quest->points;
+                $this->difficulty_for_average += $quest->difficulty;
+                $this->updateAverage();
+            }
+        }
+        
+        // Falls es einen Lock gibt, aber Fragen übersprungen wurden (und Punktzahl noch
+        // nicht erreicht wurde!
+        for($i=1; $i<=5; $i++) {
+            if($this->tmp_points < $this->min_points && count($this->map_bypassed[$i] != 0)) {
+                $quest = $this->map_bypassed[$i][0];
                 $this->tmp_exam[] = $quest;
                 $this->tmp_points += $quest->points;
                 $this->difficulty_for_average += $quest->difficulty;
@@ -78,7 +93,7 @@ class ExamEngine {
         
         if( $pointer < $count ){
             $question = $this->map[$arrNo][$pointer];
-            if( $this->tmp_points > $this->max_points/3 ){
+            if( $this->tmp_points > $this->min_points/2 ){
                 if( isset($this->map_bypassed[$arrNo]) && count($this->map_bypassed[$arrNo]) > 0 ){
                     for($i=0; $i < count($this->map_bypassed[$arrNo]); $i++){
                         $quest_by = $this->map_bypassed[$arrNo][$i];
@@ -348,5 +363,12 @@ class ExamEngine {
                 break;
             }
         }
+    }
+    
+    public function examCreationPossible(){
+        if($this->question_count <= $this->question_threshold){
+            return false;
+        }
+        return true;
     }
 }
