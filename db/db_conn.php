@@ -225,7 +225,7 @@ class db_conn {
         $query = "CREATE TABLE IF NOT EXISTS " . $this->name . ".Lectures (
                     id tinyint(3) NOT NULL AUTO_INCREMENT,
                     bezeichnung varchar(128) DEFAULT NULL,
-                    bezeichnung_kurz varchar (6) DEFAULT NULL,
+                    bezeichnung_kurz varchar (8) DEFAULT NULL,
                     created varchar(16) DEFAULT NULL,
                     PRIMARY KEY(id)
                 );";

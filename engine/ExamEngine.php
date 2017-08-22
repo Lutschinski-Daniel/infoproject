@@ -58,7 +58,7 @@ class ExamEngine {
         }
         
         // Falls es einen Lock gibt, aber Fragen übersprungen wurden (und Punktzahl noch
-        // nicht erreicht wurde!
+        // nicht erreicht wurde!)
         for($i=1; $i<=5; $i++) {
             if($this->tmp_points < $this->min_points && count($this->map_bypassed[$i] != 0)) {
                 $quest = $this->map_bypassed[$i][0];
@@ -101,11 +101,9 @@ class ExamEngine {
                             continue;
                         if( $quest_by->difficulty >= 3 && $this->tmp_average <= $this->referenz_average ){
                             $this->map_bypassed[$arrNo][$i] = "";
-                            //unset($this->map_bypassed[$arrNo][$i]);// = "";
                             return $quest_by;
                         } elseif( $quest_by->difficulty <= 3 && $this->tmp_average >= $this->referenz_average ) { 
                             $this->map_bypassed[$arrNo][$i] = "";
-                            //unset($this->map_bypassed[$arrNo][$i]);
                             return $quest_by;
                         }
                     }
